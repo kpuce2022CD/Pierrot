@@ -1,5 +1,7 @@
 # Tracker APIs (track_trackingAPI.py)
 import collections
+import os
+
 import cv2
 
 
@@ -14,13 +16,18 @@ video_src = 0  # 비디오 파일과 카메라 선택 ---②
 video_src = "input_video.mp4"
 cap = cv2.VideoCapture(video_src)
 fps = cap.get(cv2.CAP_PROP_FPS)  # 프레임 수 구하기
+print(f"fps = {fps}")
 delay = int(1000 / fps)
 win_name = 'Tracking APIs'
 
 Point = collections.namedtuple('Point', ['x', 'y'])
 
 while cap.isOpened():
+    print("cap.get(cv2.CAP_PROP_POS_AVI_RATIO): ",cap.get(cv2.CAP_PROP_POS_AVI_RATIO))
     ret, frame = cap.read()
+    if cap.get(cv2.CAP_PROP_POS_AVI_RATIO) == 1:
+        print("end")
+        break
     if not ret:
         print('Cannot read video file')
         break
@@ -57,7 +64,7 @@ while cap.isOpened():
     cv2.putText(img_draw,"Player1",(100,80), cv2.FONT_HERSHEY_SIMPLEX,0.75,(0,0,255),2,cv2.LINE_AA)
 
     cv2.imshow(win_name, img_draw)
-    key = cv2.waitKey(delay) & 0xff
+    key = cv2.waitKey(1) & 0xff
     # 스페이스 바 또는 비디오 파일 최초 실행 ---④
     if key == ord(' ') or (video_src != 0 and isFirst):
         isFirst = False
