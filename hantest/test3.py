@@ -1,92 +1,78 @@
-# Tracker APIs (track_trackingAPI.py)
-import collections
-import os
+# MPII 를 사용한 신체부위 검출 - 첫번재 프레임만 테스트 완료
+# cv2.dnn
 
 import cv2
 
+BODY_PARTS = { "Head": 0, "Neck": 1, "RShoulder": 2, "RElbow": 3, "RWrist": 4,
+                "LShoulder": 5, "LElbow": 6, "LWrist": 7, "RHip": 8, "RKnee": 9,
+                "RAnkle": 10, "LHip": 11, "LKnee": 12, "LAnkle": 13, "Chest": 14,
+                "Background": 15 }
+
+POSE_PAIRS = [ ["Head", "Neck"], ["Neck", "RShoulder"], ["RShoulder", "RElbow"],
+                ["RElbow", "RWrist"], ["Neck", "LShoulder"], ["LShoulder", "LElbow"],
+                ["LElbow", "LWrist"], ["Neck", "Chest"], ["Chest", "RHip"], ["RHip", "RKnee"],
+                ["RKnee", "RAnkle"], ["Chest", "LHip"], ["LHip", "LKnee"], ["LKnee", "LAnkle"] ]
+
+protoFile = "./data/pose_deploy_linevec_faster_4_stages.prototxt"
+weightsFile = "./data/pose_iter_160000.caffemodel"
+
+video_path="input_video.mp4"
+# out_path='out.mp4'
+# csv_path = 'out.csv' # 비이도의 각 프레임을 파싱하고 프레임에 있는 각 관절의 좌표를 추줄하여 저장하기 위한 파일
 
 
-# 트랙커 객체 생성자 함수 리스트 ---①
-trackers = cv2.TrackerCSRT_create
-tracker = None
-tracker1 = None
-isFirst = True
+net = cv2.dnn.readNetFromCaffe(protoFile, weightsFile)
 
-video_src = 0  # 비디오 파일과 카메라 선택 ---②
-video_src = "input_video.mp4"
-cap = cv2.VideoCapture(video_src)
-fps = cap.get(cv2.CAP_PROP_FPS)  # 프레임 수 구하기
-print(f"fps = {fps}")
-delay = int(1000 / fps)
-win_name = 'Tracking APIs'
+cap = cv2.VideoCapture(video_path)
+frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
 
-Point = collections.namedtuple('Point', ['x', 'y'])
+ok,frame = cap.read()
+(frameHeight, frameWidth) = frame.shape[:2]
+# network 에 넣기 위해 전처리
+inpBlob = cv2.dnn.blobFromImage(frame, 1.0/255,(frameWidth,frameHeight),(0,0,0),swapRB=False, crop=False)
+# network 에 넣기
+net.setInput(inpBlob)
+# 결과 받아오기
+output = net.forward()
 
-while cap.isOpened():
-    print("cap.get(cv2.CAP_PROP_POS_AVI_RATIO): ",cap.get(cv2.CAP_PROP_POS_AVI_RATIO))
-    ret, frame = cap.read()
-    if cap.get(cv2.CAP_PROP_POS_AVI_RATIO) == 1:
-        print("end")
-        break
-    if not ret:
-        print('Cannot read video file')
-        break
-    img_draw = frame.copy()
-    if tracker is None:  # 트랙커 생성 안된 경우
-        cv2.putText(img_draw, "Press the Space to set ROI!!", (100, 80), cv2.FONT_HERSHEY_SIMPLEX, 0.75, (0, 0, 255), 2, cv2.LINE_AA)
+H = output.shape[2]
+W = output.shape[3]
+
+print("image ID: ", len(output[0]),", H: ",output.shape[2],", W: ",output.shape[3])
+points=[]
+for i in range(0,15):
+    probMap = output[0,i,:,:]
+
+    minVal,prob,minLoc,point = cv2.minMaxLoc(probMap)
+
+    x = (frameWidth* point[0]) / W
+    y = (frameHeight * point[1])/H
+
+    # 키포인트 검출한 결과가 0.1보다 크면(검출한곳이 위 BODY_PARTS랑 맞는 부위면) points에 추가, 검출했는데 부위가 없으면 None으로
+    if prob > 0.1:
+        cv2.circle(frame, (int(x), int(y)), 3, (0, 255, 255), thickness=-1,
+                   lineType=cv2.FILLED)  # circle(그릴곳, 원의 중심, 반지름, 색)
+        cv2.putText(frame, "{}".format(i), (int(x), int(y)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 1,
+                    lineType=cv2.LINE_AA)
+        points.append((int(x), int(y)))
     else:
-        ok, bbox = tracker.update(frame)  # 새로운 프레임에서 추적 위치 찾기 ---③
-        ok1, bbox1 = tracker1.update(frame)  # 새로운 프레임에서 추적 위치 찾기 ---③
-        (x, y, w, h) = bbox
-        (x1, y1, w1, h1) = bbox1
-        print("bbox",bbox)
-        print("bbox1",bbox1)
-        # 선수 좌표 저장
-        player_coord1 = Point(x=int(x+w/2), y=int(y+h/2))
-        cv2.circle(img_draw,player_coord1,10,(0,0,255),-1)
+        points.append(None)
 
-        if ok:  # 추적 성공
-            cv2.rectangle(img_draw, (int(x), int(y)), (int(x + w), int(y + h)), \
-                          (0, 255, 0), 2, 1)
-        else:  # 추적 실패
-            cv2.putText(img_draw, "Tracking fail.", (100, 80), \
-                        cv2.FONT_HERSHEY_SIMPLEX, 0.75, (0, 0, 255), 2, cv2.LINE_AA)
-        if ok1:  # 추적 성공
-            cv2.rectangle(img_draw, (int(x1), int(y1)), (int(x1 + w1), int(y1 + h1)), \
-                          (0, 255, 255), 2, 1)
-        else:  # 추적 실패
-            cv2.putText(img_draw, "Tracking fail.", (100, 80), \
-                        cv2.FONT_HERSHEY_SIMPLEX, 0.75, (0, 0, 255), 2, cv2.LINE_AA)
+# cv2.imshow("Output-Keypoints",frame)
+# cv2.waitKey(0)
 
-    # trackerName = tracker.__class__.__name__
-    # cv2.putText(img_draw, ":" + trackerName, (100, 20), \
-    #             cv2.FONT_HERSHEY_SIMPLEX, 0.75, (0, 255, 0), 2, cv2.LINE_AA)
-    cv2.putText(img_draw,"Player1",(100,80), cv2.FONT_HERSHEY_SIMPLEX,0.75,(0,0,255),2,cv2.LINE_AA)
+imageCopy = frame
+for pair in POSE_PAIRS:
+    partA = pair[0]
+    partA = BODY_PARTS[partA]
+    partB = pair[1]
+    partB = BODY_PARTS[partB]
 
-    cv2.imshow(win_name, img_draw)
-    key = cv2.waitKey(1) & 0xff
-    # 스페이스 바 또는 비디오 파일 최초 실행 ---④
-    if key == ord(' ') or (video_src != 0 and isFirst):
-        isFirst = False
-        print("roi 전")
-        roi = cv2.selectROI(win_name, frame, False)  # 초기 객체 위치 설정
-        print("roi 후")
-        print("roi", roi)
-        if roi[2] and roi[3]:  # 위치 설정 값 있는 경우
-            print("roi[2] and roi[3]")
-            tracker = trackers()  # 트랙커 객체 생성 ---⑤
-            isInit = tracker.init(frame, roi)
+    if points[partA] and points[partB]:
+        cv2.line(imageCopy, points[partA],points[partB],(0,255,0),2)
 
-        print("pause")
-        roi1 = cv2.selectROI(win_name,frame,False)
-        if roi1[2] and roi1[3]:  # 위치 설정 값 있는 경우
-            print("roi[2] and roi[3]")
-            tracker1 = trackers()  # 트랙커 객체 생성 ---⑤
-            isInit = tracker1.init(frame, roi1)
-    elif key == 27:
-        break
-else:
-    print("Could not open video")
+cv2.imshow("Output-Keypoints",imageCopy)
 
-cap.release()
+
+cv2.waitKey(0)
 cv2.destroyAllWindows()
