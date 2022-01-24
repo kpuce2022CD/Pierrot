@@ -282,3 +282,20 @@ class CourtDetector:
             self.court_reference.court, homography, frame.shape[1::-1])
         frame[court > 0, :] = overlay_color
         return frame
+    
+        def find_lines_location(self):
+            """
+        프레임 위에 중요한 위치에 선을 찾아냄
+        """
+        self.p = np.array(self.court_reference.get_important_lines(),dtype=np.float32).reshape((-1, 1, 2))
+        self.lines = cv2.perspectiveTransform(self.p, self.court_warp_matrix[-1]).reshape(-1)
+        return self.lines
+    
+        def get_warped_court(self):
+            """
+        코트 레퍼런스와 코트 교차점을 사용하여 뒤틀린 코트를 리턴받음
+        """
+        court = cv2.warpPerspective(
+            self.court_reference.court, self.court_warp_matrix[-1], self.frame.shape[1::-1])
+        court[court > 0] = 1
+        return court
