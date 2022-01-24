@@ -159,3 +159,53 @@ class CourtDetector:
             else:
                 vertical_lines.append(line)
         return vertical_lines, vertical_left, vertical_right
+    
+        def _merge_lines(self, horizontal_lines, vertical_lines):
+            """
+        같은 프레임에 속해있는 선들을 merge하는 함수
+        """
+
+        # 수평선 합병
+        horizontal_lines = sorted(horizontal_lines, key=lambda item: item[0])
+        mask = [True] * len(horizontal_lines)
+        new_horizontal_lines = []
+        for i, line in enumerate(horizontal_lines):
+            if mask[i]:
+                for j, s_line in enumerate(horizontal_lines[i + 1:]):
+                    if mask[i + j + 1]:
+                        x1, y1, x2, y2 = line
+                        x3, y3, x4, y4 = s_line
+                        dy = abs(y3 - y2)
+                        if dy < 10:
+                            points = sorted(
+                                [(x1, y1), (x2, y2), (x3, y3), (x4, y4)], key=lambda x: x[0])
+                            line = np.array([*points[0], *points[-1]])
+                            mask[i + j + 1] = False
+                new_horizontal_lines.append(line)
+
+        # 수직선 합병
+        vertical_lines = sorted(vertical_lines, key=lambda item: item[1])
+        xl, yl, xr, yr = (0, self.v_height * 6 / 7,
+                          self.v_width, self.v_height * 6 / 7)
+        mask = [True] * len(vertical_lines)
+        new_vertical_lines = []
+        for i, line in enumerate(vertical_lines):
+            if mask[i]:
+                for j, s_line in enumerate(vertical_lines[i + 1:]):
+                    if mask[i + j + 1]:
+                        x1, y1, x2, y2 = line
+                        x3, y3, x4, y4 = s_line
+                        xi, yi = line_intersection(
+                            ((x1, y1), (x2, y2)), ((xl, yl), (xr, yr)))
+                        xj, yj = line_intersection(
+                            ((x3, y3), (x4, y4)), ((xl, yl), (xr, yr)))
+
+                        dx = abs(xi - xj)
+                        if dx < 10:
+                            points = sorted(
+                                [(x1, y1), (x2, y2), (x3, y3), (x4, y4)], key=lambda x: x[1])
+                            line = np.array([*points[0], *points[-1]])
+                            mask[i + j + 1] = False
+
+                new_vertical_lines.append(line)
+        return new_horizontal_lines, new_vertical_lines
