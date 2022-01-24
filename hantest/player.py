@@ -4,6 +4,9 @@ import collections
 import cv2
 
 
+# opencv tracking 모듈이 version 4에서는 지원되지 않음
+# opencv-python 3.4.11.45 사용
+# opencv-contrib-python 3.4.11.45 사용
 # 트랙킹놓쳤을 때 정지 시킨 후 다시 잡기, main 에서 실행시키기
 
 # video, win name 입력
@@ -11,10 +14,12 @@ class Player:
     player = None
     rival = None
     isFirst = True
-    player_coord_text = open('player_coord.txt', 'w')
-    rival_coord_text = open('rival_coord.txt', 'w')
     player_coord_string = ''
     rival_coord_string = ''
+    player_distance = 0.0
+    rival_distance = 0.0
+    player_path_list = []
+    rival_path_list = []
 
     def __init__(self, video_src, win_name):
         self.tracker = cv2.TrackerCSRT_create
@@ -25,17 +30,16 @@ class Player:
 
     def play_video(self):
         if self.cap.isOpened():
-            player_coord_text = open('player_coord.txt', 'w')
-            rival_coord_text = open('rival_coord.txt', 'w')
-            player_coord_string = ''
-            rival_coord_string = ''
+            player_coord_text = open('./coord/player_coord.txt', 'w')
+            rival_coord_text = open('./coord/rival_coord.txt', 'w')
+            count = 0
             while True:
                 ret, frame = self.cap.read()
                 if not ret:
                     print("finish")
-                    player_coord_text.write(player_coord_string)
+                    player_coord_text.write(str(self.player_path_list))
                     player_coord_text.close()
-                    rival_coord_text.write(rival_coord_string)
+                    rival_coord_text.write(str(self.rival_path_list))
                     rival_coord_text.close()
                     self.cap.release()
                     return
@@ -56,12 +60,18 @@ class Player:
                     (rival_x, rival_y, rival_w, rival_h) = rival_bbox
 
                     # 두 선수 좌표 저장
-                    player_coord = Point(x=int(player_x + player_w / 2), y=int(player_y + player_h / 2))
-                    rival_coord = Point(x=int(rival_x + rival_w / 2), y=int(rival_y + rival_h / 2))
-                    player_coord_string = player_coord_string + str(player_coord.x) + ',' + str(player_coord.y) + '\n'
-                    rival_coord_string = rival_coord_string + str(rival_coord.x) + ',' + str(rival_coord.y) + '\n'
-                    print("player_coord_string: ", player_coord_string)
-                    # print("player_coord.x",type(player_coord.x))
+                    player_coord = [int(player_x + player_w / 2), int(player_y + player_h / 2)]
+                    player_coord_point = Point(x=player_coord[0], y=player_coord[1])
+                    rival_coord = [int(rival_x + rival_w / 2), int(rival_y + rival_h / 2)]
+                    rival_coord_point = Point(x=rival_coord[0], y=rival_coord[1])
+
+                    self.player_path_list.append(player_coord)
+                    self.rival_path_list.append(rival_coord)
+                    print(self.player_path_list)
+
+                    # 두 선수 거리 저장
+                    self.distance(count)
+                    count += 1
 
                     # 추적 성공
                     if player_ok and rival_ok:
@@ -69,8 +79,8 @@ class Player:
                                       (int(player_x + player_w), int(player_y + player_h)), (0, 255, 0), 2, 1)
                         cv2.rectangle(img_draw, (int(rival_x), int(rival_y)),
                                       (int(rival_x + rival_w), int(rival_y + rival_h)), (0, 255, 255), 2, 1)
-                        cv2.circle(img_draw, player_coord, 10, (0, 255, 0), -1)
-                        cv2.circle(img_draw, rival_coord, 10, (0, 255, 255), -1)
+                        cv2.circle(img_draw, player_coord_point, 10, (0, 255, 0), -1)
+                        cv2.circle(img_draw, rival_coord_point, 10, (0, 255, 255), -1)
                     # 추적 실패
                     else:
                         self.tracker(frame)
@@ -92,3 +102,16 @@ class Player:
         if rival_roi[2] and rival_roi[3]:
             self.rival = self.tracker()
             isInit = self.rival.init(frame, rival_roi)
+
+    # 1좌표당 거리를 구한 후 수정 필요
+    def distance(self, count):
+        if count == 0:
+            return
+        player_x = self.player_path_list[count - 1][0] - self.player_path_list[count][0]
+        player_y = self.player_path_list[count - 1][1] - self.player_path_list[count][1]
+        self.player_distance += (player_x ** 2 + player_y ** 2) ** (1 / 2)
+        print(self.player_distance)
+
+        rival_x = self.rival_path_list[count - 1][0] - self.rival_path_list[count][0]
+        rival_y = self.rival_path_list[count - 1][1] - self.rival_path_list[count][1]
+        self.player_distance += (rival_x ** 2 + rival_y ** 2) ** (1 / 2)
