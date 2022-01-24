@@ -129,3 +129,14 @@ class CourtDetector:
                 vertical.append(line)
                 highest_vertical_y = min(highest_vertical_y, y1, y2)
                 lowest_vertical_y = max(lowest_vertical_y, y1, y2)
+                
+        # 수직선의 최고점과 최저점을 이용하여 수평선을 filter하는 함수
+        clean_horizontal = []
+        h = lowest_vertical_y - highest_vertical_y
+        lowest_vertical_y += h / 15
+        highest_vertical_y -= h * 2 / 15
+        for line in horizontal:
+            x1, y1, x2, y2 = line
+            if lowest_vertical_y > y1 > highest_vertical_y and lowest_vertical_y > y1 > highest_vertical_y:
+                clean_horizontal.append(line)
+        return clean_horizontal, vertical
