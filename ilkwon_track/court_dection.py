@@ -256,3 +256,18 @@ class CourtDetector:
                 cv2.destroyAllWindows()
 
         return max_mat, max_inv_mat, max_score
+    
+    
+        def _get_confi_score(self, matrix):
+            """
+        교차 스코어 계산하기
+        """
+        court = cv2.warpPerspective(self.court_reference.court, matrix, self.frame.shape[1::-1])
+        court[court > 0] = 1
+        gray = self.gray.copy()
+        gray[gray > 0] = 1
+        correct = court * gray
+        wrong = court - correct
+        c_p = np.sum(correct)
+        w_p = np.sum(wrong)
+        return c_p - 0.5 * w_p
