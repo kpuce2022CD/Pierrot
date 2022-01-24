@@ -140,3 +140,22 @@ class CourtDetector:
             if lowest_vertical_y > y1 > highest_vertical_y and lowest_vertical_y > y1 > highest_vertical_y:
                 clean_horizontal.append(line)
         return clean_horizontal, vertical
+    
+        def _classify_vertical(self, vertical, width):
+            """
+        프래임안에 위치하는 선을 활용해 수직선의 오른쪽과 왼쪽을 구분하는 함수 
+        """
+        vertical_lines = []
+        vertical_left = []
+        vertical_right = []
+        right_th = width * 4 / 7
+        left_th = width * 3 / 7
+        for line in vertical:
+            x1, y1, x2, y2 = line
+            if x1 < left_th or x2 < left_th:
+                vertical_left.append(line)
+            elif x1 > right_th or x2 > right_th:
+                vertical_right.append(line)
+            else:
+                vertical_lines.append(line)
+        return vertical_lines, vertical_left, vertical_right
