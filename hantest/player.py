@@ -42,7 +42,7 @@ class Player:
                     rival_coord_text.write(str(self.rival_path_list))
                     rival_coord_text.close()
                     self.cap.release()
-                    return
+                    return self.player_distance, self.rival_distance
                 # 처음 실행시켰을 경우 두 선수를 잡아주어야 하기에
                 img_draw = frame.copy()
                 key = cv2.waitKey(1) & 0xff
@@ -114,4 +114,4 @@ class Player:
 
         rival_x = self.rival_path_list[count - 1][0] - self.rival_path_list[count][0]
         rival_y = self.rival_path_list[count - 1][1] - self.rival_path_list[count][1]
-        self.player_distance += (rival_x ** 2 + rival_y ** 2) ** (1 / 2)
+        self.rival_distance += (rival_x ** 2 + rival_y ** 2) ** (1 / 2)
