@@ -271,3 +271,14 @@ class CourtDetector:
         c_p = np.sum(correct)
         w_p = np.sum(wrong)
         return c_p - 0.5 * w_p
+    
+        def add_court_overlay(self, frame, homography=None, overlay_color=(255, 255, 255), frame_num=-1):
+            """
+        코트 프레임에서 overlay하는 부분을 추가함
+        """
+        if homography is None and len(self.court_warp_matrix) > 0 and frame_num < len(self.court_warp_matrix):
+            homography = self.court_warp_matrix[frame_num]
+        court = cv2.warpPerspective(
+            self.court_reference.court, homography, frame.shape[1::-1])
+        frame[court > 0, :] = overlay_color
+        return frame
