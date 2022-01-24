@@ -85,3 +85,28 @@ class CourtDetector:
                     continue
                 gray[i, j] = 0
         return gray
+    
+        def _detect_lines(self, gray):
+            """
+        Hough transform을 사용해 선을 찾아내는 함수
+        """
+        minLineLength = 100
+        maxLineGap = 20
+        # 모든 라인 탐지하기
+        # 선의 시작과 끝 좌표를 추출, 작업 직전에 그레이 스케일 변환이 필요
+        lines = cv2.HoughLinesP(gray, 1, np.pi / 180, 80, minLineLength=minLineLength, maxLineGap=maxLineGap)
+        lines = np.squeeze(lines) #추출한 선을 축소
+        if self.verbose:
+            display_lines_on_frame(self.frame.copy(), [], lines)
+
+        # slcope 활용해서 선 구별하기
+        horizontal, vertical = self._classify_lines(lines) #(x,y)
+        if self.verbose:
+            display_lines_on_frame(self.frame.copy(), horizontal, vertical)
+
+        # 프레임에 같은 선을 합병
+        horizontal, vertical = self._merge_lines(horizontal, vertical)
+        if self.verbose:
+            display_lines_on_frame(self.frame.copy(), horizontal, vertical)
+
+        return horizontal, vertical # 대각선 피하려고 수평수직함
