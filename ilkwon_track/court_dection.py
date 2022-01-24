@@ -209,3 +209,50 @@ class CourtDetector:
 
                 new_vertical_lines.append(line)
         return new_horizontal_lines, new_vertical_lines
+    
+        def _find_homography(self, horizontal_lines, vertical_lines):
+            """
+        reference court에서 매칭하기 위해 사용하는 4개의 점으로부터 transformation을 찾는 함수
+        """
+        max_score = -np.inf
+        max_mat = None
+        max_inv_mat = None
+        k = 0
+        # 모든 쌍의 수직과 모든쌍의 수평선을 over loop함
+        for horizontal_pair in list(combinations(horizontal_lines, 2)):
+            for vertical_pair in list(combinations(vertical_lines, 2)):
+                h1, h2 = horizontal_pair
+                v1, v2 = vertical_pair
+                # 모든 선들의 점들의 교차로를 찾는 것
+                i1 = line_intersection((tuple(h1[:2]), tuple(h1[2:])), (tuple(v1[0:2]), tuple(v1[2:])))
+                i2 = line_intersection((tuple(h1[:2]), tuple(h1[2:])), (tuple(v2[0:2]), tuple(v2[2:])))
+                i3 = line_intersection((tuple(h2[:2]), tuple(h2[2:])), (tuple(v1[0:2]), tuple(v1[2:])))
+                i4 = line_intersection((tuple(h2[:2]), tuple( h2[2:])), (tuple(v2[0:2]), tuple(v2[2:])))
+
+                intersections = [i1, i2, i3, i4]
+                intersections = sort_intersection_points(intersections)
+
+                for i, configuration in self.court_reference.court_conf.items():
+                    # 교차점 찾기
+                    matrix, _ = cv2.findHomography(np.float32(
+                        configuration), np.float32(intersections), method=0)
+                    inv_matrix = cv2.invert(matrix)[1]
+                    # 교차점 score 변수화
+                    confi_score = self._get_confi_score(matrix)
+
+                    if max_score < confi_score:
+                        max_score = confi_score
+                        max_mat = matrix
+                        max_inv_mat = inv_matrix
+                        self.best_conf = i
+
+                    k += 1
+
+        if self.verbose:
+            frame = self.frame.copy()
+            court = self.add_court_overlay(frame, max_mat, (255, 0, 0))
+            cv2.imshow('court', court)
+            if cv2.waitKey(0) & 0xff == 27:
+                cv2.destroyAllWindows()
+
+        return max_mat, max_inv_mat, max_score
