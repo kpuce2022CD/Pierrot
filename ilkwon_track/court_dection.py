@@ -70,3 +70,18 @@ class CourtDetector:
                     continue
                 gray[i, j] = 0
         return gray
+    
+        def _filter_pixels(self, gray):
+            """
+        코트 라인 구조를 사용해서 픽셀을 수정
+        """
+        for i in range(self.dist_tau, len(gray) - self.dist_tau): #tau : 임계값, range(시작숫자,종료숫자)
+            for j in range(self.dist_tau, len(gray[0]) - self.dist_tau):
+                if gray[i, j] == 0:
+                    continue
+                if (gray[i, j] - gray[i + self.dist_tau, j] > self.intensity_threshold and gray[i, j] - gray[i - self.dist_tau, j] > self.intensity_threshold):
+                    continue
+                if (gray[i, j] - gray[i, j + self.dist_tau] > self.intensity_threshold and gray[i, j] - gray[i, j - self.dist_tau] > self.intensity_threshold):
+                    continue
+                gray[i, j] = 0
+        return gray
