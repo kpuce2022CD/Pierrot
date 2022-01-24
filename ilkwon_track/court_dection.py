@@ -110,3 +110,22 @@ class CourtDetector:
             display_lines_on_frame(self.frame.copy(), horizontal, vertical)
 
         return horizontal, vertical # 대각선 피하려고 수평수직함
+    
+        def _classify_lines(self, lines):
+            """
+        수직과 수평선을 구분하기 위한 함수
+        """
+        horizontal = []
+        vertical = []
+        highest_vertical_y = np.inf
+        lowest_vertical_y = 0
+        for line in lines:
+            x1, y1, x2, y2 = line
+            dx = abs(x1 - x2)
+            dy = abs(y1 - y2)
+            if dx > 2 * dy:
+                horizontal.append(line)
+            else:
+                vertical.append(line)
+                highest_vertical_y = min(highest_vertical_y, y1, y2)
+                lowest_vertical_y = max(lowest_vertical_y, y1, y2)
