@@ -26,9 +26,11 @@ class Player:
         self.video_src = video_src  # video file
         self.cap = cv2.VideoCapture(self.video_src)
         self.fps = self.cap.get(cv2.CAP_PROP_FPS)
+        self.fourcc=self.cap.get(cv2.CAP_PROP_FOURCC)
         self.win_name = win_name
 
     def play_video(self):
+        print("fps: ",self.fps,"fourcc: ",self.fourcc)
         if self.cap.isOpened():
             player_coord_text = open('./coord/player_coord.txt', 'w')
             rival_coord_text = open('./coord/rival_coord.txt', 'w')
@@ -42,6 +44,7 @@ class Player:
                     rival_coord_text.write(str(self.rival_path_list))
                     rival_coord_text.close()
                     self.cap.release()
+                    cv2.destroyWindow(self.win_name)
                     return self.player_distance, self.rival_distance
                 # 처음 실행시켰을 경우 두 선수를 잡아주어야 하기에
                 img_draw = frame.copy()
@@ -60,9 +63,9 @@ class Player:
                     (rival_x, rival_y, rival_w, rival_h) = rival_bbox
 
                     # 두 선수 좌표 저장
-                    player_coord = [int(player_x + player_w / 2), int(player_y + player_h / 2)]
+                    player_coord = [int(player_x + player_w / 2), int(player_y + player_h)]
                     player_coord_point = Point(x=player_coord[0], y=player_coord[1])
-                    rival_coord = [int(rival_x + rival_w / 2), int(rival_y + rival_h / 2)]
+                    rival_coord = [int(rival_x + rival_w / 2), int(rival_y + rival_h)]
                     rival_coord_point = Point(x=rival_coord[0], y=rival_coord[1])
 
                     self.player_path_list.append(player_coord)
@@ -79,8 +82,8 @@ class Player:
                                       (int(player_x + player_w), int(player_y + player_h)), (0, 255, 0), 2, 1)
                         cv2.rectangle(img_draw, (int(rival_x), int(rival_y)),
                                       (int(rival_x + rival_w), int(rival_y + rival_h)), (0, 255, 255), 2, 1)
-                        cv2.circle(img_draw, player_coord_point, 10, (0, 255, 0), -1)
-                        cv2.circle(img_draw, rival_coord_point, 10, (0, 255, 255), -1)
+                        cv2.circle(img_draw, player_coord_point, 5, (0, 255, 0), -1)
+                        cv2.circle(img_draw, rival_coord_point, 5, (0, 255, 255), -1)
                     # 추적 실패
                     else:
                         self.tracker(frame)
