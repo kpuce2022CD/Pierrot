@@ -8,7 +8,7 @@ import imutils
 
 from PIL import Image, ImageDraw
 
-from Models.tracknet import trackNet
+from Models.tracknet import tracknet
 from TrackPlayers.trackplayers import *
 from Court.court import *
 
