@@ -1,3 +1,5 @@
+import csv
+
 import pandas as pd
 import cv2
 import queue
@@ -11,7 +13,7 @@ frame, img1, img2 = None, None, None
 tracknet_width, tracknet_height = 640, 360
 
 # 영상불러오기 및 영상정보 추출
-video = cv2.VideoCapture('video/input_video.mp4')
+video = cv2.VideoCapture('video/video_cut.mp4')
 fps = int(video.get(cv2.CAP_PROP_FPS))
 frame_width = int(video.get(cv2.CAP_PROP_FRAME_WIDTH))
 frame_height = int(video.get(cv2.CAP_PROP_FRAME_HEIGHT))
@@ -22,8 +24,8 @@ print('fps : {}'.format(fps))
 print('frame sizee : {}x{}'.format(frame_width, frame_height))
 print('num_frames :{}'.format(num_frames))
 
-fourcc = cv2.VideoWriter_fourcc(*'MP4V')
-output_video = cv2.VideoWriter('video/video_output.mp4', fourcc, fps, (frame_width, frame_height))
+fourcc = cv2.VideoWriter_fourcc(*'XVID')
+output_video = cv2.VideoWriter('video/video_output.avi', fourcc, fps, (frame_width, frame_height))
 
 # yolov3
 # 라벨링한다 -> 변수정의라 생각함
@@ -55,6 +57,7 @@ while (True):
     # output: 지정한 레이어의 출력 블롭 리스트
     outs = net.forward(trackplayers.get_output_layer(net))
     # print("outs",outs)
+    # 선수들 위치
     detected_players = trackplayers.predict_players(outs, LABELS, frame, 0.8)
     # print(detected_players)
 
@@ -84,22 +87,23 @@ while (True):
     color_box = (0, 0, 255)
     if len(detected_players) > 0:
         for box in detected_players:
+            print(box)
             x, y, w, h = box
             cv2.rectangle(output_img, (x, y), (x + w, y + h), color_box, 2)
 
     # draw tracking id of each player
-    for (objectID, centroid_player)in players_objects.items():
+    for (objectID, centroid_player) in players_objects.items():
         # draw both the ID of the object and the centroid of the
         # object on the output frame
         text = "ID {}".format(objectID)
         cv2.putText(output_img, text, (centroid_player[0] - 50, centroid_player[1]),
                     cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 3)
         cv2.circle(output_img, (centroid_player[0], centroid_player[1]), 1, (0, 255, 0), 2)
-
+    print("player: ", players_objects.items())
     # Convert PIL image format back to opencv image format
-    opencvImage = cv2.cvtColor(np.array(PIL_image), cv2.COLOR_RGB2BGR)
+    # opencvImage = cv2.cvtColor(np.array(PIL_image), cv2.COLOR_RGB2BGR)
     # write image to output_video
-    output_video.write(opencvImage)
+    output_video.write(output_img)
 
     # next frame
     current_frame += 1
@@ -108,7 +112,7 @@ while (True):
 video.release()
 output_video.release()
 
-# players positions
+# players positions -> 영상 속 선수 트랙킹 좌표와 다른 좌표
 df_players_positions = pd.DataFrame()
 df_players_positions['x_0'] = players_positions['x_0']
 df_players_positions['y_0'] = players_positions['y_0']

@@ -31,8 +31,7 @@ def remove_ball_boy(detected_person_img, lower_col, upper_col):
     # compute pixel percentage of a range of color (lower_col, upper_col)
     # in each box to detect ball boys/girls
     mask = cv2.inRange(detected_person_img, lower_col, upper_col)
-    img = cv2.bitwise_and(detected_person_img, detected_person_img, \
-                          mask=mask)
+    img = cv2.bitwise_and(detected_person_img, detected_person_img, mask=mask)
     func = np.vectorize(binary)
     img = func(img).astype(np.uint8)
 
@@ -85,8 +84,7 @@ def predict_players(outs, LABELS, img, confidence_threshold=0.8):
                 x = int(center_x - w / 2)
                 y = int(center_y - h / 2)
 
-                taux = remove_ball_boy(img[y:y + h, x:x + w], \
-                                                    (27, 5, 40), (47, 40, 168))
+                taux = remove_ball_boy(img[y:y + h, x:x + w], (27, 5, 40), (47, 40, 168))
 
                 if taux < 0.01:
                     class_ids.append(class_id)
@@ -160,7 +158,7 @@ class CentroidTracker:
                     self.deregister(objectID)
                 # return early as there are no centroids or tracking info
                 # to update
-            print("len(rects)==0", self.objects.items())
+            # print("len(rects)==0", self.objects.items())
             return self.objects
 
         # initialize an array of input centroids for the current frame
@@ -254,5 +252,5 @@ class CentroidTracker:
                 for col in unusedCols:
                     self.register(inputCentroids[col])
         # return the set of trackable objects
-        print("len(rects)!=0", self.objects.items())
+        # print("len(rects)!=0", self.objects.items())
         return self.objects
