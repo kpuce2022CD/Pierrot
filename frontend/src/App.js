@@ -1,12 +1,24 @@
-import logo from "./logo.svg";
 import "./App.css";
-import Main from "./component/mainpage/main";
-import { Front } from "./component/mainpage/main";
+import Main from "./component/Main/Main";
 
 function App() {
   return (
     <div className="App">
-      <Main></Main>
+      <Main />
+      {/* <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          Edit <code>src/App.js</code> and save to reload.
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header> */}
     </div>
   );
 }
