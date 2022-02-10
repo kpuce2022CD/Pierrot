@@ -25,7 +25,7 @@ print('frame sizee : {}x{}'.format(frame_width, frame_height))
 print('num_frames :{}'.format(num_frames))
 
 fourcc = cv2.VideoWriter_fourcc(*'XVID')
-output_video = cv2.VideoWriter('video/video_output.avi', fourcc, fps, (frame_width, frame_height))
+output_video = cv2.VideoWriter('video/video_output.mp4', fourcc, fps, (frame_width, frame_height))
 
 # yolov3
 # 라벨링한다 -> 변수정의라 생각함
@@ -37,6 +37,8 @@ ct_players = trackplayers.CentroidTracker()
 
 # append players positions at each frame
 players_positions = {'x_0': [], 'y_0': [], 'x_1': [], 'y_1': []}
+#########
+imageCopy = cv2.imread('image.png')
 
 while (True):
     print("current frame", current_frame)
@@ -80,8 +82,6 @@ while (True):
     players_positions['y_1'].append(tuple(players_objects[1])[1])
 
     output_img = frame
-    PIL_image = cv2.cvtColor(output_img, cv2.COLOR_BGR2RGB)
-    PIL_image = Image.fromarray(PIL_image)
 
     # draw players boxes
     color_box = (0, 0, 255)
@@ -101,9 +101,11 @@ while (True):
         cv2.circle(output_img, (centroid_player[0], centroid_player[1]), 1, (0, 255, 0), 2)
     print("player: ", players_objects.items())
     # Convert PIL image format back to opencv image format
-    # opencvImage = cv2.cvtColor(np.array(PIL_image), cv2.COLOR_RGB2BGR)
+    PIL_image = cv2.cvtColor(output_img, cv2.COLOR_BGR2RGB)
+    PIL_image = Image.fromarray(PIL_image)
+    opencvImage = cv2.cvtColor(np.array(PIL_image), cv2.COLOR_RGB2BGR)
     # write image to output_video
-    output_video.write(output_img)
+    output_video.write(opencvImage)
 
     # next frame
     current_frame += 1
@@ -111,7 +113,8 @@ while (True):
 # everything is done, release the video
 video.release()
 output_video.release()
-
+cv2.waitKey(0)
+cv2.destroyAllWindows()
 # players positions -> 영상 속 선수 트랙킹 좌표와 다른 좌표
 df_players_positions = pd.DataFrame()
 df_players_positions['x_0'] = players_positions['x_0']
