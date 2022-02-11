@@ -1,0 +1,19 @@
+* {
+  background-color: #21262d;
+}
+
+.test {
+  color: wheat;
+}
+
+.button {
+  color: white;
+  background-color: yellowgreen;
+}
+
+.card {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
