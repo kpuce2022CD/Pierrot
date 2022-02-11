@@ -1,5 +1,14 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-const Footer = () => <div className="footer">hi</div>;
+const Footer = () => {
+  return (
+    <div className="footer">
+      <Link to={"/guide"} style={{ color: "gray" }}>
+        가이드
+      </Link>
+    </div>
+  );
+};
 
 export default Footer;

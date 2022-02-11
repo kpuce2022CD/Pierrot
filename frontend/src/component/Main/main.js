@@ -28,6 +28,10 @@ function Main() {
           <img src="\image\playImage.jpg" width="200px" height="450px"></img>
           <h4>경기 정보보기</h4>
         </div>
+        <div style={image}>
+          <img src="\image\video.png" width="200px" height="450px"></img>
+          <h4>video 업로드</h4>
+        </div>
       </div>
       <Footer />
     </div>
