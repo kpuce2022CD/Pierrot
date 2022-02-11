@@ -7,12 +7,12 @@ import javax.persistence.*
 class Member(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long? = null,
-
-    @Column(nullable = false)
-    @ColumnDefault(value = "false")
-    var completed: Boolean = false,
-
-    @Column(nullable = false)
-    var todoName: String
+    var id: Long? = null
+//
+//    @Column(nullable = false)
+//    @ColumnDefault(value = "false")
+//    var completed: Boolean = false,
+//
+//    @Column(nullable = false)
+//    var todoName: String
 )
