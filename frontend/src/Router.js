@@ -4,6 +4,7 @@ import Main from "./component/Main/Main";
 import PlayerInfo from "./component/PlayerInfo/PlayerInfo";
 import Guide from "./component/Guide/Guide";
 import Login from "./component/Login&Singup/Login";
+import Graph from "./component/Graph/Graph";
 
 function Router() {
   return (
@@ -13,6 +14,7 @@ function Router() {
       <Route path="/playerinfo" element={<PlayerInfo />} />
       <Route path="/gameinfo" element={<GameInfo />} />
       <Route path="/guide" element={<Guide />} />
+      <Route path="/graph" element={<Graph />} />
     </Routes>
   );
 }
