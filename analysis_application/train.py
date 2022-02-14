@@ -1,4 +1,5 @@
 import cv2
+import argparse
 import queue
 import numpy
 import pandas
@@ -10,23 +11,39 @@ from sktime.datatypes._panel._convert import from_2d_array_to_nested
 from PIL import Image, ImageDraw
 from pickle import load
 from tracknet import trackNet
-from detection import *
+from bounce import *
+import trackplayers
 
-"""# 변수 정의 및 사전 작업"""
+# 인자값 받기
+parser = argparse.ArgumentParser()
+parser.add_argument("--path", type=str)
+args = parser.parse_args()
+path = args.path
 
 # 변수정의
 current_frame = 0
 tracknet_width, tracknet_height = 640, 360
 bounce = 1
-# 필요 시 경로 수정, 현재 경로  colab기준
-output_video_path = '/content/drive/MyDrive/Colab Notebooks/video_output.mp4'
 coords = []
 check_time = []
+# 궤도를 그리기위한 프레임 7장 저장
+trajectory_ball = deque()
+for i in range(0, 8):
+    trajectory_ball.appendleft(None)
+
+# 필요 시 경로 수정, 현재 경로  colab기준
+input_video_path = path + '/video/video_cut.mp4'
+output_video_path = path + '/video/video_output.mp4'
+model1_path = path + '/weight_ball/model.1'
+bounce_clf_path = path + '/weight_ball/clf.pkl'
+yolo_label_path = path + '/Yolov3/yolov3.txt'
+yolo_weight_path = path + '/Yolov3/yolov3.weights'
+yolo_cfg_path = path + '/Yolov3/yolov3.cfg'
+tracking_players_path = path + 'tracking_players.csv'
 
 # 영상불러오기 및 영상정보 추출
 # 필요 시 경로 수정, 현재 경로  colab기준
-video = cv2.VideoCapture(
-    '/content/drive/MyDrive/Colab Notebooks/video_cut.mp4')
+video = cv2.VideoCapture(input_video_path)
 fps = int(video.get(cv2.CAP_PROP_FPS))
 frame_width = int(video.get(cv2.CAP_PROP_FRAME_WIDTH))
 frame_height = int(video.get(cv2.CAP_PROP_FRAME_HEIGHT))
@@ -43,22 +60,23 @@ model = modelFN(256, tracknet_height, tracknet_width)
 model.compile(loss='categorical_crossentropy',
               optimizer='adadelta', metrics=['accuracy'])
 # 필요 시 경로 수정, 현재 경로  colab기준
-model.load_weights(
-    "/content/drive/MyDrive/Colab Notebooks/WeightsTracknet/model.1")
+model.load_weights(model1_path)
 
-# 궤도를 그리기위한 프레임 7장 저장
-trajectory_ball = deque()
-for i in range(0, 8):
-    trajectory_ball.appendleft(None)
+# yolov3
+# 라벨링한다 -> 변수정의라 생각함
+LABELS = open(yolo_label_path).read().strip().split("\n")
+# 네트워크 불러오기 -> opencv로 딥러닝을 실행하기 위해 생성
+net = cv2.dnn.readNet(yolo_weight_path, yolo_cfg_path)
+
+ct_players = trackplayers.CentroidTracker()
+
+# append players positions at each frame
+players_positions = {'x_0': [], 'y_0': [], 'x_1': [], 'y_1': []}
 
 # 영상 저장을 위한 셋팅
 fourcc = cv2.VideoWriter_fourcc(*'XVID')
 output_video = cv2.VideoWriter(
     output_video_path, fourcc, fps, (frame_width, frame_height))
-
-"""# 영상 프레임 단위로 작업
-공을 못잡았을 경우 좌표 저장해야함
-"""
 
 last = time.time()  # start counting
 # 프레임단위로 반복
@@ -75,6 +93,44 @@ while True:
 
     # 프레임 사이즈 및 타입 수정을 위한 복사
     output_frame = frame
+
+    #################### 선수 #############################
+    scale = 0.00392
+    # 입력 영상을 blob 객체로 만들기 -> 해당 인자들은 모델 파일의 학습에 맞게 입력되어있음
+    # blob: Binary Large Object 의 약자. 즉, 바이너리 형태로 큰 객체(이미지, 사운드 등)를 저장
+    blob = cv2.dnn.blobFromImage(
+        frame, scale, (416, 416), (0, 0, 0), True, crop=False)
+    net.setInput(blob)  # 네트워크 입력 설정
+    # 네트워크 순방향 실행을 위한 코드
+    # input: 출력 레이어 이름 리스트
+    # output: 지정한 레이어의 출력 블롭 리스트
+    outs = net.forward(trackplayers.get_output_layer(net))
+    # print("outs",outs)
+    # 선수들 위치
+    detected_players = trackplayers.predict_players(outs, LABELS, frame, 0.8)
+    # print(detected_players)
+
+    ############## 해석 필요 ####################
+
+    # map 함수는 첫번째 매개변수에 함수, 두번째 매개변수에 반복 가능한 자료형(리스트, 튜플 등)
+    # map 함수의 반환 값은 map 객체-> 해당 자료형을 list 혹은 tuple 로 형변환 필요
+    # map(적용시킬 함수, 적용할 값들)
+    # track players with a unique ID
+    format_detected_players = list(
+        map(trackplayers.update_boxes, list(detected_players)))
+    # print("format_detected_players: ", format_detected_players)
+    players_objects = ct_players.update(format_detected_players)
+    # print(players_objects.items())
+
+    # players positions frame by frame
+
+    players_positions['x_0'].append(tuple(players_objects[0])[0])
+    players_positions['y_0'].append(tuple(players_objects[0])[1])
+    players_positions['x_1'].append(tuple(players_objects[1])[0])
+    players_positions['y_1'].append(tuple(players_objects[1])[1])
+
+    # draw players boxes
+    color_box = (0, 0, 255)
 
     # 프레임 사이즈 및 타임 수정
     frame = cv2.resize(frame, (tracknet_width, tracknet_height))
@@ -96,10 +152,28 @@ while True:
     ret, heatmap = cv2.threshold(heatmap, 127, 255, cv2.THRESH_BINARY)
     circles = cv2.HoughCircles(heatmap, cv2.HOUGH_GRADIENT, dp=1,
                                minDist=1, param1=50, param2=2, minRadius=2, maxRadius=7)
+
+    # 선수 draw
+    if len(detected_players) > 0:
+        for box in detected_players:
+            print(box)
+            x, y, w, h = box
+            cv2.rectangle(output_frame, (x, y), (x + w, y + h), color_box, 2)
+
+    # draw tracking id of each player
+    for (objectID, centroid_player) in players_objects.items():
+        # draw both the ID of the object and the centroid of the
+        # object on the output frame
+        text = "ID {}".format(objectID)
+        cv2.putText(output_frame, text, (centroid_player[0] - 50, centroid_player[1]),
+                    cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 3)
+        cv2.circle(
+            output_frame, (centroid_player[0], centroid_player[1]), 1, (0, 255, 0), 2)
+
     PIL_image = cv2.cvtColor(output_frame, cv2.COLOR_BGR2RGB)
     PIL_image = Image.fromarray(PIL_image)
 
-    # 공후보 트래킹 성공 시 트래킹 표시
+    # 공 draw
     if circles is not None:
         print("공후보 트랙킹 성공")
         # 공후보가 하나 일 시 트래킹 표시
@@ -137,13 +211,21 @@ while True:
             draw = ImageDraw.Draw(PIL_image)
             draw.ellipse(position_circle, outline='yellow')
             del draw
-
     opencvImage = cv2.cvtColor(numpy.array(PIL_image), cv2.COLOR_RGB2BGR)
     output_video.write(opencvImage)
     current_frame += 1
 
 video.release()
 output_video.release()
+
+# csv 파일 저장
+df_players_positions = pandas.DataFrame()
+df_players_positions['x_0'] = players_positions['x_0']
+df_players_positions['y_0'] = players_positions['y_0']
+df_players_positions['x_1'] = players_positions['x_1']
+df_players_positions['y_1'] = players_positions['y_1']
+df_players_positions.to_csv(tracking_players_path)
+
 
 """바운드체크"""
 
@@ -217,30 +299,17 @@ if bounce == 1:
 
     # load the pre-trained classifier
     # 필요 시 경로 수정, 현재 경로  colab기준
-    clf = load(open('/content/drive/MyDrive/Colab Notebooks/clf.pkl', 'rb'))
+    clf = load(open(bounce_clf_path, 'rb'))
 
     predcted = clf.predict(X)
     idx = list(numpy.where(predcted == 1)[0])
     idx = numpy.array(idx) - 10
 
-#   if minimap == 1:
-#         video = cv2.VideoCapture('VideoOutput/video_with_map.mp4')
-#   else:
+# 바운드기능
     video = cv2.VideoCapture(output_video_path)
 
-    output_width = int(video.get(cv2.CAP_PROP_FRAME_WIDTH))
-    output_height = int(video.get(cv2.CAP_PROP_FRAME_HEIGHT))
-    fps = int(video.get(cv2.CAP_PROP_FPS))
-    num_frames = int(video.get(cv2.CAP_PROP_FRAME_COUNT))
-    fourcc = cv2.VideoWriter_fourcc(*'XVID')
-
-    print('fps : {}'.format(fps))
-    print('frame sizee : {}x{}'.format(output_width, output_height))
-    print('num_frames :{}'.format(num_frames))
-
-# 필요 시 경로 수정, 현재 경로  colab기준
     output_video = cv2.VideoWriter(
-        '/content/drive/MyDrive/Colab Notebooks/final_video.mp4', fourcc, fps, (output_width, output_height))
+        output_video_path, fourcc, fps, (frame_width, frame_height))
     i = 0
     while True:
         ret, frame = video.read()
@@ -270,8 +339,3 @@ if bounce == 1:
 # print(sys.path)
 
 # !pip install sktime
-
-# """# 새 섹션
-
-# # 새 섹션
-# """
