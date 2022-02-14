@@ -7,6 +7,7 @@ import numpy as np
 import trackplayers
 from PIL import Image, ImageDraw
 
+
 current_frame = 0
 width, height = 640, 360
 frame, img1, img2 = None, None, None
@@ -25,7 +26,7 @@ print('frame sizee : {}x{}'.format(frame_width, frame_height))
 print('num_frames :{}'.format(num_frames))
 
 fourcc = cv2.VideoWriter_fourcc(*'XVID')
-output_video = cv2.VideoWriter('video/video_output.mp4', fourcc, fps, (frame_width, frame_height))
+output_video = cv2.VideoWriter('video/video_output.avi', fourcc, fps, (frame_width, frame_height))
 
 # yolov3
 # 라벨링한다 -> 변수정의라 생각함

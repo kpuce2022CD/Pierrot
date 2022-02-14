@@ -3,7 +3,7 @@ import GameInfo from "./component/GameInfo/GameInfo";
 import Main from "./component/Main/Main";
 import PlayerInfo from "./component/PlayerInfo/PlayerInfo";
 import Guide from "./component/Guide/Guide";
-import Login from "./component/Login&Singup/Login";
+import Login from "./component/Login/Login";
 
 function Router() {
   return (
