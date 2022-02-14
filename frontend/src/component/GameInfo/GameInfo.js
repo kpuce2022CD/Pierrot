@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 
 function GameInfo() {
   const navigate = useNavigate();
-  const goGraph = (e) => {
-    console.log(e);
+  const goGraph = (id) => {
+    console.log(id);
     navigate("/graph");
   };
 
@@ -176,9 +176,18 @@ function GameInfo() {
     <div>
       <Layout>
         {games.map((game) => (
-          <div key={game.id}>
-            <Game game={game} />
+          <div
+            className="gamelist"
+            onClick={() => goGraph(game.id)}
+            key={game.id}
+          >
+            {game.id}
+            {game.title}
+            {game.day}
           </div>
+          // <div key={game.id}>
+          //   <Game game={game} />
+          // </div>
         ))}
       </Layout>
     </div>
