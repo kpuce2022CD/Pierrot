@@ -9,7 +9,7 @@ const Header = () => {
   return (
     <div className="header">
       <Link
-        to={"/"}
+        to={"/main"}
         style={{
           background: "#3d414c",
           color: "#fff",

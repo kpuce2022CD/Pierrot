@@ -1,0 +1,10 @@
+.gamelist {
+  background: silver;
+  border-radius: 15px;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  font-size: 30px;
+  margin: 10px;
+  text-align: center;
+}

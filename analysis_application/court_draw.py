@@ -1,6 +1,6 @@
 import cv2
 
-def hard_court(frame):
+def court_draw(frame):
     x_1 = 116
     y_1 = 368
 

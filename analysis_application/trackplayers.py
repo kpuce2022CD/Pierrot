@@ -94,7 +94,6 @@ def predict_players(outs, LABELS, img, confidence_threshold=0.8):
     # apply non-maxima suppression to suppress weak, overlapping
     # bounding boxes
     idxs = cv2.dnn.NMSBoxes(boxes, confidences, confidence_threshold, nms_threshold)
-    print("idxs", idxs)
     # ensure at least one detection exists
     if len(idxs) > 0:
     # loop over the indexes we are keeping
