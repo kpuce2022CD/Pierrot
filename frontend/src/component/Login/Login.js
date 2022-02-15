@@ -20,7 +20,7 @@ function Login() {
     const navigate = useNavigate();
     const goMainPage = () => {
         navigate("/Main");
-      };
+    };
 
     return (
         <div className="loginID">

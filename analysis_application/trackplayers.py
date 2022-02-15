@@ -1,8 +1,8 @@
-from PIL import Image, ImageDraw
-from matplotlib import pyplot
-from collections import deque
-import os
-import tensorflow as tf
+# from PIL import Image, ImageDraw
+# from matplotlib import pyplot
+# from collections import deque
+# import os
+# import tensorflow as tf
 import numpy as np
 from collections import OrderedDict  # 순서를 보장받기 위해서
 from scipy.spatial import distance as dist  # ??
@@ -114,7 +114,7 @@ def predict_players(outs, LABELS, img, confidence_threshold=0.8):
 # 그중 결과 값이 들어있는 layers만 선별해서 사용하기 위한 코드
 def get_output_layer(net):
     layer_names = net.getLayerNames()
-    output_layers = [layer_names[i[0] - 1] for i in net.getUnconnectedOutLayers()]
+    output_layers = [layer_names[i - 1] for i in net.getUnconnectedOutLayers()]
     return output_layers
 
 

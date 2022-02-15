@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import login from "./component/Login&Singup/Login";
+import login from "./component/Login/Login";
 import Router from "./Router";
 
 function App() {

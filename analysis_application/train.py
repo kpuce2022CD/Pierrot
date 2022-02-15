@@ -372,9 +372,7 @@ if bounce == 1:
     video.release()
     output_video.release()
 
-"""# 선수, 탑 뷰에서 보이는 것처럼"""
-
-
+# top view 를 위한 
 # input 으로 받은 좌표를 직사각형으로 바꿔주는 작업
 def order_points(pts):
     # 4, 2 배열을 0으로 초기화 하여 만듦 타입은 float
