@@ -1,9 +1,8 @@
 import React, { component, useState, useRef } from 'react';
-import aixos from 'axios';
+import axios from 'axios';
 import './Sign.css';
 import Footer from "../../Layout/Footer";
 import { useNavigate } from "react-router-dom";
-import axios from 'axios';
 
 function Signup() {
     
@@ -22,6 +21,8 @@ function Signup() {
     const [BelongMessage, setBelongMessage] = useState("");
     const [Nothing, setNothing] = useState("");
 
+
+    
 
     if (result.data.Result === "Exist") {
         setIdMessage("이미 사용중인 ID입니다.");
