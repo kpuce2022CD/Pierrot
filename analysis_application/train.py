@@ -350,13 +350,13 @@ if bounce == 1:
     video.release()
     output_video.release()
 
-"""#colab 사용을 위한 사전 작업"""
-
-from google.colab import drive
-drive.mount('/content/drive')
-
-import sys
-sys.path.append('/content/drive/My Drive/analysis_application')
-print(sys.path)
-
-!pip install sktime
+# """#colab 사용을 위한 사전 작업"""
+#
+# from google.colab import drive
+# drive.mount('/content/drive')
+#
+# import sys
+# sys.path.append('/content/drive/My Drive/analysis_application')
+# print(sys.path)
+#
+# !pip install sktime
