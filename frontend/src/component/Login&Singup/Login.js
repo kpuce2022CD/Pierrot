@@ -2,7 +2,6 @@ import React, { Component, useState } from "react";
 import "./Login.css";
 import Footer from "../../Layout/Footer";
 import { useNavigate } from "react-router-dom";
-import axios from 'axios';
 
 
 function Login() {
