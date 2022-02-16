@@ -9,6 +9,18 @@ function Main() {
     margin: "10px",
   };
 
+  const zoomIn = (e) => {
+    e.target.style.width = "250px";
+    e.target.style.height = "500px";
+    // o.5초 동안 서서히 움직이도록
+    e.target.style.transition = "all 0.5s";
+  };
+  const zoomOut = (e) => {
+    e.target.style.width = "200px";
+    e.target.style.height = "450px";
+    e.target.style.transition = "all 0.5s";
+  };
+
   const navigate = useNavigate();
   const goPlayerInfoPage = () => {
     navigate("/playerinfo");
