@@ -8,15 +8,15 @@ Original file is located at
 
 #colab 사용을 위한 사전 작업
 """
-#
-# from google.colab import drive
-# drive.mount('/content/drive')
-#
-# import sys
-# sys.path.append('/content/drive/My Drive/analysis_application')
-# print(sys.path)
-#
-# !pip install sktime
+
+from google.colab import drive
+drive.mount('/content/drive')
+
+import sys
+sys.path.append('/content/drive/My Drive/analysis_application')
+print(sys.path)
+
+!pip install sktime
 
 """#import
  tracknet: test 폴더 안에 있는 코드
@@ -35,7 +35,7 @@ import pandas as pd
 import numpy as np
 from copy import deepcopy
 
-from sktime.datatypes._panel._convert import from_2d_array_to_nested
+# from sktime.datatypes._panel._convert import from_2d_array_to_nested
 from PIL import Image, ImageDraw
 from pickle import load
 from tracknet import trackNet
@@ -50,7 +50,6 @@ bounce = 1
 coords = []
 check_time = []
 frames = []
-ball_positions = {'x_0': [], 'y_0': []}
 
 # 궤도를 그리기위한 프레임 7장 저장
 trajectory_ball = deque()
@@ -110,9 +109,9 @@ while True:
     ret, frame = video.read()
     current_frame += 1
     print('tracking the players : {}%, number of frames : {}'.format(
-        round((current_frame / num_frames) * 100), current_frame))
+        round((current_frame/num_frames)*100), current_frame))
     if not ret:
-        break
+      break
     # 프레임 사이즈 및 타입 수정을 위한 복사
 
     output_frame = frame
@@ -178,10 +177,9 @@ print("complete tracking the players")
 
 last = time.time()  # start counting
 # 프레임단위로 반복
-for frame in frames:
+for frame in frames :
     current_frame += 1
-    print('percentage of video processed : {}%, number of frames : {}frame'.format(
-        round((current_frame / num_frames) * 100), current_frame))
+    print('percentage of video processed : {}%, number of frames : {}frame'.format(round((current_frame/num_frames)*100), current_frame))
 
     # 프레임 사이즈 및 타입 수정을 위한 복사
     output_frame = frame
@@ -219,7 +217,7 @@ for frame in frames:
             y = int(circles[0][0][1])
 
             coords.append([x, y])
-            check_time.append(time.time() - last)
+            check_time.append(time.time()-last)
             trajectory_ball.appendleft([x, y])
             trajectory_ball.pop()
 
@@ -227,23 +225,24 @@ for frame in frames:
         else:
             print("공후보 두개 이상")
             coords.append(None)
-            check_time.append(time.time() - last)
+            check_time.append(time.time()-last)
             trajectory_ball.appendleft(None)
             trajectory_ball.pop()
 
     # 공 후보 트래킹 실패 시 트래킹 표시하지 않음
     else:
         coords.append(None)
-        check_time.append(time.time() - last)
+        check_time.append(time.time()-last)
         trajectory_ball.appendleft(None)
         trajectory_ball.pop()
+
 
     # 전 7장의 프레임 후보공 draw
     for i in range(0, 8):
         if trajectory_ball[i] is not None:
             draw_x = trajectory_ball[i][0]
             draw_y = trajectory_ball[i][1]
-            position_circle = (draw_x - 2, draw_y - 2, draw_x + 2, draw_y + 2)
+            position_circle = (draw_x - 2, draw_y-2, draw_x+2, draw_y+2)
             draw = ImageDraw.Draw(PIL_image)
             draw.ellipse(position_circle, outline='yellow')
             del draw
@@ -275,16 +274,6 @@ for _ in range(3):
 # 보간법. 트래킹이 안되었을 시 예측값삽입
 coords = interpolation(coords)
 
-
-for i in range(len(coords)-1):
-    ball_positions['x_0'].append(coords[i][0])
-    ball_positions['y_0'].append(coords[i][1])
-    print("ball_position x,y :",ball_positions)
-df_ball_positions = pandas.DataFrame()
-df_ball_positions['x_0'] = ball_positions['x_0']
-df_ball_positions['y_0'] = ball_positions['y_0']
-df_ball_positions.to_csv(path +"tracking_ball.csv")
-
 # velocity
 Vx = []
 Vy = []
@@ -292,20 +281,20 @@ V = []
 frames = [*range(len(coords))]
 print("frames : {}".format(frames))
 
-for i in range(len(coords) - 1):
+for i in range(len(coords)-1):
     p1 = coords[i]
-    p2 = coords[i + 1]
+    p2 = coords[i+1]
     t1 = check_time[i]
-    t2 = check_time[i + 1]
-    x = (p1[0] - p2[0]) / (t1 - t2)
-    y = (p1[1] - p2[1]) / (t1 - t2)
+    t2 = check_time[i+1]
+    x = (p1[0]-p2[0])/(t1-t2)
+    y = (p1[1]-p2[1])/(t1-t2)
     Vx.append(x)
     Vy.append(y)
 
 for i in range(len(Vx)):
     vx = Vx[i]
     vy = Vy[i]
-    v = (vx ** 2 + vy ** 2) ** 0.5
+    v = (vx**2+vy**2)**0.5
     V.append(v)
 
 xy = coords[:]
@@ -369,21 +358,22 @@ if bounce == 1:
     while True:
         ret, frame = video.read()
         if ret:
-            if coords[i] is not None:
-                if i in idx:
-                    center_coordinates = int(xy[i][0]), int(xy[i][1])
-                    radius = 3
-                    color = (255, 0, 0)
-                    thickness = -1
-                    cv2.circle(frame, center_coordinates, 10, color, thickness)
-                i += 1
-                output_video.write(frame)
+          if coords[i] is not None:
+            if i in idx:
+                center_coordinates = int(xy[i][0]), int(xy[i][1])
+                radius = 3
+                color = (255, 0, 0)
+                thickness = -1
+                cv2.circle(frame, center_coordinates, 10, color, thickness)
+            i += 1
+            output_video.write(frame)
         else:
             break
     video.release()
     output_video.release()
 
-# top view 를 위한 
+"""# 선수, 탑 뷰에서 보이는 것처럼"""
+
 # input 으로 받은 좌표를 직사각형으로 바꿔주는 작업
 def order_points(pts):
     # 4, 2 배열을 0으로 초기화 하여 만듦 타입은 float
@@ -512,8 +502,16 @@ class top_view_court:
             cv2.circle(self.court, (x, y), radius=7, color=color_player_2, thickness=-1)
             cv2.circle(self.court, (x, y), radius=7, color=(255, 255, 255), thickness=2)
 
+    def add_ball(self, coord_bev, color):
+      x, y = coord_bev
+      cv2.circle(self.court, (x,y), radius = 4, color=color, thickness = -1)
+
     # 선수 이동 경로 그리기
     def add_path_player(self, coord_bev, color_path=(255, 255, 255)):
+        x, y = coord_bev
+        cv2.circle(self.court, (x, y), radius=1, color=color_path, thickness=-1)
+
+    def add_path_ball(self, coord_bev, color_path=(0,0,0)):
         x, y = coord_bev
         cv2.circle(self.court, (x, y), radius=1, color=color_path, thickness=-1)
 
@@ -530,7 +528,7 @@ bev_pts = np.array(court_coord(output_width, pad)).reshape(4, 2)
 M = transition_matrix(image_pts, bev_pts)
 
 # 이미 트래킹을 끝낸 후 가공된 csv 파일 불러오기
-position_df = pd.read_csv('tracking_players.csv')
+position_df = pd.read_csv('/content/drive/MyDrive/analysis_application/tracking_players.csv')
 position_df['cp_0'] = list(zip(position_df.x_0, position_df.y_0))
 position_df['cp_1'] = list(zip(position_df.x_1, position_df.y_1))
 position_df['coord_bev_0'] = position_df['cp_0'].apply(lambda x: player_coord(x, M))
@@ -538,7 +536,14 @@ position_df['coord_bev_1'] = position_df['cp_1'].apply(lambda x: player_coord(x,
 position_0 = list(position_df['coord_bev_0'])  # 선수 1
 position_1 = list(position_df['coord_bev_1'])  # 선수 2
 
+# 이미 트래킹을 끝낸 공 위치 csv 파일 불러오기
+position_ball_df = pd.read_csv('/content/drive/MyDrive/analysis_application/tracking_ball.csv')
+position_ball_df['cp'] = list(zip(position_ball_df.x_0, position_ball_df.y_0))
+position_ball_df['coord_bev'] = position_ball_df['cp'].apply(lambda x: player_coord(x, M))
+position_ball = list(position_ball_df['coord_bev'])  # 선수 1
+
 # top view 영상 저장
+# path = '/content/drive/MyDrive/analysis_application'
 output_video_path = path + '/video/output_top_view.avi'
 fourcc = cv2.VideoWriter_fourcc(*'XVID')
 fps = 60
@@ -553,16 +558,22 @@ while True:
     if len(position_0) == i:
         print("break")
         break
+    if len(position_ball) == i:
+      print("ball break")
+      break
     # 선수 경로같은 경우는 계속해서 축적되어야 하고, 선수같은 경우 해당 프레임에서만 그려줘야 하므로
     court = deepcopy(court_base)
     # 색상 변경 하자
     court.add_player(position_0[i], 0, (255, 0, 0), (0, 0, 0))
     court.add_player(position_1[i], 0, (38, 19, 15), (0, 0, 0))
+    court.add_ball(position_ball[i], (0,255,0,))
 
     court_base.add_path_player(position_0[i])
     court_base.add_path_player(position_1[i])
+    # court_base.add_path_ball(position_ball[i])
 
     output_video.write(court.court)
     i += 1
 
 output_video.release()
+
