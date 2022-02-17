@@ -6,19 +6,21 @@ import Guide from "./component/Guide/Guide";
 import Login from "./component/Login/Login";
 import Graph from "./component/Graph/Graph";
 import Signup from "./component/Signup/Signup";
+import Testpage from "./component/testpage/testpage";
 
 function Router() {
-    return (
+  return (
     <Routes>
-    <Route path="/main" element={<Main />} />
-    <Route path="/" element={<Login />} />
-    <Route path="/signup" element={<Signup />} />
-    <Route path="/playerinfo" element={<PlayerInfo />} />
-    <Route path="/gameinfo" element={<GameInfo />} />
-    <Route path="/guide" element={<Guide />} />
-    <Route path="/graph" element={<Graph />} />
+      <Route path="/main" element={<Main />} />
+      <Route path="/" element={<Testpage />} />
+      <Route path="/loginForm" element={<Login />} />
+      <Route path="/signup" element={<Signup />} />
+      <Route path="/playerinfo" element={<PlayerInfo />} />
+      <Route path="/gameinfo" element={<GameInfo />} />
+      <Route path="/guide" element={<Guide />} />
+      <Route path="/graph" element={<Graph />} />
     </Routes>
-    );
+  );
 }
 
 export default Router;
