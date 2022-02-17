@@ -50,6 +50,7 @@ bounce = 1
 coords = []
 check_time = []
 frames = []
+ball_positions = {'x_0': [], 'y_0': []}
 
 # 궤도를 그리기위한 프레임 7장 저장
 trajectory_ball = deque()
@@ -273,6 +274,16 @@ for _ in range(3):
 
 # 보간법. 트래킹이 안되었을 시 예측값삽입
 coords = interpolation(coords)
+
+
+for i in range(len(coords)-1):
+    ball_positions['x_0'].append(coords[i][0])
+    ball_positions['y_0'].append(coords[i][1])
+    print("ball_position x,y :",ball_positions)
+df_ball_positions = pandas.DataFrame()
+df_ball_positions['x_0'] = ball_positions['x_0']
+df_ball_positions['y_0'] = ball_positions['y_0']
+df_ball_positions.to_csv(path +"tracking_ball.csv")
 
 # velocity
 Vx = []
