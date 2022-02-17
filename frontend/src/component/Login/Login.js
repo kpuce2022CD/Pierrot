@@ -21,16 +21,20 @@ function Login() {
     const goMainPage = () => {
         navigate("/Main");
     };
+    const goSignupPage = () => {
+        navigate("/Signup");
+    };
 
     return (
         <div className="loginID">
         <form style={{ display: 'flex', flexDirection: 'column' }} >
-            <label>ID</label>
-            <input type="email" value={inputId} onChange={handleInputId} />
-            <label>Password</label>
-            <input type="password" value={inputPw} onChange={handleInputPw} />
+            <label className="loginText">Email</label>
+            <input type="email" className="login_id" value={inputId} onChange={handleInputId} />
+            <label className="loginText">Password</label>
+            <input type="password" className="login_id" value={inputPw} onChange={handleInputPw} />
             <br />
-            <div onClick={goMainPage}>로그인</div>
+            <div onClick={goMainPage} className="loginButton">Signin</div>
+            <div onClick={goSignupPage} className="loginButton">Signup</div>
             </form>
         </div>
     );

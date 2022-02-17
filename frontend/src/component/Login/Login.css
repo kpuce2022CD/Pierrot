@@ -5,3 +5,23 @@
   width: 100%;
   height: 100vh;
 }
+
+.loginButton {
+  border-radius: 5px;
+  margin-left: -3px;
+  border: 1px solid #d2f15a;
+  background-color: transparent;
+  color: #d2f15a;
+  padding: 5px;
+}
+.loginButton:hover {
+  color: black;
+  background-color: #d2f15a;
+}
+
+.loginText {
+  color: #858585;
+}
+.login_id {
+  color: aliceblue;
+}

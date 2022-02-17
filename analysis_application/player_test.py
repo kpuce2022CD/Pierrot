@@ -79,6 +79,7 @@ while (True):
 
     players_positions['x_0'].append(tuple(players_objects[0])[0])
     players_positions['y_0'].append(tuple(players_objects[0])[1])
+    print("tuple[x,y] : {}".format(players_objects[0]))
     players_positions['x_1'].append(tuple(players_objects[1])[0])
     players_positions['y_1'].append(tuple(players_objects[1])[1])
 
