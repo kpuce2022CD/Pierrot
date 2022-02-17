@@ -1,9 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
-const header = {
-  float: "right",
-};
+import "./Layout.css";
 
 const Header = () => {
   return (
@@ -18,9 +15,8 @@ const Header = () => {
       >
         tennis
       </Link>
-      <div style={header}>
-        <button className="button">로그아웃</button>
-      </div>
+
+      <button className="logoutButton">로그아웃</button>
     </div>
   );
 };
