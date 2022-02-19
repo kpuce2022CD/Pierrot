@@ -1,108 +1,26 @@
-* {
-  margin: 0px;
-  padding: 0px;
-  text-decoration: none;
-  font-family: sans-serif;
+.singup-area {
+  width: 400px;
+  position: relative;
+  margin-top: 20px;
 }
-
-.SignupText {
-  color: white;
+.singup-area:first-child {
+  margin-top: 0;
 }
-
-body {
-  background-image: #34495e;
-}
-
-.joinForm {
-  /* display: flex; */
-  /* width: 50%; */
-  vertical-align: middle;
-  /* line-height: 50%; */
-  text-align: center;
-  align-items: center;
-  margin: 150px 500px;
-}
-
-/* .joinForm h2 {
-  width: 80%;
-} */
-
-.textForm {
-  border-bottom: 2px solid #adadad;
-  margin: 30px;
-  padding: 10px 10px;
-}
-
-.id {
+.singup-area input {
   width: 100%;
-  border: none;
-  outline: none;
-  color: #636e72;
-  font-size: 16px;
-  height: 25px;
-  background: none;
-}
-
-.pw {
-  width: 100%;
-  border: none;
-  outline: none;
-  color: #636e72;
-  font-size: 16px;
-  height: 25px;
-  background: none;
-}
-
-.name {
-  width: 100%;
-  border: none;
-  outline: none;
-  color: #636e72;
-  font-size: 16px;
-  height: 25px;
-  background: none;
-}
-
-.email {
-  width: 100%;
-  border: none;
-  outline: none;
-  color: #636e72;
-  font-size: 16px;
-  height: 25px;
-  background: none;
-}
-
-.nickname {
-  width: 100%;
-  border: none;
-  outline: none;
-  color: #636e72;
-  font-size: 16px;
-  height: 25px;
-  background: none;
-}
-
-.cellphoneNo {
-  width: 100%;
-  border: none;
-  outline: none;
-  color: #636e72;
-  font-size: 16px;
-  height: 25px;
-  background: none;
-}
-
-.btn {
-  border-radius: 5px;
-  margin-left: -3px;
-  border: 1px solid #d2f15a;
+  padding: 20px 10px 10px;
   background-color: transparent;
-  color: #d2f15a;
-  padding: 5px;
+  border: none;
+  border-bottom: 1px solid #999;
+  font-size: 18px;
+  color: #fff;
+  outline: none;
 }
 
-.btn:hover {
-  color: black;
-  background-color: #d2f15a;
+.singup-area label {
+  position: absolute;
+  left: 10px;
+  top: 0;
+  font-size: 15px;
+  color: #999;
 }

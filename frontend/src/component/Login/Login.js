@@ -5,15 +5,9 @@ import { useForm } from "react-hook-form"; // form에서 유요성 검사를 하
 
 const Login = () => {
   const navigate = useNavigate();
-  const goMainPage = () => {
-    navigate("/Main");
-  };
   const goSignupPage = () => {
-    navigate("/Signup");
+    navigate("/signup");
   };
-
-  const [id, setID] = useState("");
-  const [pw, setPw] = useState("");
 
   const {
     register,
@@ -22,26 +16,38 @@ const Login = () => {
   } = useForm();
 
   // react hook form
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {
+    console.log(data);
+    navigate("/main");
+  };
+
+  const onError = (error) => {
+    console.log(error);
+    error.next("label").addClass("warning");
+  };
 
   return (
     <div className="login-page">
       <section className="login-form">
         <h1>TENNIS</h1>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit, onError)}>
           <div className="int-area">
-            <input type="text" name="id" id="id" autoComplete="off" required />
-            <label htmlFor="id">Email</label>
+            <input
+              type="text"
+              autoComplete="off"
+              required
+              {...register("userId", { required: true })}
+            />
+            <label>Email</label>
           </div>
           <div className="int-area">
             <input
               type="password"
-              name="pw"
-              id="pw"
               autoComplete="off"
               required
+              {...register("userPw", { required: true })}
             />
-            <label htmlFor="pw">Password</label>
+            <label>Password</label>
           </div>
           <div className="btn-area">
             <button type="submit">LOGIN</button>

@@ -1,78 +1,84 @@
 import React, { component, useState, useRef } from "react";
 import "./Signup.css";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form"; // form에서 유요성 검사를 하기 위해
 
 function Signup() {
   const navigate = useNavigate();
   const goLoginPage = () => {
     navigate("/");
   };
+  const {
+    register,
+    handleSubmit,
+    formState: { error },
+  } = useForm();
 
+  // react hook form
+  const onSubmit = (data) => {
+    console.log(data);
+    navigate("/");
+  };
+
+  const onError = (error) => {
+    console.log(error);
+    error.next("label").addClass("warning");
+  };
   return (
-    <div className="joinForm">
-      <h2 className="SignupText">회원가입</h2>
-      <div className="textForm">
-        <input
-          name="loginId"
-          type="text"
-          className="id"
-          placeholder="아이디"
-        ></input>
-      </div>
-      <div className="textForm">
-        <input
-          name="loginPw"
-          type="password"
-          className="pw"
-          placeholder="비밀번호"
-        ></input>
-      </div>
-      <div className="textForm">
-        <input
-          name="loginPwConfirm"
-          type="password"
-          className="pw"
-          placeholder="비밀번호 확인"
-        ></input>
-      </div>
-      <div className="textForm">
-        <input
-          name="name"
-          type="text"
-          className="name"
-          placeholder="이름"
-        ></input>
-      </div>
-      <div className="textForm">
-        <input
-          name="email"
-          type="text"
-          className="email"
-          placeholder="이메일"
-        ></input>
-      </div>
-      <div className="textForm">
-        <input
-          name="nickname"
-          type="text"
-          className="nickname"
-          placeholder="닉네임"
-        ></input>
-      </div>
-      <div className="textForm">
-        <input
-          name="cellphoneNo"
-          type="number"
-          className="cellphoneNo"
-          placeholder="전화번호"
-        ></input>
-      </div>
-      <input
-        onClick={goLoginPage}
-        type="submit"
-        className="btn"
-        value="J O I N"
-      />
+    <div className="login-page">
+      <section className="login-form">
+        <h1>회원가입</h1>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="singup-area">
+            <input
+              type="text"
+              autoComplete="off"
+              required
+              {...register("userId")}
+            />
+            <label>Email</label>
+          </div>
+          <div className="singup-area">
+            <input
+              type="text"
+              autoComplete="off"
+              required
+              {...register("userPw")}
+            />
+            <label>Pw</label>
+          </div>
+          <div className="singup-area">
+            <input
+              type="text"
+              autoComplete="off"
+              required
+              {...register("checkUserPw")}
+            />
+            <label>Check PW</label>
+          </div>
+          <div className="singup-area">
+            <input
+              type="text"
+              autoComplete="off"
+              required
+              {...register("userName")}
+            />
+            <label>Name</label>
+          </div>
+          <div className="singup-area">
+            <input
+              type="text"
+              autoComplete="off"
+              required
+              {...register("userAge")}
+            />
+            <label>Age</label>
+          </div>
+          <div className="btn-area">
+            <button type="submit">SignUp</button>
+          </div>
+        </form>
+      </section>
     </div>
   );
 }
