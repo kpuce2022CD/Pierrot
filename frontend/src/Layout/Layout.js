@@ -1,12 +1,10 @@
-import Footer from "./Footer";
-import Header from "./Header";
+import Sidebar from "./Sidebar";
 
 const Layout = (props) => {
   return (
-    <div>
-      <Header />
+    <div className="layout">
+      <Sidebar />
       {props.children}
-      <Footer />
     </div>
   );
 };

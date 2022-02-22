@@ -1,5 +1,5 @@
 function PlayerInfo() {
-  return <div>hihi</div>;
+  return <div>player</div>;
 }
 
 export default PlayerInfo;
