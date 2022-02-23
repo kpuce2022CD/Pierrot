@@ -1,0 +1,22 @@
+.graph {
+  position: relative;
+  width: 700px;
+  height: 700px;
+}
+
+.heatmap {
+  width: 450px;
+  height: 271px;
+  /* display: none;
+  width: 100%;
+  height: 100%;
+  color: white;
+  font-size: 32px; */
+}
+
+.heatmap-canvas {
+  background-image: url("/public/image/tennis_court.png");
+  background-color: transparent;
+  width: 450px;
+  height: 271px;
+}
