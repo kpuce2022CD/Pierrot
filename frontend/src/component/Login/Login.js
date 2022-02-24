@@ -25,6 +25,10 @@ function Login() {
         navigate("/Signup");
     };
 
+    const displayInfo = () => {
+        console.log(inputId + inputPw);
+    };
+
     return (
         <div className="loginID">
         <form style={{ display: 'flex', flexDirection: 'column' }} >
@@ -33,7 +37,7 @@ function Login() {
             <label className="loginText">Password</label>
             <input type="password" className="login_id" value={inputPw} onChange={handleInputPw} />
             <br />
-            <div onClick={goMainPage} className="loginButton">Signin</div>
+            <div onClick={displayInfo} className="loginButton">Signin</div>
             <div onClick={goSignupPage} className="loginButton">Signup</div>
             </form>
         </div>
