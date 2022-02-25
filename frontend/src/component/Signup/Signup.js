@@ -35,7 +35,7 @@ function Signup() {
             name:name
         }).then(() => {
             console.log("success");
-        });
+        }).then(goLoginPage);
     };
 
     return(

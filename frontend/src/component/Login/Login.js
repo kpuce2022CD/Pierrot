@@ -2,7 +2,7 @@ import React, { Component, useState } from "react";
 import "./Login.css";
 import Footer from "../../Layout/Footer";
 import { useNavigate } from "react-router-dom";
-
+import Axios from 'axios'
 
 function Login() {
 
@@ -25,6 +25,15 @@ function Login() {
         navigate("/Signup");
     };
 
+    const getMember = () =>{
+        Axios.get('http://localhost:3001/getMember',{
+            inputId:inputId,
+            inputPw:inputPw
+        }).then(() => {
+            console.log("login success");
+        }).then(goMainPage);
+    };
+
 
     return (
         <div className="loginID">
@@ -34,7 +43,7 @@ function Login() {
             <label className="loginText">Password</label>
             <input type="password" className="login_id" value={inputPw} onChange={handleInputPw} />
             <br />
-            <div onClick={goMainPage} className="loginButton">Signin</div>
+            <div onClick={getMember} className="loginButton">Signin</div>
             <div onClick={goSignupPage} className="loginButton">Signup</div>
             </form>
         </div>
