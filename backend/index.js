@@ -1,7 +1,7 @@
-const express = require('express')
-const app = express()
-
-const mysql = require('mysql')
+const express = require('express');
+const app = express();
+const cors = require('cors');
+const mysql = require('mysql2');
 const db = mysql.createConnection({
     user: "root",
     host: "localhost",
@@ -9,13 +9,17 @@ const db = mysql.createConnection({
     database: "tennisanalysis",
 });
 
+app.use(cors());
+app.use(express.json());
+
 app.post('/postMember',(req,res)=>{
-    const id = req.body.id
-    const psword = req.body.psword
+    const loginId = req.body.loginId;
+    const loginPw = req.body.loginPw;
+    const name = req.body.name;
 
     db.query(
-        'INSERT INTO member (id,psword) VALUES (?,?)', 
-        [id,psword],
+        'INSERT INTO member (email,password,name) VALUES (?,?,?)', 
+        [loginId,loginPw,name],
         (err, result) => {
             if (err){
                 console.log(err)

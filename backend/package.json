@@ -4,12 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start_server": "node ./index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.26.0",
+    "cors": "^2.8.5",
     "express": "^4.17.3",
-    "mysql": "^2.18.1"
+    "mysql2": "^2.3.3"
   }
 }
