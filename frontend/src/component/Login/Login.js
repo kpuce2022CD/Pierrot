@@ -29,6 +29,13 @@ function Login() {
         Axios.post('http://localhost:3001/getMember',{
             inputId:inputId,
             inputPw:inputPw
+        }).then((response) =>{
+            if(response.data[0]){
+                console.log(response);
+                goMainPage();
+            }else{
+                console.log("login failed");
+            }
         });
     };
 
