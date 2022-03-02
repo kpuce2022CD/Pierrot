@@ -26,12 +26,10 @@ function Login() {
     };
 
     const getMember = () =>{
-        Axios.get('http://localhost:3001/getMember',{
+        Axios.post('http://localhost:3001/getMember',{
             inputId:inputId,
             inputPw:inputPw
-        }).then(() => {
-            console.log("login success");
-        }).then(goMainPage);
+        });
     };
 
 
