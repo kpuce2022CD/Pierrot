@@ -9,14 +9,14 @@ Original file is located at
 #colab 사용을 위한 사전 작업
 """
 
-from google.colab import drive
-drive.mount('/content/drive')
-
-import sys
-sys.path.append('/content/drive/My Drive/analysis_application')
-print(sys.path)
-
-!pip install sktime
+# from google.colab import drive
+# drive.mount('/content/drive')
+#
+# import sys
+# sys.path.append('/content/drive/My Drive/analysis_application')
+# print(sys.path)
+#
+# !pip install sktime
 
 """#import
  tracknet: test 폴더 안에 있는 코드
@@ -95,7 +95,6 @@ output_video = cv2.VideoWriter(
 """
 
 # yolov3
-# 라벨링한다 -> 변수정의라 생각함
 LABELS = open(yolo_label_path).read().strip().split("\n")
 # 네트워크 불러오기 -> opencv로 딥러닝을 실행하기 위해 생성
 net = cv2.dnn.readNet(yolo_weight_path, yolo_cfg_path)
@@ -130,8 +129,6 @@ while True:
     # 선수들 위치
     detected_players = trackplayers.predict_players(outs, LABELS, frame, 0.8)
     # print(detected_players)
-
-    ############## 해석 필요 ####################
 
     # map 함수는 첫번째 매개변수에 함수, 두번째 매개변수에 반복 가능한 자료형(리스트, 튜플 등)
     # map 함수의 반환 값은 map 객체-> 해당 자료형을 list 혹은 tuple 로 형변환 필요
@@ -188,7 +185,7 @@ for frame in frames :
     frame = cv2.resize(frame, (tracknet_width, tracknet_height))
     frame = frame.astype(numpy.float32)
 
-    # 아직 모름
+    #
     X = numpy.rollaxis(frame, 2, 0)
 
     # 히트맵 예측
