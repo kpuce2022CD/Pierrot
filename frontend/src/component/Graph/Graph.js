@@ -27,7 +27,7 @@ const Graph = () => {
   };
 
   useEffect(() => {
-    let heatmapInstance = h337.create({
+    const heatmapInstance = h337.create({
       container: document.querySelector(".heatmap"),
       opacity: "0.3",
     });
@@ -37,7 +37,7 @@ const Graph = () => {
   }, []);
 
   return (
-    <div className="grapy">
+    <div className="graph">
       <Layout>
         <div className="heatmap"></div>
       </Layout>

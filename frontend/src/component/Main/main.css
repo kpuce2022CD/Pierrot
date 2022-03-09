@@ -1,17 +1,120 @@
-* {
-  background-color: #13151a;
+body {
+  background-color: rgb(19, 21, 26);
+}
+a {
+  text-decoration: none;
+}
+/* p {
+  margin: 0;
+} */
+.mainpage {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.title {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+}
+.title h1 {
+  margin: 0px auto;
+  color: whitesmoke;
+  font-size: 100px;
 }
 
+figure {
+  position: relative;
+  width: 300px;
+  height: 300px;
+}
+figure:hover figcaption {
+  opacity: 1;
+}
+figure:hover .line::before {
+  width: 80%;
+}
+figure:hover .line::after {
+  width: 80%;
+}
+figure:hover .line span::before {
+  height: 80%;
+}
+figure:hover .line span::after {
+  height: 80.5%;
+}
+figcaption {
+  /* transform: translate(0%, -100%); */
+  position: relative;
+  width: 300px;
+  height: 300px;
+  background: rgba(0, 0, 0, 0.7);
+  opacity: 0;
+  transition: all 0.5s;
+  margin-top: -304px;
+  margin-bottom: 4px;
+}
+a figcaption p {
+  margin: 0;
+  color: #fff;
+  font-weight: bold;
+  font-size: 40px;
+  text-align: center;
+  line-height: 300px;
+}
+
+.line::before {
+  content: "";
+  position: absolute;
+  background: rgba(255, 255, 255, 0.7);
+  display: inline-block;
+  transition: all 0.5s;
+  left: 10%;
+  top: 10%;
+  width: 0%;
+  height: 2px;
+}
+
+.line::after {
+  content: "";
+  position: absolute;
+  background: rgba(230, 230, 230, 0.7);
+  display: inline-block;
+  transition: all 0.5s;
+  left: 10%;
+  top: 90%;
+  width: 0%;
+  height: 2px;
+}
+
+.line span::before {
+  content: "";
+  position: absolute;
+  background: rgba(230, 230, 230, 0.7);
+  display: inline-block;
+  transition: all 0.5s;
+  left: 10%;
+  top: 10%;
+  width: 2px;
+  height: 0%;
+}
+
+.line span::after {
+  content: "";
+  position: absolute;
+  background: rgba(230, 230, 230, 0.7);
+  display: inline-block;
+  transition: all 0.5s;
+  left: 90%;
+  top: 10%;
+  width: 2px;
+  height: 0%;
+}
 .card {
   display: flex;
-  transform: scale(1);
-  margin: 15px auto;
-  /* transition: all 0.3s ease-in-out; */
 }
-
-.card :hover {
-  /* width: 250px;
-  height: 500px; */
-  transition: all 0.3s ease;
-  transform: scale(1.03);
+.card img {
+  width: 300px;
+  height: 300px;
 }
