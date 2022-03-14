@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./Main.css";
+import "./main.css";
 import Header from "../../Layout/Header";
 import Footer from "../../Layout/Footer";
 import { useNavigate } from "react-router-dom";
@@ -16,6 +16,10 @@ function Main() {
   const goGameInfoPage = () => {
     navigate("/gameinfo");
   };
+
+  const govideoUploadPage = () => {
+    navigate("/videoupload");
+  };
   return (
     <div className="test">
       <Header />
@@ -28,7 +32,7 @@ function Main() {
           <img src="\image\playImage.jpg" width="200px" height="450px"></img>
           <h4>경기 정보보기</h4>
         </div>
-        <div style={image}>
+        <div style={image} onClick={govideoUploadPage}>
           <img src="\image\video.png" width="200px" height="450px"></img>
           <h4>video 업로드</h4>
         </div>

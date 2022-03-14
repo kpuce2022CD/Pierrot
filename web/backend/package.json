@@ -6,17 +6,19 @@
   "scripts": {
     "start_server": "node ./bin/www.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start_front": "cd.. && cd frontend && npm start",
-    "dev": "concurrently --kill-others-on-fail \"yarn start_server\" \"yarn start_\""
+    "start_front": "cd.. && cd frontend && yarn start",
+    "dev": "concurrently --kill-others-on-fail \"yarn start_server\" \"yarn start_front\""
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "aws-sdk": "^2.1092.0",
     "axios": "^0.26.0",
     "concurrently": "^7.0.0",
     "cors": "^2.8.5",
     "express": "^4.17.3",
     "mysql2": "^2.3.3",
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "reactstrap": "^9.0.1"
   }
 }
