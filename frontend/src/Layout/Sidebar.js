@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import React, { Component } from "react";
 import SidebarItem from "./SidebarItem";
 import "./Layout.css";
 

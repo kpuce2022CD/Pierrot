@@ -23,8 +23,8 @@ a {
   color: whitesmoke;
   font-size: 100px;
 }
-
 figure {
+  margin: 20px auto;
   position: relative;
   width: 300px;
   height: 300px;

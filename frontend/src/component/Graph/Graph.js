@@ -1,6 +1,6 @@
 import h337 from "heatmap.js";
-import { useEffect } from "react";
 import "heatmap.js";
+import React, { Component, useState, useEffect } from "react";
 import Layout from "../../Layout/Layout";
 import "./Graph.css";
 

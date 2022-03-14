@@ -1,4 +1,5 @@
 import { Route, Routes } from "react-router-dom";
+import React, { Component } from "react";
 import GameInfo from "./component/GameInfo/GameInfo";
 import Main from "./component/Main/Main";
 import PlayerInfo from "./component/PlayerInfo/PlayerInfo";

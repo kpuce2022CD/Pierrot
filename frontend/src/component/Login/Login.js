@@ -53,7 +53,9 @@ const Login = () => {
             <button type="submit">LOGIN</button>
           </div>
           <div className="caption">
-            <Link to="/signup">SIGNUP</Link>
+            <Link to="/signup" onClick={goSignupPage}>
+              SIGNUP
+            </Link>
           </div>
         </form>
       </section>
