@@ -6,19 +6,19 @@ import Guide from "./component/Guide/Guide";
 import Login from "./component/Login/Login";
 import Graph from "./component/Graph/Graph";
 import Signup from "./component/Signup/Signup";
-import videoUpload from "./component/vidoeUpload/videoUpload";
+import VideoUpload from "./component/vidoeUpload/videoUpload";
 
 function Router() {
     return (
     <Routes>
     <Route path="/main" element={<Main />} />
-    <Route path="/" element={<Login />} />
+    <Route path="/Login" element={<Login />} />
     <Route path="/signup" element={<Signup />} />
     <Route path="/playerinfo" element={<PlayerInfo />} />
     <Route path="/gameinfo" element={<GameInfo />} />
     <Route path="/guide" element={<Guide />} />
     <Route path="/graph" element={<Graph />} />
-    <Route path="/videoupload" element={<videoUpload />} />
+    <Route path="/" element={<VideoUpload />} />
     </Routes>
     );
 }

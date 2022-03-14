@@ -4,10 +4,10 @@ import AWS from 'aws-sdk';
 import { Row, Col, Button, Input, Alert } from 'reactstrap';
 
 
-function videoUpload() {
-    const [progress , setProgress] = useState('')
-    const [selectedFile, setSelectedFile] = useState(null);
-    const [showAlert, setShowAlert] = useState(false);
+function VideoUpload() {
+    const [Progress , setProgress] = useState('')
+    const [SelectedFile, setSelectedFile] = useState(null);
+    const [ShowAlert, setShowAlert] = useState(false);
 
     const ACCESS_KEY = 'AKIAYXOGVMBMLIUBZKXF';
     const SECRET_ACCESS_KEY = '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';
@@ -70,8 +70,8 @@ function videoUpload() {
         <div className="App-body">
         <Row>
             <Col>
-            { showAlert?
-                <Alert color="primary">업로드 진행률 : {progress}%</Alert>
+            { ShowAlert?
+                <Alert color="primary">업로드 진행률 : {Progress}%</Alert>
                 : 
                 <Alert color="primary">파일을 선택해 주세요.</Alert> 
             }
@@ -80,8 +80,8 @@ function videoUpload() {
         <Row>
             <Col>
             <Input color="primary" type="file" onChange={handleFileInput}/>
-            {selectedFile?(
-                <Button color="primary" onClick={() => uploadFile(selectedFile)}> Upload to S3</Button>
+            {SelectedFile?(
+                <Button color="primary" onClick={() => uploadFile(SelectedFile)}> Upload to S3</Button>
             ) : null }
             </Col>
         </Row>
@@ -89,4 +89,4 @@ function videoUpload() {
     </div>
     );
         }
-export default videoUpload;
+export default VideoUpload;
