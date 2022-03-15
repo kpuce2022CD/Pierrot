@@ -1,58 +1,66 @@
-import React, { Component, useState } from "react";
+import React, { Component, useState, useEffect, useRef } from "react";
 import "./Login.css";
-import Footer from "../../Layout/Footer";
-import { useNavigate } from "react-router-dom";
-import Axios from 'axios'
+import { Link, useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form"; // form에서 유요성 검사를 하기 위해
 
-function Login() {
+const Login = () => {
+  const navigate = useNavigate();
+  const goSignupPage = () => {
+    navigate("/signup");
+  };
 
-    const [inputId, setInputId] = useState('') //상태값 저장변수, 상태 값 갱신 변수 = useState(상태 초기값)
-    const [inputPw, setInputPw] = useState('')
+  const {
+    register,
+    handleSubmit,
+    formState: { error },
+  } = useForm();
 
-    const handleInputId = (e) => {
-        setInputId(e.target.value)
-    }
+  // react hook form
+  const onSubmit = (data) => {
+    console.log(data);
+    navigate("/main");
+  };
 
-    const handleInputPw = (e) => {
-        setInputPw(e.target.value)
-    }
+  const onError = (error) => {
+    console.log(error);
+    error.next("label").addClass("warning");
+  };
 
-    const navigate = useNavigate();
-    const goMainPage = () => {
-        navigate("/Main");
-    };
-    const goSignupPage = () => {
-        navigate("/Signup");
-    };
-
-    const getMember = () =>{
-        Axios.post('http://localhost:3001/getMember',{
-            inputId:inputId,
-            inputPw:inputPw
-        }).then((response) =>{
-            if(response.data[0]){
-                console.log(response);
-                goMainPage();
-            }else{
-                console.log("login failed");
-            }
-        });
-    };
-
-
-    return (
-        <div className="loginID">
-        <form style={{ display: 'flex', flexDirection: 'column' }} >
-            <label className="loginText">Email</label>
-            <input type="email" className="login_id" value={inputId} onChange={handleInputId} />
-            <label className="loginText">Password</label>
-            <input type="password" className="login_id" value={inputPw} onChange={handleInputPw} />
-            <br />
-            <div onClick={getMember} className="loginButton">Signin</div>
-            <div onClick={goSignupPage} className="loginButton">Signup</div>
-            </form>
-        </div>
-    );
-}
+  return (
+    <div className="login-page">
+      <section className="login-form">
+        <h1>TENNIS</h1>
+        <form onSubmit={handleSubmit(onSubmit, onError)}>
+          <div className="int-area">
+            <input
+              type="text"
+              autoComplete="off"
+              required
+              {...register("userId", { required: true })}
+            />
+            <label>Email</label>
+          </div>
+          <div className="int-area">
+            <input
+              type="password"
+              autoComplete="off"
+              required
+              {...register("userPw", { required: true })}
+            />
+            <label>Password</label>
+          </div>
+          <div className="btn-area">
+            <button type="submit">LOGIN</button>
+          </div>
+          <div className="caption">
+            <Link to="/signup" onClick={goSignupPage}>
+              SIGNUP
+            </Link>
+          </div>
+        </form>
+      </section>
+    </div>
+  );
+};
 
 export default Login;

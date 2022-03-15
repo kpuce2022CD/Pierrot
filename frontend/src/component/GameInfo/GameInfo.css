@@ -1,4 +1,10 @@
 .gamelist {
+  margin: 20px auto;
+}
+
+.gamelist-item {
+  display: flex;
+  flex-direction: column;
   background: silver;
   border-radius: 15px;
   justify-content: center;
@@ -7,4 +13,5 @@
   font-size: 30px;
   margin: 10px;
   text-align: center;
+  width: 700px;
 }

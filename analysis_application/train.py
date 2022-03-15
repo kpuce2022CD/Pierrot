@@ -34,6 +34,7 @@ from collections import deque
 import pandas as pd
 import numpy as np
 from copy import deepcopy
+import math
 
 # from sktime.datatypes._panel._convert import from_2d_array_to_nested
 from PIL import Image, ImageDraw
@@ -445,6 +446,10 @@ class top_view_court:
         cv2.line(self.court, (x_2, y_2), (x_3, y_3), line_color, 2)
         cv2.line(self.court, (x_3, y_3), (x_4, y_4), line_color, 2)
         cv2.line(self.court, (x_4, y_4), (x_1, y_1), line_color, 2)
+        
+        # 실제 경기장과의 비율(단위 cm)
+        self.ratio = 1097/(x_2 - x_1)
+        print("x_2 - x_1: ", x_2 - x_1)
 
         # 실제 경기장 비율
         x_ratio = (x_2 - x_1) / 10.97
@@ -507,6 +512,9 @@ class top_view_court:
     def add_path_player(self, coord_bev, color_path=(255, 255, 255)):
         x, y = coord_bev
         cv2.circle(self.court, (x, y), radius=1, color=color_path, thickness=-1)
+    def get_ratio(self):
+        return self.ratio
+
 
     def add_path_ball(self, coord_bev, color_path=(0,0,0)):
         x, y = coord_bev
@@ -519,7 +527,8 @@ pad = 0.22
 output_height = int(output_width * (1 - pad) * 2 * (1 + pad))
 
 # 코트의 상하좌우 좌표 -> 영상마다 바꿔야 함
-image_pts = np.array([(574, 307), (1338, 307), (1566, 871), (363, 871)]).reshape(4, 2)
+# image_pts = np.array([(574, 307), (1338, 307), (1566, 871), (363, 871)]).reshape(4, 2)
+image_pts = np.array([(573, 300), (1336, 300), (1570, 861), (359, 861)]).reshape(4, 2)
 bev_pts = np.array(court_coord(output_width, pad)).reshape(4, 2)
 # 촬영한 영상을 탑 뷰에서 보여주기 위해 두 좌표의 차이를 반환
 M = transition_matrix(image_pts, bev_pts)
@@ -532,6 +541,28 @@ position_df['coord_bev_0'] = position_df['cp_0'].apply(lambda x: player_coord(x,
 position_df['coord_bev_1'] = position_df['cp_1'].apply(lambda x: player_coord(x, M))
 position_0 = list(position_df['coord_bev_0'])  # 선수 1
 position_1 = list(position_df['coord_bev_1'])  # 선수 2
+print("선수1: ", position_0)
+print("선수2: ", position_1)
+
+result=0
+pre = 0
+for ia in range(1, len(position_0)):
+   if ia % 15 ==0:
+      a = math.sqrt(math.pow(position_0[pre][0] -  position_0[ia][0], 2) + math.pow(position_0[pre][1] - position_0[ia][1], 2))
+      pre +=15
+      result += a
+print(result)
+
+result=0
+pre = 0
+for ia in range(1, len(position_1)):
+   if ia % 15 ==0:
+      a = math.sqrt(math.pow(position_1[pre][0] -  position_1[ia][0], 2) + math.pow(position_1[pre][1] - position_1[ia][1], 2))
+      pre +=15
+      result += a
+print(result)
+# result: DB에 저장방식 정해지면 다시 정해야함
+
 
 # 이미 트래킹을 끝낸 공 위치 csv 파일 불러오기
 position_ball_df = pd.read_csv('/content/drive/MyDrive/analysis_application/tracking_ball.csv')
@@ -548,6 +579,8 @@ fps = 60
 output_video = cv2.VideoWriter(output_video_path, fourcc, fps, (output_width, output_height))
 
 court_base = top_view_court(output_width, pad)
+ratio = court_base.get_ratio()
+print(ratio)
 
 # top view 영상 저장을 위해
 i = 0
