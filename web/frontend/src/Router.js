@@ -7,6 +7,7 @@ import Guide from "./component/Guide/Guide";
 import Login from "./component/Login/Login";
 import Graph from "./component/Graph/Graph";
 import Signup from "./component/Signup/Signup";
+import VideoUpload from "./component/VideUpload/VideoUpload";
 
 function Router() {
   return (
@@ -18,6 +19,7 @@ function Router() {
       <Route path="/gameinfo" element={<GameInfo />} />
       <Route path="/guide" element={<Guide />} />
       <Route path="/graph" element={<Graph />} />
+      <Route path="/videoupload" element={<VideoUpload />} />
     </Routes>
   );
 }

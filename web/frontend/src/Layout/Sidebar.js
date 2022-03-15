@@ -8,6 +8,7 @@ const Sidebar = () => {
     { name: "Main", path: "/main" },
     { name: "Profile", path: "/playerinfo" },
     { name: "game", path: "/gameinfo" },
+    { name: "upload", path: "/videoupload" },
     { name: "Guide", path: "/guide" },
     { name: "logout", path: "/" },
   ];
