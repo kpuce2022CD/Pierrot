@@ -1,6 +1,7 @@
 import "./GameInfo.css";
-import Layout from "../../Layout/Layout";
+import React, { Component } from "react";
 import { useNavigate } from "react-router-dom";
+import Layout from "../../Layout/Layout";
 
 function GameInfo() {
   const navigate = useNavigate();
@@ -173,11 +174,11 @@ function GameInfo() {
   ];
 
   return (
-    <div>
-      <Layout>
+    <Layout>
+      <div className="gamelist">
         {games.map((game) => (
           <div
-            className="gamelist"
+            className="gamelist-item"
             onClick={() => goGraph(game.id)}
             key={game.id}
           >
@@ -189,8 +190,8 @@ function GameInfo() {
           //   <Game game={game} />
           // </div>
         ))}
-      </Layout>
-    </div>
+      </div>
+    </Layout>
   );
 }
 

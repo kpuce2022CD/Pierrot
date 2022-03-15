@@ -1,41 +1,56 @@
 import React, { Component } from "react";
 import "./Main.css";
-import Header from "../../Layout/Header";
 import Footer from "../../Layout/Footer";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Sidebar from "../../Layout/Sidebar";
+import Layout from "../../Layout/Layout";
 
-function Main() {
-  const image = {
-    margin: "10px",
-  };
-
+const Main = () => {
   const navigate = useNavigate();
-  const goPlayerInfoPage = () => {
-    navigate("/playerinfo");
+
+  const pageChange = (page) => {
+    navigate("/" + page);
   };
-  const goGameInfoPage = () => {
-    navigate("/gameinfo");
-  };
+
+  const card = [
+    { id: "playerinfo", title: "Player", image: "\\image\\player.png" },
+    { id: "gameinfo", title: "Game", image: "\\image\\playImage.jpg" },
+  ];
   return (
-    <div className="test">
-      <Header />
-      <div className="card">
-        <div style={image} onClick={goPlayerInfoPage}>
-          <img src="\image\player.png" width="200px" height="450px"></img>
-          <h4>선수 정보보기</h4>
-        </div>
-        <div style={image} onClick={goGameInfoPage}>
-          <img src="\image\playImage.jpg" width="200px" height="450px"></img>
-          <h4>경기 정보보기</h4>
-        </div>
-        <div style={image}>
-          <img src="\image\video.png" width="200px" height="450px"></img>
-          <h4>video 업로드</h4>
+    <Layout>
+      <div className="mainpage">
+        <div className="title">
+          <h1>Tennis</h1>
+          <div className="card">
+            <figure>
+              <Link to="/playerinfo">
+                <img src="./image/player.png" />
+                <figcaption>
+                  <div className="line">
+                    <span>
+                      <p>Player</p>
+                    </span>
+                  </div>
+                </figcaption>
+              </Link>
+            </figure>
+            <figure>
+              <Link to="/gameinfo">
+                <img src="./image/playImage.jpg" />
+                <figcaption>
+                  <div className="line">
+                    <span>
+                      <p>Game</p>
+                    </span>
+                  </div>
+                </figcaption>
+              </Link>
+            </figure>
+          </div>
         </div>
       </div>
-      <Footer />
-    </div>
+    </Layout>
   );
-}
+};
 
 export default Main;
