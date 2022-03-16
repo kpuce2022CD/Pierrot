@@ -2,6 +2,7 @@ import React, { component, useState, useRef } from "react";
 import "./Signup.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form"; // form에서 유요성 검사를 하기 위해
+import Axios from "axios";
 
 function Signup() {
   const navigate = useNavigate();
@@ -24,6 +25,15 @@ function Signup() {
     console.log(error);
     error.next("label").addClass("warning");
   };
+
+  const postMember = () =>{
+    Axios.post('http://localhost:3001/postMember',{
+      //보낼 정보
+    }).then(() => {
+        console.log("success");
+    }).then(goLoginPage);
+  };
+
   return (
     <div className="login-page">
       <section className="login-form">
