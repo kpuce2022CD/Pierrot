@@ -1,15 +1,55 @@
-.App-body {
-  background-color: #6d7b97;
-  min-height: 50vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.video-upload-area {
+  background-color: #fff;
+  position: relative;
+  width: auto;
+  height: fit-content;
+  padding: 64px;
+  margin: auto;
+  border-radius: 20px;
+  box-shadow: 5px 5px 5px 5px #d3f15a59;
 }
 
-.App-body .alert-message {
-  height: 50px;
-  background-color: #61dafb;
+.name-area {
+  width: 500px;
+  text-align: center;
+  position: relative;
 }
+
+.name-area input {
+  width: 100%;
+  padding: 10px;
+  background-color: transparent;
+  border: none;
+  font-size: 20px;
+  border-bottom: 1px solid #999;
+  outline: none;
+}
+
+.name-area label {
+  font-size: 13px;
+  position: absolute;
+  left: 10px;
+  top: 0;
+}
+
+.date-area {
+  width: 100%;
+  text-align: center;
+}
+/* 
+input[type="date"]::-webkit-datetime-edit-text {
+  -webkit-appearance: none;
+  color: #999;
+}
+input[type="date"]::-webkit-datetime-edit-month-field {
+  -webkit-appearance: none;
+  color: #999;
+}
+input[type="date"]::-webkit-datetime-edit-day-field {
+  -webkit-appearance: none;
+  color: #999;
+}
+input[type="date"]::-webkit-datetime-edit-year-field {
+  -webkit-appearance: none;
+  color: #999;
+} */
