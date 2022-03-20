@@ -75,5 +75,5 @@ const video = {
 
 module.exports = {
     auth,
-    vidoe,
+    video,
 };
