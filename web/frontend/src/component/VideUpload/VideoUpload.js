@@ -2,10 +2,9 @@ import React, { useState } from "react";
 import "./VideoUpload.css";
 import Layout from "../../Layout/Layout";
 import { useForm } from "react-hook-form"; // form에서 유요성 검사를 하기 위해
-import axios from 'axios';
+import axios, { Axios } from "axios";
 
 function VideoUpload() {
-
   const isVide = (video) => {
     const ext = video.name.split(".").pop();
     if (ext !== "mp4") {
@@ -28,13 +27,23 @@ function VideoUpload() {
     // {video-name: 'ㅇ', video-date: '2022-03-01', video: FileList}
     console.log(data.video);
     const formData = new FormData();
-    formData.append('file', video);
+    formData.append("file", video);
+    console.log(formData);
 
-    return axios.post("http://localhost:3001/api/upload",formData, { withCredentials: true }).then(res=>{
-      alert('성공');
-    }).catch(err=>{
-      alert("실패");
-    })
+    return axios
+      .post("http://localhost:3001/uploadVideo", formData)
+      .then((res) => alert("성공"))
+      .catch((err) => alert("실패"));
+    // return axios
+    //   .post("http://localhost:3001/upload_video", formData, {
+    //     withCredentials: true,
+    //   })
+    //   .then((res) => {
+    //     alert("성공");
+    //   })
+    //   .catch((err) => {
+    //     alert("실패");
+    //   });
   };
 
   const onError = (error) => {
