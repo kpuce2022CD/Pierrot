@@ -22,7 +22,9 @@ function VideoUpload() {
   const onSubmit = (data) => {
     const video = data.video[0];
     if (!isVide(video)) return false;
+    const loader = document.querySelector(".loader");
 
+    loader.style.display = "block";
     console.log(data);
     // {video-name: 'ㅇ', video-date: '2022-03-01', video: FileList}
     console.log(data.video);
@@ -31,19 +33,15 @@ function VideoUpload() {
     console.log(formData);
 
     return axios
-      .post("http://localhost:3001/uploadVideo", formData)
-      .then((res) => alert("성공"))
-      .catch((err) => alert("실패"));
-    // return axios
-    //   .post("http://localhost:3001/upload_video", formData, {
-    //     withCredentials: true,
-    //   })
-    //   .then((res) => {
-    //     alert("성공");
-    //   })
-    //   .catch((err) => {
-    //     alert("실패");
-    //   });
+      .post("http://localhost:3001/uploadVide", formData)
+      .then((res) => {
+        loader.style.display = "none";
+        alert("성공");
+      })
+      .catch((err) => {
+        loader.style.display = "none";
+        alert("실패");
+      });
   };
 
   const onError = (error) => {
@@ -51,6 +49,7 @@ function VideoUpload() {
   };
   return (
     <Layout>
+      <div className="loader"></div>
       <div className="video-upload-area">
         <form onSubmit={handleSubmit(onSubmit, onError)}>
           <div className="name-area">
@@ -69,16 +68,17 @@ function VideoUpload() {
               required
               {...register("video_date", { required: true })}
             />
-            <label>Date</label>
           </div>
           <div className="video-area">
+            <span className="file-text"></span>
+
+            <label htmlfor="video">업로드</label>
             <input
+              id="video"
               type="file"
-              autoComplete="off"
               required
               {...register("video", { required: true })}
             />
-            <label>Video</label>
           </div>
           <div className="video-submit-btn">
             <button type="submit">Submit</button>
