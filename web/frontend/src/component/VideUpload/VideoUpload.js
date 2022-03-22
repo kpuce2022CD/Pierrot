@@ -33,7 +33,7 @@ function VideoUpload() {
     console.log(formData);
 
     return axios
-      .post("http://localhost:3001/uploadVide", formData)
+      .post("http://localhost:3001/uploadVideo", formData)
       .then((res) => {
         loader.style.display = "none";
         alert("성공");
