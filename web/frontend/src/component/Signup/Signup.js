@@ -18,7 +18,8 @@ function Signup() {
   // react hook form
   const onSubmit = (data) => {
     console.log(data);
-    navigate("/");
+    postMember(data);
+    // navigate("/");
   };
 
   const onError = (error) => {
@@ -26,9 +27,11 @@ function Signup() {
     error.next("label").addClass("warning");
   };
 
-  const postMember = () =>{
+  const postMember = (data) =>{
     Axios.post('http://localhost:3001/postMember',{
-      //보낼 정보
+      loginId : data.loginId,
+      loginPw : data.loginPw,
+      name : data.name
     }).then(() => {
         console.log("success");
     }).then(goLoginPage);
@@ -44,7 +47,7 @@ function Signup() {
               type="text"
               autoComplete="off"
               required
-              {...register("userId")}
+              {...register("loginId")}
             />
             <label>Email</label>
           </div>
@@ -53,7 +56,7 @@ function Signup() {
               type="text"
               autoComplete="off"
               required
-              {...register("userPw")}
+              {...register("loginPw")}
             />
             <label>Pw</label>
           </div>
@@ -71,7 +74,7 @@ function Signup() {
               type="text"
               autoComplete="off"
               required
-              {...register("userName")}
+              {...register("name")}
             />
             <label>Name</label>
           </div>
