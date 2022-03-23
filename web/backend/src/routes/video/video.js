@@ -5,3 +5,4 @@ const ctrl = require("../ctrl");
 router.post("/uploadVideo",ctrl.video.upload);
 
 module.exports=router;
+
