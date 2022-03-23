@@ -72,7 +72,7 @@ function VideoUpload() {
           <div className="video-area">
             <span className="file-text"></span>
 
-            <label htmlfor="video">업로드</label>
+            <label htmlFor="video">업로드</label>
             <input
               id="video"
               type="file"
