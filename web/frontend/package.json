@@ -19,7 +19,8 @@
     "reactstrap": "^9.0.1",
     "util": "^0.12.4",
     "uuid": "^8.3.2",
-    "web-vitals": "^2.1.2"
+    "web-vitals": "^2.1.2",
+    "yarn": "^1.22.17"
   },
   "scripts": {
     "start": "react-scripts start",
