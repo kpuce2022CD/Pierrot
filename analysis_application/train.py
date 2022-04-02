@@ -56,6 +56,7 @@ frame, frame1, frame2 = None, None, None
 n_classes=256
 
 
+
 # 궤도를 그리기위한 프레임 7장 저장
 trajectory_ball = deque()
 for i in range(0, 8):
@@ -181,6 +182,9 @@ print("complete tracking the players")
 video.set(1,current_frame);
 ret, frame1 = video.read()
 
+# 선수 위치 저장할 변수
+ball_positions = {'x': [], 'y': []}
+
 output_video.write(frame1)
 current_frame += 1
 
@@ -251,6 +255,8 @@ while(True):
             y = int(circles[0][0][1])
 
             coords.append([x, y])
+            ball_positions['x'].append(tuple(x)[0])
+            ball_positions['y'].append(tuple(y)[1])
             check_time.append(time.time()-last)
             trajectory_ball.appendleft([x, y])
             trajectory_ball.pop()
@@ -259,6 +265,8 @@ while(True):
         else:
             print("공후보 두개 이상")
             coords.append(None)
+            ball_positions['x'].append(None[0])
+            ball_positions['y'].append(None[1])
             check_time.append(time.time()-last)
             trajectory_ball.appendleft(None)
             trajectory_ball.pop()
@@ -266,6 +274,8 @@ while(True):
     # 공 후보 트래킹 실패 시 트래킹 표시하지 않음
     else:
         coords.append(None)
+        ball_positions['x'].append(None[0])
+        ball_positions['y'].append(None[1])
         check_time.append(time.time()-last)
         trajectory_ball.appendleft(None)
         trajectory_ball.pop()
@@ -287,7 +297,9 @@ while(True):
 video.release()
 output_video.release()
 
-"""# 선수 위치 저장"""
+
+
+"""선수 위치 저장"""
 
 # players positions
 df_players_positions = pd.DataFrame()
@@ -307,6 +319,30 @@ for _ in range(3):
 
 # 보간법. 트래킹이 안되었을 시 예측값삽입
 coords = interpolation(coords)
+
+"""공 위치 저장"""
+df_ball_positions = pd.DataFrame()
+df_ball_positions['x'] = ball_positions['x']
+df_ball_positions['y'] = ball_positions['y']
+
+#공 인덱스값 추가하기
+
+ball_positions = {'x' :[], 'y':[]}
+df1 = pandas.DataFrame({'x':[0,0,0,0,0], 'y':[0,0,0,0,0]})
+
+for i in range(len(coords)) :
+    ball_positions['x'].append(coords[i][0])
+    ball_positions['y'].append(coords[i][1])
+    print('ball', ball_positions)
+
+df_ball_positions = pandas.DataFrame()
+df_ball_positions['x'] = ball_positions['x']
+df_ball_positions['y'] = ball_positions['y']
+
+dd = pandas.concat([df1, df_ball_positions])
+print(df_ball_positions)
+print(dd.reset_index(drop = True))
+df_ball_positions.to_csv("tracking_ball.csv")
 
 # velocity
 Vx = []
