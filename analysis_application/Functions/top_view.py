@@ -78,6 +78,10 @@ class top_view_court:
         cv2.line(self.court, (x_2, y_2), (x_3, y_3), line_color, 2)
         cv2.line(self.court, (x_3, y_3), (x_4, y_4), line_color, 2)
         cv2.line(self.court, (x_4, y_4), (x_1, y_1), line_color, 2)
+        
+        # 실제 경기장과의 비율(단위 cm)
+        self.ratio = 1097/(x_2 - x_1)
+        print("x_2 - x_1: ", x_2 - x_1)
 
         # 실제 경기장 비율
         x_ratio = (x_2 - x_1) / 10.97
@@ -132,7 +136,18 @@ class top_view_court:
             cv2.circle(self.court, (x, y), radius=7, color=color_player_2, thickness=-1)
             cv2.circle(self.court, (x, y), radius=7, color=(255, 255, 255), thickness=2)
 
+    def add_ball(self, coord_bev, color):
+      x, y = coord_bev
+      cv2.circle(self.court, (x,y), radius = 4, color=color, thickness = -1)
+
     # 선수 이동 경로 그리기
     def add_path_player(self, coord_bev, color_path=(255, 255, 255)):
+        x, y = coord_bev
+        cv2.circle(self.court, (x, y), radius=1, color=color_path, thickness=-1)
+    def get_ratio(self):
+        return self.ratio
+
+
+    def add_path_ball(self, coord_bev, color_path=(0,0,0)):
         x, y = coord_bev
         cv2.circle(self.court, (x, y), radius=1, color=color_path, thickness=-1)
