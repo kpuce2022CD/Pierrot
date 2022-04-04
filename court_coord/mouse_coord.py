@@ -13,7 +13,7 @@ def onMouse(event, x, y, flags, param):
             cv2.imshow('image', img)
 
 
-img = cv2.imread('247.png')
+img = cv2.imread('./capture_image/frame0.jpg')
 cv2.imshow('image', img)
 cv2.setMouseCallback('image', onMouse)
 cv2.waitKey()
