@@ -1,7 +1,7 @@
 import cv2
 
 # 영상의 의미지를 연속적으로 캡쳐할 수 있게 하는 class
-vidcap = cv2.VideoCapture('output_top_view.avi')
+vidcap = cv2.VideoCapture('video_cut.mp4')
 
 count = 0
 
@@ -15,4 +15,3 @@ while (vidcap.isOpened()):
 
 
 vidcap.release()
-

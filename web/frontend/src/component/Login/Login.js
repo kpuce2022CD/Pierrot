@@ -30,6 +30,8 @@ const Login = () => {
   const getMember = () =>{
     Axios.post('http://localhost:3001/getMember',{
     //보낼데이터
+    inputId:inputId,
+    inputPw:inputPw
     }).then((response) =>{
         if(response.data[0]){
             console.log(response);
