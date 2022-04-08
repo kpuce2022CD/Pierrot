@@ -1,10 +1,9 @@
-
 const aws = require("aws-sdk");
 const multer = require("multer");
 const multerS3 = require("multer-s3");
 // const moment = require("moment");
 
-const ACCESS_KEY = "AKIAYXOGVMBMLIUBZKXF";
+const ACCESS_KEY = "AKIAYXOGVMBMJU4G7WWH";
 const SECRET_ACCESS_KEY = "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";
 const REGION = "ap-northeast-2";
 const S3_BUCKET = "tukorea-tennis-video-file-upload";
