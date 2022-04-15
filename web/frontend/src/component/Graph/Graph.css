@@ -1,11 +1,3 @@
-/* .graph {
-  position: relative;
-  width: 700px;
-  height: 700px;
-  top: 30px;
-  left: 30px;
-} */
-
 .graph{
   display: flex;
   flex-direction: column;
@@ -13,15 +5,14 @@
   width: 100%;
 }
 
-.heatmap {
+.player-heatmap {
   margin: 0 auto;
   margin-top: 15px;
   padding: 10px;
   width: 450px;
   height: 271px;
 }
-
-.heatmap-canvas {
+.heatmap-canvas{
   background-image: url("/public/image/tennis_court.png");
   background-color: transparent;
   /* background-size: 450px 271px;
