@@ -3,9 +3,15 @@ import "heatmap.js";
 import React, { Component, useState, useEffect } from "react";
 import Layout from "../../Layout/Layout";
 import "./Graph.css";
-import { Chart as ChartJS, registerables } from 'chart.js';
-import { Chart, Bubble, Line } from 'react-chartjs-2'
-ChartJS.register(...registerables);
+import {
+  Chart as ChartJS,
+  LinearScale,
+  PointElement,
+  Tooltip,
+  Legend,
+} from 'chart.js';
+import { Bubble } from 'react-chartjs-2'
+ChartJS.register(LinearScale, PointElement, Tooltip, Legend);
 
 const Graph = () => {
   // 추출한 데이터의 x, y좌표와 그려줄 x, y좌표 변환 필요
@@ -32,68 +38,64 @@ const Graph = () => {
 
   const point2 =[];
 
-  const bounceJsonData = require("../../tempData/bounces.json");
+  const frontPoint = [];
+  const backPoint = [];
+  // const bounceJsonData = require("../../tempData/bounces.json");
+  const bounceJsonData = [[452, 1191,'front_dueceside_right' ], [494, 397,'back_adside_left'], [376, 1304,'front_dueceside_center'], [312, 546,'back_adside_center'], [628, 1285,'front_adside_center'], [676, 471,'back_dueceside_center'], [403, 720,'back_adside_left'], [511, 789,'back_dueceside_right'], [514, 889,'front_adside_left']];
   bounceJsonData.forEach(data=>{
     const point = {
-      x: parseInt(data.x),
-      y: parseInt(data.y),
-      value:10,
+      x: parseInt(data[1]),
+      y: parseInt(data[0]),
+      r: 7,
     };
+    if(data[2].includes('front')){
+      frontPoint.push(point);
+    }else{
+      backPoint.push(point);
+    }
     point2.push(point);
   })
+  console.log(point2)
 
-  const bounceData = {
-    max: max,
-    data: point2,
-  }
-
-
-  const data = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-    datasets: [
-      {
-        type: 'line',
-        label: 'Dataset 1',
-        borderColor: 'rgb(54, 162, 235)',
-        borderWidth: 2,
-        data: [1, 2, 3, 4, 5],
-      },
-      {
-        type: 'bar',
-        label: 'Dataset 2',
-        backgroundColor: 'rgb(255, 99, 132)',
-        data: [1, 2, 3, 4, 5, 6],
-        borderColor: 'red',
-        borderWidth: 2,
-      },
-      {
-        type: 'bar',
-        label: 'Dataset 3',
-        backgroundColor: 'rgb(75, 192, 192)',
-        data: [1, 2, 3, 4, 5, 6],
-      },
-    ],
-  };
 
   const charData = {
     datasets:[
       {
+        label:'left',
         type: 'bubble',
-        data: bounceData,
-        options: {
-          responsive: true,
-          plugins: {
-            legend: {
-              position: 'top',
-            },
-            title: {
-              display: true,
-              text: 'Chart.js Bubble Chart'
-            }
-          }
-        },
-      }
+        backgroundColor:'rgb(100, 1, 93)',
+        data: frontPoint,
+      },
+      {
+        label:'right',
+        type: 'bubble',
+        backgroundColor:'rgb(54, 162, 235)',
+        data: backPoint,
+      },
+      
     ]
+  }
+
+  const options = {
+    scales:{
+     y:{
+       display:false,
+     },
+     x:{
+       display:false,
+     }
+    },     
+    plugins:{
+      title:{
+        display: true,
+        text: 'hihi',
+        position: 'top',
+      },
+      legend:{
+        display:false,
+      },
+      
+    }
   }
 
   useEffect(() => {
@@ -122,7 +124,7 @@ const Graph = () => {
           </div>
         </div>
         <div className="bounce">
-          <Bubble type='line' data = {data}/>
+          <Bubble options={options} data = {charData} width={450} height={271}/>
         </div>
       </div>
     </Layout>
