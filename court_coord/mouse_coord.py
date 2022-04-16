@@ -14,6 +14,8 @@ def onMouse(event, x, y, flags, param):
 
 
 img = cv2.imread('./capture_image/frame0.jpg')
+if img is None:
+    print("no")
 cv2.imshow('image', img)
 cv2.setMouseCallback('image', onMouse)
 cv2.waitKey()
