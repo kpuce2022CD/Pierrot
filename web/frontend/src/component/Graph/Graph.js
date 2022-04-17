@@ -1,6 +1,8 @@
 import h337 from "heatmap.js";
+
 import "heatmap.js";
-import React, { Component, useState, useEffect } from "react";
+
+import React, { Component, useRef, useEffect } from "react";
 import Layout from "../../Layout/Layout";
 import "./Graph.css";
 import {
@@ -11,8 +13,9 @@ import {
   Legend,
   Title,
 } from 'chart.js';
-import { Bubble } from 'react-chartjs-2'
+import { Bubble, Bar } from 'react-chartjs-2'
 ChartJS.register(LinearScale, PointElement, Tooltip, Legend,Title);
+
 
 const Graph = () => {
   // 추출한 데이터의 x, y좌표와 그려줄 x, y좌표 변환 필요
@@ -128,6 +131,34 @@ const Graph = () => {
 
   }, []);
 
+  
+  const barChartData = { 
+    labels: ["역대 전적 승률", "서브 평균속도", "총 점수", "서브 성공률", "역대 이동거리"],
+    datasets: [//임시로 넣은 데이터 상대와 나 비교해서 넣을방법 구색
+        {
+        label: "나",
+        stack: "Stack 0",
+        backgroundColor: "#d41111",
+        data: [56, '98km', 250, '87%', '1435m'],
+        },
+        {
+        label: "상대",
+        stack: "Stack 0",
+        backgroundColor: "#3765b0",
+        data: [44, '103km', 150, '%', '1503m'].map((k) => -k),
+        },
+    ],
+};
+const  Gameoptions = {
+indexAxis : 'y',
+legend: { display: false },
+title: {
+display: true,
+text: '경기 스텟 비교 분석'
+}
+}
+
+
   return (
     <Layout>
       <div className="graph">
@@ -143,11 +174,15 @@ const Graph = () => {
           </div>
         </div>
         <div className="bounce">
-          <Bubble options={options} data = {charData} width={450} height={271}/>
+          <Bubble type options={options} data = {charData} width={450} height={271}/>
         </div>
-      </div>
+        <div>
+          <Bar data={barChartData} width={450} height={271} options={Gameoptions}/>
+    </div>
+        </div>
     </Layout>
   );
 };
+
 
 export default Graph;
