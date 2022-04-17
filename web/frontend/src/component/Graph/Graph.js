@@ -9,9 +9,10 @@ import {
   PointElement,
   Tooltip,
   Legend,
+  Title,
 } from 'chart.js';
 import { Bubble } from 'react-chartjs-2'
-ChartJS.register(LinearScale, PointElement, Tooltip, Legend);
+ChartJS.register(LinearScale, PointElement, Tooltip, Legend,Title);
 
 const Graph = () => {
   // 추출한 데이터의 x, y좌표와 그려줄 x, y좌표 변환 필요
@@ -61,20 +62,22 @@ const Graph = () => {
   const charData = {
     datasets:[
       {
-        label:'left',
+        label:'back',
         type: 'bubble',
         backgroundColor:'rgb(100, 1, 93)',
         data: frontPoint,
+        // pointStyle: '123',
       },
       {
-        label:'right',
+        label:'front',
         type: 'bubble',
         backgroundColor:'rgb(54, 162, 235)',
         data: backPoint,
       },
       
-    ]
+    ],
   }
+  // 해야할 것: 툴팁 꾸미기
 
   const options = {
     scales:{
@@ -87,16 +90,32 @@ const Graph = () => {
     },     
     plugins:{
       title:{
-        display: true,
-        text: 'hihi',
-        position: 'top',
+        display:true,
+        text:'hihihi',
+        color:'#000',
       },
       legend:{
         display:false,
       },
+      tooltip:{
+        callbacks: {
+          label: function(context) {
+              let label = context.dataset.label || '';
+              if (label) {
+                  label += ': ';
+                  label += `(${context.parsed.x}, ${context.parsed.y})`
+              }
+              return label;
+          },
+          footer: function(context) {
+            return `${context[0].dataIndex+1}`
+          }
+      }
+      }
       
     }
   }
+
 
   useEffect(() => {
     const playerHeatmapInstance = h337.create({
