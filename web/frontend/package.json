@@ -9,6 +9,7 @@
     "aws-sdk": "^2.1090.0",
     "axios": "^0.25.0",
     "chart.js": "^3.7.1",
+    "chartjs-plugin-datalabels": "^2.0.0",
     "concurrently": "^7.0.0",
     "heatmap.js": "^2.0.5",
     "http-proxy-middleware": "^2.0.3",
