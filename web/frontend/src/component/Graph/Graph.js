@@ -40,11 +40,11 @@ const Graph = () => {
   const frontPoint = [];
   const backPoint = [];
   // const bounceJsonData = require("../../tempData/bounces.json");
-  const bounceJsonData = [[452, 1191,'front_dueceside_right' ], [494, 397,'back_adside_left'], [376, 1304,'front_dueceside_center'], [312, 546,'back_adside_center'], [628, 1285,'front_adside_center'], [676, 471,'back_dueceside_center'], [403, 720,'back_adside_left'], [511, 789,'back_dueceside_right'], [514, 889,'front_adside_left']];
+  const bounceJsonData = [[452, 1191,'front_dueceside_right', 27 ], [494, 397,'back_adside_left', 119], [376, 1304,'front_dueceside_center', 184], [312, 546,'back_adside_center', 257], [628, 1285,'front_adside_center', 366], [676, 471,'back_dueceside_center', 431], [403, 720,'back_adside_left', 591], [511, 789,'back_dueceside_right', 739], [514, 889,'front_adside_left', 894]];
   bounceJsonData.forEach((data,i)=>{
     const point = {
       x: parseInt(data[1]),
-      y: parseInt(data[0]),
+      y: parseInt(data[0]) + data[3]*0.1,
       r: 10,
     };
     if(data[2].includes('front')){
@@ -98,7 +98,7 @@ const Graph = () => {
               let label = context.dataset.label || '';
               if (label) {
                   label += ': ';
-                  label += `(${parseInt(context.parsed.x)}, ${context.parsed.y})`
+                  label += `(${parseInt(context.parsed.x)}, ${parseInt(context.parsed.y)})`
               }
               return label;
           },
