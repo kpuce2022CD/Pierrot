@@ -1,23 +1,39 @@
-/* .graph {
-  position: relative;
-  width: 700px;
-  height: 700px;
-  top: 30px;
-  left: 30px;
-} */
+.graph{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
 
-.heatmap {
+.player-heatmap {
   margin: 0 auto;
   margin-top: 15px;
   padding: 10px;
   width: 450px;
   height: 271px;
 }
-
-.heatmap-canvas {
-  background-image: url("/public/image/tennis_court.png");
+.heatmap-canvas{
+  /* background-image: url("/public/image/tennis_court.png"); */
+  /* background-image: url('/image/tennis_court.png'); */
   background-color: transparent;
   /* background-size: 450px 271px;
   width: 450px;
   height: 271px; */
+}
+.bounce canvas{
+  margin: 10px;
+  /* background-image: url('/image/tennis_court.png'); */
+  /* background-image: url('../image/profile.png'); */
+}
+
+.graph-info{
+  display: flex;
+  border-radius: 10px;
+  background-color: #d2f15a;
+  padding: 5px 100px;
+  color: black;
+}
+.graph-info div{
+  text-align: center;
+  padding: 5px 30px;
 }
