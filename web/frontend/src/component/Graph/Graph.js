@@ -14,11 +14,10 @@ import {
   Title,
 } from 'chart.js';
 import { Bubble, Bar } from 'react-chartjs-2'
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 import Chart from 'chart.js/auto'
 
-ChartJS.register(LinearScale, PointElement, Tooltip, Legend,Title);
-
-
+ChartJS.register(LinearScale, PointElement, Tooltip, Legend,Title, ChartDataLabels);
 const Graph = () => {
   // 추출한 데이터의 x, y좌표와 그려줄 x, y좌표 변환 필요
   // 추출했을 당시 세로, 그려줄 좌표는 가로
@@ -42,28 +41,25 @@ const Graph = () => {
     data: points,
   };
 
-  const point2 =[];
-
   const frontPoint = [];
   const backPoint = [];
   // const bounceJsonData = require("../../tempData/bounces.json");
-  const bounceJsonData = [[452, 1191,'front_dueceside_right' ], [494, 397,'back_adside_left'], [376, 1304,'front_dueceside_center'], [312, 546,'back_adside_center'], [628, 1285,'front_adside_center'], [676, 471,'back_dueceside_center'], [403, 720,'back_adside_left'], [511, 789,'back_dueceside_right'], [514, 889,'front_adside_left']];
-  bounceJsonData.forEach(data=>{
+  const bounceJsonData = [[452, 1191,'front_dueceside_right', 27 ], [494, 397,'back_adside_left', 119], [376, 1304,'front_dueceside_center', 184], [312, 546,'back_adside_center', 257], [628, 1285,'front_adside_center', 366], [676, 471,'back_dueceside_center', 431], [403, 720,'back_adside_left', 591], [511, 789,'back_dueceside_right', 739], [514, 889,'front_adside_left', 894]];
+  bounceJsonData.forEach((data,i)=>{
     const point = {
       x: parseInt(data[1]),
-      y: parseInt(data[0]),
-      r: 7,
+      y: parseInt(data[0]) + data[3]*0.1,
+      r: 10,
     };
     if(data[2].includes('front')){
+      point.x += 0.1*(Object.keys(frontPoint).length + 1)
       frontPoint.push(point);
     }else{
+      point.x += 0.1*(Object.keys(backPoint).length + 1)
       backPoint.push(point);
     }
-    point2.push(point);
   })
-  console.log(point2)
-
-
+  
   const charData = {
     datasets:[
       {
@@ -71,7 +67,6 @@ const Graph = () => {
         type: 'bubble',
         backgroundColor:'rgb(100, 1, 93)',
         data: frontPoint,
-        // pointStyle: '123',
       },
       {
         label:'front',
@@ -82,7 +77,6 @@ const Graph = () => {
       
     ],
   }
-  // 해야할 것: 툴팁 꾸미기
 
   const options = {
     scales:{
@@ -94,11 +88,11 @@ const Graph = () => {
      }
     },     
     plugins:{
-      title:{
-        display:true,
-        text:'hihihi',
-        color:'#000',
-      },
+      // title:{
+      //   display:true,
+      //   text:'hihihi',
+      //   color:'#000',
+      // },
       legend:{
         display:false,
       },
@@ -108,19 +102,43 @@ const Graph = () => {
               let label = context.dataset.label || '';
               if (label) {
                   label += ': ';
-                  label += `(${context.parsed.x}, ${context.parsed.y})`
+                  label += `(${parseInt(context.parsed.x)}, ${parseInt(context.parsed.y)})`
               }
               return label;
           },
-          footer: function(context) {
-            return `${context[0].dataIndex+1}`
-          }
-      }
-      }
+          // footer: function(context) {
+          //   return `${context[0].dataIndex+1}`
+          // },
+        }
+      },
+      datalabels: {
+        display: true,
+        color: "white",
+        align: "center",
+        // padding: {
+        //   right: 2
+        // },
+        labels: {
+          // padding: { top: 10 },
+          title: {
+            font: {
+              weight: "bold"
+            }
+          },
+          // value: {
+          //   color: "red"
+          // }
+        },
+        formatter: function (value) {
+          console.log(value)
+          return (value.x % 1).toFixed(1)*10;
+        }
+      },
       
-    }
+      
+    },
+    
   }
-
 
   useEffect(() => {
     const playerHeatmapInstance = h337.create({
@@ -160,31 +178,29 @@ text: '경기 스텟 비교 분석'
 }
 }
 
-
-  return (
-    <Layout>
-      <div className="graph">
-        <div className="player-heatmap"></div>
-        <div className="graph-info">
-          <div>
-            <h2>총 이동 거리</h2>
-            <p>000m</p>
-          </div>
-          <div>
-            <h2>총 000</h2>
-            <p>000</p>
-          </div>
-        </div>
-        <div className="bounce">
-          <Bubble type options={options} data = {charData} width={450} height={271}/>
+return (
+  <Layout>
+    <div className="graph">
+      <div className="player-heatmap"></div>
+      <div className="graph-info">
+        <div>
+          <h2>총 이동 거리</h2>
+          <p>000m</p>
         </div>
         <div>
+          <h2>총 000</h2>
+          <p>000</p>
+        </div>
+      </div>
+      <div className="bounce">
+        <Bubble options={options} data = {charData} width={450} height={271}/>
+      </div>
+      <div>
           <Bar data={barChartData} width={450} height={271} options={Gameoptions}/>
     </div>
-        </div>
-    </Layout>
-  );
+    </div>
+  </Layout>
+);
 };
-
 
 export default Graph;

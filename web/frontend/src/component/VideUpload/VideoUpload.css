@@ -1,15 +1,129 @@
-.App-body {
-  background-color: #6d7b97;
-  min-height: 50vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.loader,
+.loader:after {
+  z-index: 10;
+  /* margin: auto; */
+  border-radius: 50%;
+  width: 10em;
+  height: 10em;
+  top: 50%;
+  left: 50%;
+}
+.loader {
+  display: none;
+  position: absolute;
+  /* margin: 60px auto; */
+  font-size: 10px;
+  /* position: relative; */
+  text-indent: -9999em;
+  border-top: 1.1em solid rgba(255, 255, 255, 0.2);
+  border-right: 1.1em solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1.1em solid rgba(255, 255, 255, 0.2);
+  border-left: 1.1em solid #ff0000;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-animation: load8 1.1s infinite linear;
+  animation: load8 1.1s infinite linear;
+}
+@-webkit-keyframes load8 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes load8 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+.video-upload-area {
+  background-color: #fff;
+  position: relative;
+  width: auto;
+  height: fit-content;
+  padding: 64px;
+  margin: auto;
+  border-radius: 20px;
 }
 
-.App-body .alert-message {
-  height: 50px;
-  background-color: #61dafb;
+.name-area {
+  width: 300px;
+  text-align: center;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.name-area input {
+  width: 100%;
+  padding: 10px;
+  background-color: transparent;
+  border: none;
+  font-size: 20px;
+  border-bottom: 1px solid #999;
+  outline: none;
+}
+
+.name-area label {
+  font-size: 13px;
+  position: absolute;
+  left: 10px;
+  top: 0;
+}
+
+.date-area {
+  width: 100%;
+  text-align: left;
+  padding-bottom: 10px;
+}
+input[type="date"] {
+  background-color: #999;
+  border: none;
+  padding: 5px;
+  color: #fff;
+  font-size: 13px;
+  border-radius: 5px;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  background-color: #fff;
+}
+
+.video-area {
+  background-color: #999;
+  border: none;
+  border-radius: 8px;
+  width: fit-content;
+  padding: 0 10px;
+  margin-bottom: 10px;
+  color: #fff;
+  font-size: 20px;
+}
+
+.video-area input[type="file"] {
+  position: absolute;
+  width: 0;
+  height: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+}
+
+.video-submit-btn button {
+  border-style: solid;
+  border-color: #a4bb47;
+  border-radius: 10px;
+  width: 100px;
+  padding: 10px;
+  font-size: 18px;
+  width: 30vh;
+  background-color: #d2f15a;
 }
