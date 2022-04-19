@@ -1,22 +1,10 @@
 const auth = {
   signup: (req, res) => {
-    // const db = require("../config/database");
-    if(!res){
-      const member = new Member({
-        loginId = req.body.loginId,
-        loginPw = req.body.loginPw,
-        name = req.body.name;
-        age = req.body.age;
-      })
-    }else{
-      console.log(req.body)
-      Message.findOneAndUpdate({_id: req.body.key}, {$push : {message : req.body}},
-      (err) => {
-        if(err)
-          console.log("Err : "+err)
-      }
-      )
-    }
+    const db = require("../config/database");
+    const loginId = req.body.loginId,
+      loginPw = req.body.loginPw,
+      name = req.body.name,
+      age = req.body.age;
 
     console.log(req.body);
     db.query(
@@ -108,7 +96,7 @@ const video = {
 const game = {
   get_information : (req,res) =>{
     const db = require("../config/database");
-    const loginId = req.body.loginId;
+    // const loginId = req.body.loginId;
 
     console.log(req.body);
     db.query(
