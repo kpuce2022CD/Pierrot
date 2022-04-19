@@ -44,7 +44,7 @@ function PlayerInfo() {
   
   return (
     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 100 }} size="small" aria-label="customized table">
+      <Table sx={{ width: '50%' }} size="small" aria-label="customized table">
         <TableHead>
           <TableRow>
             <StyledTableCell>Season</StyledTableCell>

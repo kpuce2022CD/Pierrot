@@ -14,6 +14,8 @@ import {
   Title,
 } from 'chart.js';
 import { Bubble, Bar } from 'react-chartjs-2'
+import Chart from 'chart.js/auto'
+
 ChartJS.register(LinearScale, PointElement, Tooltip, Legend,Title);
 
 
