@@ -2,6 +2,7 @@ import React, { component, useState, useRef } from "react";
 import "./Signup.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form"; // form에서 유요성 검사를 하기 위해
+import Axios from "axios";
 
 function Signup() {
   const navigate = useNavigate();
@@ -17,13 +18,26 @@ function Signup() {
   // react hook form
   const onSubmit = (data) => {
     console.log(data);
-    navigate("/");
+    postMember(data);
+    // navigate("/");
   };
 
   const onError = (error) => {
     console.log(error);
     error.next("label").addClass("warning");
   };
+
+  const postMember = (data) =>{
+    Axios.post('http://localhost:3001/postMember',{
+      loginId : data.loginId,
+      loginPw : data.loginPw,
+      name : data.name,
+      age : data.userAge,
+    }).then(() => {
+        console.log("success");
+    }).then(goLoginPage);
+  };
+
   return (
     <div className="login-page">
       <section className="login-form">
@@ -34,7 +48,7 @@ function Signup() {
               type="text"
               autoComplete="off"
               required
-              {...register("userId")}
+              {...register("loginId")}
             />
             <label>Email</label>
           </div>
@@ -43,7 +57,7 @@ function Signup() {
               type="text"
               autoComplete="off"
               required
-              {...register("userPw")}
+              {...register("loginPw")}
             />
             <label>Pw</label>
           </div>
@@ -61,7 +75,7 @@ function Signup() {
               type="text"
               autoComplete="off"
               required
-              {...register("userName")}
+              {...register("name")}
             />
             <label>Name</label>
           </div>

@@ -2,6 +2,7 @@ import React, { Component, useState, useEffect, useRef } from "react";
 import "./Login.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form"; // form에서 유요성 검사를 하기 위해
+import Axios from 'axios'
 
 const Login = () => {
   const navigate = useNavigate();
@@ -24,6 +25,21 @@ const Login = () => {
   const onError = (error) => {
     console.log(error);
     error.next("label").addClass("warning");
+  };
+
+  const getMember = () =>{
+    Axios.post('http://localhost:3001/getMember',{
+    //보낼데이터
+    inputId:inputId,
+    inputPw:inputPw
+    }).then((response) =>{
+        if(response.data[0]){
+            console.log(response);
+            onSubmit(response.data[0]);
+        }else{
+            console.log("login failed");
+        }
+    });
   };
 
   return (
