@@ -71,7 +71,6 @@ const auth = {
     db.end;
   },
 };
-
 const video = {
   upload: (req, res, next) => {
     const multer = require("multer");
