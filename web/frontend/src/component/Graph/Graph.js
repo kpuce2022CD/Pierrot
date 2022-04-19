@@ -1,8 +1,23 @@
 import h337 from "heatmap.js";
+
 import "heatmap.js";
-import React, { Component, useState, useEffect } from "react";
+
+import React, { Component, useRef, useEffect } from "react";
 import Layout from "../../Layout/Layout";
 import "./Graph.css";
+import {
+  Chart as ChartJS,
+  LinearScale,
+  PointElement,
+  Tooltip,
+  Legend,
+  Title,
+} from 'chart.js';
+import { Bubble, Bar } from 'react-chartjs-2'
+import Chart from 'chart.js/auto'
+
+ChartJS.register(LinearScale, PointElement, Tooltip, Legend,Title);
+
 
 const Graph = () => {
   // 추출한 데이터의 x, y좌표와 그려줄 x, y좌표 변환 필요
@@ -10,7 +25,8 @@ const Graph = () => {
   // width: 450, height: 271
   const points = [];
   const jsonData = require("../../tempData/playerCoords.json");
-  // console.log(jsonData);
+  // console.log(jsonData[0]);
+  // console.log(typeof jsonData[0]);
   jsonData.forEach((data) => {
     const point = {
       x: parseInt(data.y_0),
@@ -21,28 +37,154 @@ const Graph = () => {
   });
 
   const max = 50;
-  const data = {
+  const playerData = {
     max: max,
     data: points,
   };
 
+  const point2 =[];
+
+  const frontPoint = [];
+  const backPoint = [];
+  // const bounceJsonData = require("../../tempData/bounces.json");
+  const bounceJsonData = [[452, 1191,'front_dueceside_right' ], [494, 397,'back_adside_left'], [376, 1304,'front_dueceside_center'], [312, 546,'back_adside_center'], [628, 1285,'front_adside_center'], [676, 471,'back_dueceside_center'], [403, 720,'back_adside_left'], [511, 789,'back_dueceside_right'], [514, 889,'front_adside_left']];
+  bounceJsonData.forEach(data=>{
+    const point = {
+      x: parseInt(data[1]),
+      y: parseInt(data[0]),
+      r: 7,
+    };
+    if(data[2].includes('front')){
+      frontPoint.push(point);
+    }else{
+      backPoint.push(point);
+    }
+    point2.push(point);
+  })
+  console.log(point2)
+
+
+  const charData = {
+    datasets:[
+      {
+        label:'back',
+        type: 'bubble',
+        backgroundColor:'rgb(100, 1, 93)',
+        data: frontPoint,
+        // pointStyle: '123',
+      },
+      {
+        label:'front',
+        type: 'bubble',
+        backgroundColor:'rgb(54, 162, 235)',
+        data: backPoint,
+      },
+      
+    ],
+  }
+  // 해야할 것: 툴팁 꾸미기
+
+  const options = {
+    scales:{
+     y:{
+       display:false,
+     },
+     x:{
+       display:false,
+     }
+    },     
+    plugins:{
+      title:{
+        display:true,
+        text:'hihihi',
+        color:'#000',
+      },
+      legend:{
+        display:false,
+      },
+      tooltip:{
+        callbacks: {
+          label: function(context) {
+              let label = context.dataset.label || '';
+              if (label) {
+                  label += ': ';
+                  label += `(${context.parsed.x}, ${context.parsed.y})`
+              }
+              return label;
+          },
+          footer: function(context) {
+            return `${context[0].dataIndex+1}`
+          }
+      }
+      }
+      
+    }
+  }
+
+
   useEffect(() => {
-    const heatmapInstance = h337.create({
-      container: document.querySelector(".heatmap"),
+    const playerHeatmapInstance = h337.create({
+      container: document.querySelector(".player-heatmap"),
       opacity: "0.3",
     });
-    console.log(data);
-    console.log(heatmapInstance);
-    heatmapInstance.setData(data);
+    // console.log(playerData);
+    // console.log(playerHeatmapInstance);
+    playerHeatmapInstance.setData(playerData);
+
   }, []);
 
+  
+  const barChartData = { 
+    labels: ["역대 전적 승률", "서브 평균속도", "총 점수", "서브 성공률", "역대 이동거리"],
+    datasets: [//임시로 넣은 데이터 상대와 나 비교해서 넣을방법 구색
+        {
+        label: "나",
+        stack: "Stack 0",
+        backgroundColor: "#d41111",
+        data: [56, '98km', 250, '87%', '1435m'],
+        },
+        {
+        label: "상대",
+        stack: "Stack 0",
+        backgroundColor: "#3765b0",
+        data: [44, '103km', 150, '%', '1503m'].map((k) => -k),
+        },
+    ],
+};
+const  Gameoptions = {
+indexAxis : 'y',
+legend: { display: false },
+title: {
+display: true,
+text: '경기 스텟 비교 분석'
+}
+}
+
+
   return (
-    <div className="graph">
-      <Layout>
-        <div className="heatmap"></div>
-      </Layout>
+    <Layout>
+      <div className="graph">
+        <div className="player-heatmap"></div>
+        <div className="graph-info">
+          <div>
+            <h2>총 이동 거리</h2>
+            <p>000m</p>
+          </div>
+          <div>
+            <h2>총 000</h2>
+            <p>000</p>
+          </div>
+        </div>
+        <div className="bounce">
+          <Bubble type options={options} data = {charData} width={450} height={271}/>
+        </div>
+        <div>
+          <Bar data={barChartData} width={450} height={271} options={Gameoptions}/>
     </div>
+        </div>
+    </Layout>
   );
 };
+
 
 export default Graph;

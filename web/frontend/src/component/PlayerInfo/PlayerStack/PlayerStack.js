@@ -1,5 +1,4 @@
-import Layout from "../../Layout/Layout";
-import React, { Component, useState, useEffect } from "react";
+import * as React from "react";
 import { styled } from "@mui/material/styles";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -40,11 +39,10 @@ const rows = [
   createData("Summer_2022", 262, 16.0, 24, 6.0)
 ];
 
-function PlayerInfo() {
-  
+export default function CustomizedTables() {
   return (
     <TableContainer component={Paper}>
-      <Table sx={{ width: '50%' }} size="small" aria-label="customized table">
+      <Table sx={{ minWidth: 700 }} aria-label="customized table">
         <TableHead>
           <TableRow>
             <StyledTableCell>Season</StyledTableCell>
@@ -71,5 +69,3 @@ function PlayerInfo() {
     </TableContainer>
   );
 }
-
-export default PlayerInfo;
