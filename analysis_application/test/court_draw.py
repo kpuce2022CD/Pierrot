@@ -65,4 +65,5 @@ def present_bounce(frame, position_xy, balls_bounces):
             sel = back_adside_right, 'back_adside_right'
 
     cv2.polylines(frame, [sel[0]], True, (0, 255, 0), 3)
-    balls_bounces['court'].append(sel)
+    balls_bounces['court_location'].append(sel[0])
+    balls_bounces['court_name'].append(sel[1])

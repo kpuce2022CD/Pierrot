@@ -1,14 +1,27 @@
 const auth = {
   signup: (req, res) => {
-    const db = require("../config/database");
-    const loginId = req.body.loginId,
-      loginPw = req.body.loginPw,
-      name = req.body.name;
+    // const db = require("../config/database");
+    if(!res){
+      const member = new Member({
+        loginId = req.body.loginId,
+        loginPw = req.body.loginPw,
+        name = req.body.name;
+        age = req.body.age;
+      })
+    }else{
+      console.log(req.body)
+      Message.findOneAndUpdate({_id: req.body.key}, {$push : {message : req.body}},
+      (err) => {
+        if(err)
+          console.log("Err : "+err)
+      }
+      )
+    }
 
     console.log(req.body);
     db.query(
-      "INSERT INTO member (email,password,name) VALUES (?,?,?)",
-      [loginId, loginPw, name],
+      "INSERT INTO member (email,passwd,`name`,age) VALUES (?,?,?,?)",
+      [loginId, loginPw, name,age],
       (err, result) => {
         if (err) {
           res.send({ err: err });
@@ -23,6 +36,28 @@ const auth = {
     );
     db.end;
   },
+  // Message.findOne({_id: req.body.key}, (err, document) => {
+  //   if(!document){
+  //     const message = new Message({
+  //       _id: req.body.key, // 프로젝트 아이디 _ 데이터 아이디
+  //       project_id : req.body.idx, // 프로젝트 아이디
+  //       data_id : req.body.data_id, // 데이터 아이디
+  //       message : req.body
+  //     })
+
+  //     message.save((err) => {
+  //       if(err) return console.log(err)
+  //     })
+  //   }else{
+  //     console.log(req.body)
+  //     Message.findOneAndUpdate({_id: req.body.key}, {$push : {message : req.body}},
+  //     (err) => {
+  //       if(err)
+  //         console.log("Err : "+err)
+  //     }
+  //     )
+  //   }
+  // })
 
   login: (req, res) => {
     const db = require("../config/database");
@@ -31,7 +66,7 @@ const auth = {
 
     console.log(req.body);
     db.query(
-      "SELECT * FROM member WHERE email=? AND password=?",
+      "SELECT * FROM member WHERE email=? AND passwd=?",
       [inputId, inputPw],
       (err, result) => {
         if (err) {
@@ -70,8 +105,33 @@ const video = {
   },
 };
 
+const game = {
+  get_information : (req,res) =>{
+    const db = require("../config/database");
+    const loginId = req.body.loginId;
+
+    console.log(req.body);
+    db.query(
+      "SELECT * FROM info_game",
+      (err, result) => {
+        if (err) {
+          res.send({ err: err });
+        } else {
+          if (result) {
+            res.send(result);
+          } else {
+            res.send({ message: "signup faile" });
+          }
+        }
+      }
+    );
+    db.end;
+  }
+}
+
 module.exports = {
     auth,
     video,
+    game,
 };
 

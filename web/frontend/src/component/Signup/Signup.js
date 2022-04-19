@@ -31,7 +31,8 @@ function Signup() {
     Axios.post('http://localhost:3001/postMember',{
       loginId : data.loginId,
       loginPw : data.loginPw,
-      name : data.name
+      name : data.name,
+      age : data.userAge,
     }).then(() => {
         console.log("success");
     }).then(goLoginPage);
