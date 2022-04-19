@@ -43,6 +43,7 @@ const rows = [
 function PlayerInfo() {
   
   return (
+    <Layout>
     <TableContainer component={Paper}>
       <Table sx={{ width: '50%' }} size="small" aria-label="customized table">
         <TableHead>
@@ -69,6 +70,7 @@ function PlayerInfo() {
         </TableBody>
       </Table>
     </TableContainer>
+    </Layout>
   );
 }
 
