@@ -13,9 +13,11 @@ import {
   Legend,
   Title,
 } from 'chart.js';
-import { Bubble, Bar } from 'react-chartjs-2'
+import { Bubble, Bar, Pie, Line } from 'react-chartjs-2'
 import ChartDataLabels from 'chartjs-plugin-datalabels';
+import {CategoryScale} from 'chart.js';
 import Chart from 'chart.js/auto'
+
 
 ChartJS.register(LinearScale, PointElement, Tooltip, Legend,Title, ChartDataLabels);
 const Graph = () => {
@@ -151,7 +153,7 @@ const Graph = () => {
 
   }, []);
 
-  
+  //-----------------------------------------------------------------------------------------게임정보 bar chart-------------------------------------------------------------------------
   const barChartData = { 
     labels: ["역대 전적 승률", "서브 평균속도", "총 점수", "서브 성공률", "역대 이동거리"],
     datasets: [//임시로 넣은 데이터 상대와 나 비교해서 넣을방법 구색
@@ -159,13 +161,13 @@ const Graph = () => {
         label: "나",
         stack: "Stack 0",
         backgroundColor: "#d41111",
-        data: [56, '98km', 250, '87%', '1435m'],
+        data: [56, 98, 250, 87, 1435],
         },
         {
         label: "상대",
         stack: "Stack 0",
         backgroundColor: "#3765b0",
-        data: [44, '103km', 150, '%', '1503m'].map((k) => -k),
+        data: [44, 103, 150, 13, 1503].map((k) => -k),
         },
     ],
 };
@@ -177,6 +179,86 @@ display: true,
 text: '경기 스텟 비교 분석'
 }
 }
+
+  //-----------------------------------------------------------------------------------------승률 pie chart-------------------------------------------------------------------------
+const WinPointOptions = {
+  legend: { display: false },
+title: {
+display: true,
+text: '승패 비율'
+}
+}
+  const pieChartData = {
+    labels:['ME','Other'],
+    datasets:[{
+      data: [64, 36],
+      backgroundColor:[
+        'rgb(225, 99, 132)',
+        'rgb(225,205,86)'
+      ]}
+    ]
+  }
+  
+  //-----------------------------------------------------------------------------------------활동량 line chart-------------------------------------------------------------------------
+  const distanceonfig = {
+    type: 'line',
+    labels: ['1경기', '2경기', '3경기'],
+    datasets: [{
+      label : 'ME',
+      data : [142, 536, 314],
+      borderColor:"rgb(222, 99, 132)",
+      backgroundColor:"rgb(222, 99, 132)",
+      file:true,
+      lineTension: 0
+    },
+    {
+      label : 'Other',
+      data : [416, 875, 222],
+      borderColor:"rgb(222, 205, 86)",
+      backgroundColor:"rgb(222, 205, 86)",
+      file:true,
+      lineTension: 0
+
+    }],
+  }
+  const distanceOptions= {
+    options: {
+      responsive: true,
+
+        title: {
+            display: true,
+            text: '라인 차트 테스트'
+        },
+        tooltips: {
+            mode: 'index',
+            intersect: false,
+        },
+        hover: {
+            mode: 'nearest',
+            intersect: true
+        },
+        scales: {
+            xAxes: [{
+                display: true,
+                scaleLabel: {
+                    display: true,
+                    labelString: 'x축'
+                }
+            }],
+            yAxes: [{
+                display: true,
+                ticks: {
+                    suggestedMin: 0,
+                },
+                scaleLabel: {
+                    display: true,
+                    labelString: 'y축'
+                }
+            }]
+        }
+      }
+    }
+
 
 return (
   <Layout>
@@ -197,6 +279,12 @@ return (
       </div>
       <div>
           <Bar data={barChartData} width={450} height={271} options={Gameoptions}/>
+    </div>
+    <div>
+          <Pie data={pieChartData} width={450} height={271} options={WinPointOptions}/>
+    </div>
+    <div>
+          <Line data={distanceonfig} width={450} height={271} options={distanceOptions}/>
     </div>
     </div>
   </Layout>

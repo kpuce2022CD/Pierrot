@@ -35,15 +35,15 @@ function createData(name, matches, win, defeat, rate) {
 
 const rows = [
   // 시즌에는 id값을 넣고 뒤에는 경기수 등은 만들어 넣어야함
-  createData("Season_2021", 159, 6.0, 24, 4.0),
-  createData("Spring_2022", 237, 9.0, 37, 4.3),
-  createData("Summer_2022", 262, 16.0, 24, 6.0)
+  createData("Season_2021", 10, 6, 4, 60),
+  createData("Spring_2022", 20, 16, 4, 80),
+  createData("Summer_2022", 100, 43, 57, 43)
 ];
 
 function PlayerInfo() {
   
   return (
-    <Layout>
+    <Layout className="body">
     <TableContainer component={Paper}>
       <Table sx={{ width: '50%' }} size="small" aria-label="customized table">
         <TableHead>
