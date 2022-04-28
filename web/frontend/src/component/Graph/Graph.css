@@ -1,4 +1,4 @@
-.graph{
+.graph {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -12,28 +12,30 @@
   width: 450px;
   height: 271px;
 }
-.heatmap-canvas{
+.heatmap-canvas {
   /* background-image: url("/public/image/tennis_court.png"); */
-  /* background-image: url('/image/tennis_court.png'); */
+  /* background-image: url("/image/tennis_court.png"); */
+  background-image: url("/public/image/tennis_court.png");
   background-color: transparent;
   /* background-size: 450px 271px;
   width: 450px;
   height: 271px; */
 }
-.bounce canvas{
+.bounce canvas {
   margin: 10px;
+  background-image: url("/public/image/tennis_court.png");
   /* background-image: url('/image/tennis_court.png'); */
   /* background-image: url('../image/profile.png'); */
 }
 
-.graph-info{
+.graph-info {
   display: flex;
   border-radius: 10px;
   background-color: #d2f15a;
   padding: 5px 100px;
   color: black;
 }
-.graph-info div{
+.graph-info div {
   text-align: center;
   padding: 5px 30px;
 }
