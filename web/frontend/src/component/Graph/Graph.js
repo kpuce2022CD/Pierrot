@@ -30,8 +30,8 @@ const Graph = () => {
   // console.log(typeof jsonData[0]);
   jsonData.forEach((data) => {
     const point = {
-      x: parseInt(data.y_0),
-      y: parseInt(data.x_0),
+      x: parseInt(data.y_1),
+      y: parseInt(data.x_1),
       value: 1,
     };
     points.push(point);
@@ -154,31 +154,31 @@ const Graph = () => {
   }, []);
 
   //-----------------------------------------------------------------------------------------게임정보 bar chart-------------------------------------------------------------------------
-  const barChartData = { 
-    labels: ["역대 전적 승률", "서브 평균속도", "총 점수", "서브 성공률", "역대 이동거리"],
-    datasets: [//임시로 넣은 데이터 상대와 나 비교해서 넣을방법 구색
-        {
-        label: "나",
-        stack: "Stack 0",
-        backgroundColor: "#d41111",
-        data: [56, 98, 250, 87, 1435],
-        },
-        {
-        label: "상대",
-        stack: "Stack 0",
-        backgroundColor: "#3765b0",
-        data: [44, 103, 150, 13, 1503].map((k) => -k),
-        },
-    ],
-};
-const  Gameoptions = {
-indexAxis : 'y',
-legend: { display: false },
-title: {
-display: true,
-text: '경기 스텟 비교 분석'
-}
-}
+//   const barChartData = { 
+//     labels: ["역대 전적 승률", "서브 평균속도", "총 점수", "서브 성공률", "역대 이동거리"],
+//     datasets: [//임시로 넣은 데이터 상대와 나 비교해서 넣을방법 구색
+//         {
+//         label: "나",
+//         stack: "Stack 0",
+//         backgroundColor: "#d41111",
+//         data: [56, 98, 250, 87, 1435],
+//         },
+//         {
+//         label: "상대",
+//         stack: "Stack 0",
+//         backgroundColor: "#3765b0",
+//         data: [44, 103, 150, 13, 1503].map((k) => -k),
+//         },
+//     ],
+// };
+// const  Gameoptions = {
+// indexAxis : 'y',
+// legend: { display: false },
+// title: {
+// display: true,
+// text: '경기 스텟 비교 분석'
+// }
+// }
 
   //-----------------------------------------------------------------------------------------승률 pie chart-------------------------------------------------------------------------
 const WinPointOptions = {
@@ -189,7 +189,7 @@ text: '승패 비율'
 }
 }
   const pieChartData = {
-    labels:['ME','Other'],
+    labels:['나의 승률','상대 승률'],
     datasets:[{
       data: [64, 36],
       backgroundColor:[
@@ -202,9 +202,9 @@ text: '승패 비율'
   //-----------------------------------------------------------------------------------------활동량 line chart-------------------------------------------------------------------------
   const distanceonfig = {
     type: 'line',
-    labels: ['1경기', '2경기', '3경기'],
+    labels: ['1세트', '2세트', '3세트'],
     datasets: [{
-      label : 'ME',
+      label : '나의 세트당 활동량',
       data : [142, 536, 314],
       borderColor:"rgb(222, 99, 132)",
       backgroundColor:"rgb(222, 99, 132)",
@@ -212,7 +212,7 @@ text: '승패 비율'
       lineTension: 0
     },
     {
-      label : 'Other',
+      label : '상대 세트당 활동량',
       data : [416, 875, 222],
       borderColor:"rgb(222, 205, 86)",
       backgroundColor:"rgb(222, 205, 86)",
@@ -258,33 +258,128 @@ text: '승패 비율'
         }
       }
     }
+//-----------------------------------------------------------------------------------------game score chart-------------------------------------------------------------------------
+const gamescoreData = { 
+  labels: ["1세트", "2세트", "3세트"],
+  datasets: [//임시로 넣은 데이터 상대와 나 비교해서 넣을방법 구색
+      {
+      type: 'bar',
+      label: "나의 세트당 점수",
+      stack: "Stack 1",
+      backgroundColor: "rgb(222, 99, 132)",
+      data: [24, 20, 24],
+      },
+      {
+        type: 'bar',
+      label: "상대 세트당 점수",
+      stack: "Stack 0",
+      backgroundColor: "rgb(222, 205, 86)",
+      data: [17, 24, 13],
+      },
+  ],
+};
+const  gamescoreoptions = {
+  scales: {
+    y: {
+      beginAtZero: true
+    },
+text: '경기 스텟 비교 분석'
+}
+}
+
+// //-----------------------------------------------------------------------------------------서브 성공횟수 chart-------------------------------------------------------------------------
+const serveceonfig = {
+  type: 'line',
+  labels: ['1세트', '2세트', '3세트'],
+  datasets: [{
+    label : '나의 서브 성공횟수',
+    data : [5, 2, 6],
+    borderColor:"rgb(222, 99, 132)",
+    backgroundColor:"rgb(222, 99, 132)",
+    file:true,
+    lineTension: 0
+  },
+  {
+    label : '상대 서브 성공 횟수',
+    data : [2, 5, 2],
+    borderColor:"rgb(222, 205, 86)",
+    backgroundColor:"rgb(222, 205, 86)",
+    file:true,
+    lineTension: 0
+
+  }],
+}
+const serveOptions= {
+  options: {
+    responsive: true,
+
+      title: {
+          display: true,
+          text: '라인 차트 테스트'
+      },
+      tooltips: {
+          mode: 'index',
+          intersect: false,
+      },
+      hover: {
+          mode: 'nearest',
+          intersect: true
+      },
+      scales: {
+          xAxes: [{
+              display: true,
+              scaleLabel: {
+                  display: true,
+                  labelString: 'x축'
+              }
+          }],
+          yAxes: [{
+              display: true,
+              ticks: {
+                  suggestedMin: 0,
+              },
+              scaleLabel: {
+                  display: true,
+                  labelString: 'y축'
+              }
+          }]
+      }
+    }
+  }
+
 
 
 return (
   <Layout>
     <div className="graph">
       <div className="player-heatmap"></div>
-      <div className="graph-info">
-        <div>
+      {/* <div className="graph-info"> */}
+        {/* <div>
           <h2>총 이동 거리</h2>
           <p>000m</p>
         </div>
         <div>
           <h2>총 000</h2>
           <p>000</p>
-        </div>
-      </div>
+        </div> */}
+      {/* </div> */}
       <div className="bounce">
         <Bubble options={options} data = {charData} width={450} height={271}/>
       </div>
-      <div>
+      {/* <div>
           <Bar data={barChartData} width={450} height={271} options={Gameoptions}/>
-    </div>
-    <div>
+    </div> */}
+    {/* <div>
           <Pie data={pieChartData} width={450} height={271} options={WinPointOptions}/>
-    </div>
+    </div> */}
     <div>
           <Line data={distanceonfig} width={450} height={271} options={distanceOptions}/>
+    </div>
+    <div>
+          <Bar data={gamescoreData} width={450} height={271} options={gamescoreoptions}/>
+    </div>
+    <div>
+          <Line data={serveceonfig} width={450} height={271} options={serveOptions}/>
     </div>
     </div>
   </Layout>
