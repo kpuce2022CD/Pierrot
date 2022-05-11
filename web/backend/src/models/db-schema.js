@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const memberSchema = mongoose.Schema({
     email:{
-        type: String, // 프로젝트 아이디_데이터 아이디 -> 고유해짐
+        type: String,
         required: true
     },
     passwd:{
@@ -10,13 +10,25 @@ const memberSchema = mongoose.Schema({
         required: true
     },
     name:{
-        type: String, // 데이터 아이디
+        type: String,
     },
     age:{
         type: Number,
     },
+});
+
+const gameSchema = mongoose.Schema({
+    email:{
+        type:String,
+        required: true
+    },
+    video_location:{
+        type:String,
+        required: true
+    }
 })
 
-const member = mongoose.model('member', memberSchema)
+const member = mongoose.model('member', memberSchema);
+const game = mongoose.model('game',gameSchema);
 
-module.exports = {member}
+module.exports = {member,game}
