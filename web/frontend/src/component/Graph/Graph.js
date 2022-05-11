@@ -16,6 +16,7 @@ import {
 import { Bubble, Bar } from "react-chartjs-2";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import Chart from "chart.js/auto";
+import { getRelativePosition } from "chart.js/helpers";
 
 ChartJS.register(
   LinearScale,
@@ -30,7 +31,9 @@ const Graph = () => {
   // 추출한 데이터의 x, y좌표와 그려줄 x, y좌표 변환 필요
   // 추출했을 당시 세로, 그려줄 좌표는 가로
   // width: 450, height: 271
+  // 0번 데이터를 프론트선수로
   const points = [];
+  // 임시데이터
   const jsonData = require("../../tempData/playerCoords.json");
   jsonData.forEach((data) => {
     const point = {
@@ -49,6 +52,9 @@ const Graph = () => {
 
   const frontPoint = [];
   const backPoint = [];
+  const frontPlayer = [];
+  const backPlayer = [];
+  // 임시데이터
   const bounceJsonData = [
     [452, 1191, "front_dueceside_right", 27],
     [494, 397, "back_adside_left", 119],
@@ -63,23 +69,24 @@ const Graph = () => {
   bounceJsonData.forEach((data, i) => {
     const point = {
       x: parseInt(data[1]),
-      y: parseInt(data[0]) + data[3] * 0.1,
+      y: parseInt(data[0]) + data[3] * 0.001,
       r: 10,
     };
     if (data[2].includes("front")) {
-      point.x += 0.1 * (Object.keys(frontPoint).length + 1);
+      point.x += 0.1 * (i + 1);
       frontPoint.push(point);
     } else {
-      point.x += 0.1 * (Object.keys(backPoint).length + 1);
+      point.x += 0.1 * (i + 1);
       backPoint.push(point);
     }
   });
+  // console.log(bounceJsonData);
 
   const bounceIndex = bounceJsonData.map((e) => e[3]);
-  const frontPlayer = [];
-  const backPlayer = [];
+  // 임시데이터
   const playerTopData = require("../../tempData/csvjson.json");
 
+  // 바운드 했을 당시 두 선수들의 위치 저장
   bounceIndex.forEach((v, i) => {
     const point1 = {
       x: parseInt(playerTopData[v].y_0),
@@ -95,6 +102,11 @@ const Graph = () => {
     backPlayer.push(point2);
   });
 
+  // console.log("frontplayer", frontPlayer);
+  // console.log("backplayer", backPlayer);
+  // console.log("frontPoint", frontPoint);
+  // console.log("backPoint", backPoint);
+
   const [chartData, setChartData] = useState({ datasets: [] });
   const [chartOptions, setChartOptions] = useState({});
   const chartReference = useRef();
@@ -102,30 +114,28 @@ const Graph = () => {
     setChartData({
       datasets: [
         {
-          label: "back",
+          label: "front",
           type: "bubble",
           backgroundColor: "rgb(100, 1, 93)",
           data: frontPoint,
         },
         {
-          label: "front",
+          label: "back",
           type: "bubble",
           backgroundColor: "rgb(54, 162, 235)",
           data: backPoint,
         },
         {
-          label: "player_0",
+          label: "frontPlayer",
           type: "bubble",
           backgroundColor: "rgb(200, 100, 100)",
           data: frontPlayer,
-          // hidden: true,
         },
         {
-          label: "player_1",
+          label: "backPlayer",
           type: "bubble",
           backgroundColor: "rgb(200, 300, 100)",
           data: backPlayer,
-          // hidden: true,
         },
       ],
     });
@@ -143,16 +153,45 @@ const Graph = () => {
           min: 200,
         },
       },
-      onHover: function (evt, e) {
-        if (e.length) {
-          const index = e[0].index;
-          console.log(chartReference.current);
-          const mychart = chartReference.current;
-          console.log(mychart);
-          mychart.data.datasets[2].data[index].r = 10;
-          mychart.data.datasets[3].data[index].r = 10;
-          mychart.update();
+      onClick: (evt, e) => {
+        // 클릭시 상대 두 선수들의 위치 보여줌
+        console.log("e", e);
+        const bounceChart = chartReference.current;
+        const index = e[0]?.index;
+        if (index === undefined || e[0].datasetIndex >= 2) {
+          return;
         }
+        // console.log(index, e[0].datasetIndex);
+        // console.log(bounceChart.data.datasets[2].data);
+
+        // 바운스 순서 구하기
+        const tmp =
+          bounceChart.data.datasets[e[0].datasetIndex].data[index].x % 1 === 0
+            ? null
+            : (
+                bounceChart.data.datasets[e[0].datasetIndex].data[index].x % 1
+              ).toFixed(1) * 10;
+        console.log("tmp: ", tmp);
+
+        // 모든 원소 반지름 0으로
+        for (let i = 2; i < 4; i++) {
+          for (let j = 0; j < bounceChart.data.datasets[i].data.length; j++) {
+            bounceChart.data.datasets[i].data[j].r = 0;
+          }
+        }
+        // 특정 원소 반지름 10으로
+        for (let i = 2; i < 4; i++) {
+          const chart = bounceChart.data.datasets[i].data;
+          for (let j = 0; j < chart.length; j++) {
+            const yy =
+              chart[j].y % 1 === 0 ? null : (chart[j].y % 1).toFixed(1) * 10;
+            // console.log("yy", yy, chart[j]);
+            if (yy == tmp) {
+              bounceChart.data.datasets[i].data[yy - 1].r = 10;
+            }
+          }
+        }
+        bounceChart.update();
       },
       plugins: {
         legend: {
@@ -184,6 +223,7 @@ const Graph = () => {
             },
           },
           formatter: function (value) {
+            // console.log(value);
             return value.x % 1 === 0 ? null : (value.x % 1).toFixed(1) * 10;
           },
         },
@@ -191,40 +231,6 @@ const Graph = () => {
     });
   };
 
-  const barChartData = {
-    labels: [
-      "역대 전적 승률",
-      "서브 평균속도",
-      "총 점수",
-      "서브 성공률",
-      "역대 이동거리",
-    ],
-    datasets: [
-      //임시로 넣은 데이터 상대와 나 비교해서 넣을방법 구색
-      {
-        label: "나",
-        stack: "Stack 0",
-        backgroundColor: "#d41111",
-        data: [56, "98km", 250, "87%", "1435m"],
-      },
-      {
-        label: "상대",
-        stack: "Stack 0",
-        backgroundColor: "#3765b0",
-        data: [44, "103km", 150, "%", "1503m"].map((k) => -k),
-      },
-    ],
-  };
-  const Gameoptions = {
-    indexAxis: "y",
-    legend: { display: false },
-    title: {
-      display: true,
-      text: "경기 스텟 비교 분석",
-    },
-  };
-
-  // chart();
   useEffect(() => {
     const playerHeatmapInstance = h337.create({
       container: document.querySelector(".player-heatmap"),
@@ -256,15 +262,6 @@ const Graph = () => {
             width={450}
             height={271}
           />
-          {/* <Bubble options={options} data={charData} width={450} height={271} /> */}
-        </div>
-        <div>
-          <Bar
-            data={barChartData}
-            width={450}
-            height={271}
-            options={Gameoptions}
-          />
         </div>
       </div>
     </Layout>
@@ -274,6 +271,5 @@ const Graph = () => {
 export default Graph;
 
 // TODO
-// 현재 front, backPlyaer 의 정보 이상하게 저장되어있음
-// 현재 bounce 인덱스를 기준으로 저장
-// hover 상태를 벗어날때 처리 필요
+// 현재 front, backPlyaer 의 정보 정의 필요
+// 크기 조정 -> 경기장 이미지 좀 더 큰걸로 구할 필요 현재 이미지(width: 450, height=271)
