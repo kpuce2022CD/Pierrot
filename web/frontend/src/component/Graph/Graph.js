@@ -38,8 +38,8 @@ const Graph = () => {
   const jsonData = require("../../tempData/playerCoords.json");
   jsonData.forEach((data) => {
     const point = {
-      x: parseInt(data.y_0),
-      y: parseInt(data.x_0),
+      x: parseInt(data.y_1),
+      y: parseInt(data.x_1),
       value: 1,
     };
     points.push(point);
