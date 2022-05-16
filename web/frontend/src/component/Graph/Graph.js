@@ -34,6 +34,7 @@ const Graph = () => {
   // 0번 데이터를 프론트선수로
   const points = [];
   // 임시데이터
+  const playerTopData = require("../../tempData/csvjson.json");
   const jsonData = require("../../tempData/playerCoords.json");
   jsonData.forEach((data) => {
     const point = {
@@ -84,7 +85,6 @@ const Graph = () => {
 
   const bounceIndex = bounceJsonData.map((e) => e[3]);
   // 임시데이터
-  const playerTopData = require("../../tempData/csvjson.json");
 
   // 바운드 했을 당시 두 선수들의 위치 저장
   bounceIndex.forEach((v, i) => {
