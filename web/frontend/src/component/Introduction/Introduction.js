@@ -43,7 +43,6 @@ const Introduction = () => {
                 </div>
                 <hr className="hh"/>
                 <div className = "feature">
-
                     <div className="featureimg">
                         <div className="featureimg_left">
                         <img src = "./image/camera.png" width="500px"/>
@@ -57,9 +56,7 @@ const Introduction = () => {
                         </p>
                         </div>
                     </div>
-
-                </div>
-                
+                </div> 
             </div>
         </Layout>
 );

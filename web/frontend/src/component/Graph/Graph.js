@@ -315,7 +315,11 @@ const serveOptions= {
 
       title: {
           display: true,
+<<<<<<< Updated upstream
           text: '라인 차트 테스트'
+=======
+          text: '라인 차트 '
+>>>>>>> Stashed changes
       },
       tooltips: {
           mode: 'index',
@@ -369,11 +373,20 @@ return (
       {/* <div>
           <Bar data={barChartData} width={450} height={271} options={Gameoptions}/>
     </div> */}
+<<<<<<< Updated upstream
     {/* <div>
           <Pie data={pieChartData} width={450} height={271} options={WinPointOptions}/>
     </div> */}
     <div>
           <Line data={distanceonfig} width={450} height={271} options={distanceOptions}/>
+    </div>
+=======
+>>>>>>> Stashed changes
+    <div>
+          <Bar data={gamescoreData} width={450} height={271} options={gamescoreoptions}/>
+    </div>
+    <div>
+          <Line data={serveceonfig} width={450} height={271} options={serveOptions}/>
     </div>
     <div>
           <Bar data={gamescoreData} width={450} height={271} options={gamescoreoptions}/>
