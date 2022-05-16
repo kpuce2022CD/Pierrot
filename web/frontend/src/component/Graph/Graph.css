@@ -15,6 +15,7 @@
 .heatmap-canvas{
   /* background-image: url("/public/image/tennis_court.png"); */
   /* background-image: url('/image/tennis_court.png'); */
+  background-image: url(../../../public/image/tennis_court.png);
   background-color: transparent;
   /* background-size: 450px 271px;
   width: 450px;
@@ -22,6 +23,8 @@
 }
 .bounce canvas{
   margin: 10px;
+  background-image: url(../../../public/image/tennis_court.png);
+
   /* background-image: url('/image/tennis_court.png'); */
   /* background-image: url('../image/profile.png'); */
 }

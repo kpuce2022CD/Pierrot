@@ -19,7 +19,7 @@ function Signup() {
   const onSubmit = (data) => {
     console.log(data);
     postMember(data);
-    // navigate("/");
+    navigate("/");
   };
 
   const onError = (error) => {
@@ -63,7 +63,7 @@ function Signup() {
           </div>
           <div className="singup-area">
             <input
-              type="text"
+              type="password"
               autoComplete="off"
               required
               {...register("checkUserPw")}
@@ -72,7 +72,7 @@ function Signup() {
           </div>
           <div className="singup-area">
             <input
-              type="text"
+              type="password"
               autoComplete="off"
               required
               {...register("name")}

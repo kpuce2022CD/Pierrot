@@ -2,10 +2,28 @@ import court_draw
 import cv2
 import pandas as pd
 
-cap = cv2.VideoCapture('video_cut.mp4')
+video = cv2.VideoCapture('video_cut.mp4')
 
-if cap is None:
+if video is None:
     print("no")
+
+# path = 'C:\Users\rkdrn\Documents\GitHub\Pierrot\analysis_application\test'
+output_video_path = './video_output.mp4'
+
+fps = int(video.get(cv2.CAP_PROP_FPS))
+frame_width = int(video.get(cv2.CAP_PROP_FRAME_WIDTH))
+frame_height = int(video.get(cv2.CAP_PROP_FRAME_HEIGHT))
+num_frames = int(video.get(cv2.CAP_PROP_FRAME_COUNT))
+
+# 영상정보 출력
+print('fps : {}'.format(fps))
+print('frame sizee : {}x{}'.format(frame_width, frame_height))
+print('num_frames :{}'.format(num_frames))
+
+# 영상 저장을 위한 셋팅
+fourcc = cv2.VideoWriter_fourcc(*'XVID')
+output_video = cv2.VideoWriter(
+    output_video_path, fourcc, fps, (frame_width, frame_height))
 
 position_xy = []
 position_df = pd.read_csv('tracking_balls.csv')
@@ -41,7 +59,7 @@ for k in range(len(idx)):
 # 영상재생
 i = 0
 for i in range(len(position_xy)):
-    ret, frame = cap.read()
+    ret, frame = video.read()
 
     if not ret:
         break
@@ -58,8 +76,7 @@ for i in range(len(position_xy)):
 
     i += 1
 
-    cv2.imshow('frame', frame)
-    # cv2.waitKey(3)
+    output_video.write(frame)
 
 # ball_bounce csv변환
 df_balls_bounces = pd.DataFrame()
@@ -70,5 +87,6 @@ df_balls_bounces['court_location'] = balls_bounces['court_location']
 df_balls_bounces['court_name'] = balls_bounces['court_name']
 df_balls_bounces.to_csv("ball_bounces.csv")
 
-cap.release()
+video.release()
+output_video.release()
 cv2.destroyAllWindows()
