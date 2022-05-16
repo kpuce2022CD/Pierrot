@@ -18,9 +18,13 @@ mongoose.connect(process.env.DB_URL ,{useNewUrlParser:true},(err)=>{
   }
 });
 
-
 app.use(bodyParser.json());
+//if you want get member information enter into 'http://localhost:3001/auth/getMember'
+//if you want postMember information enter into 'http://localhost:3001/auth/postMember'
+//member
 app.use("/auth",auth);
+
+//if you want get video information enter into 'http://localhost:3001/video/uploadVideo'
 app.use("/video",video);
 // app.use("/game",game);
 
