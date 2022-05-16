@@ -14,14 +14,13 @@ const s3 = new S3({
     secretAccessKey
 });
 
-const upload_db_games = async(email,video_location) => {
+const upload_db_games = (email,video_key) => {
     const game = new schema.game({
         email: email,
-        video_location : video_location
+        video_key : video_key
       });
       try{
-        const savedGame = await game.save();
-      //   res.json(savedMember);
+        const savedGame = game.save();
         console.log(savedGame);
       }catch(err){
         console.log(err);
@@ -50,13 +49,13 @@ const video ={
         const uploadParams = {
             Bucket: bucketName,
             Body: fileStream,
-            Key: file.filename
+            Key: file.filename+".mp4"
         };
         try{
             const result = await s3.upload(uploadParams).promise();
             console.log(result);
 
-            const check_upload = upload_db_games(req.body.email, result.Location);
+            const check_upload = upload_db_games(req.body.email, req.file.filename+".mp4");
             res.json(check_upload);
         }catch(err){
             console.log(err);
@@ -72,20 +71,20 @@ const video ={
 
         for(var key in game_file){
             var fileKey = game_file[key];
-            console.log(fileKey.video_location);
 
             const downloadParams = {
-                Key: fileKey.video_location,
+                Key: fileKey.video_key,
                 Bucket: bucketName
             };
             console.log(downloadParams);
 
             readStream = s3.getObject(downloadParams).createReadStream();
+            console.log(readStream);
         }
         
+        // res.send(readStream);
+        readStream.pipe(res);
         
-        // res.json(readStream);
-        // readStream.pipe(res);
     },
 }
 
