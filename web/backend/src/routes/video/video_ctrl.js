@@ -71,6 +71,7 @@ const video ={
 
         for(var key in game_file){
             var fileKey = game_file[key];
+            console.log(fileKey);
 
             const downloadParams = {
                 Key: fileKey.video_key,

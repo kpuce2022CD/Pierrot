@@ -12,7 +12,7 @@ const auth = {
     });
     try{
       const savedMember = await member.save();
-    //   res.json(savedMember);
+      res.json(savedMember);
       console.log(savedMember);
     }catch(err){
       res.json({message : err});
@@ -29,7 +29,7 @@ const auth = {
       console.log(checkMember);
       res.json(checkMember._id);
     }catch(err){
-        // res.json({message : err});
+      res.json({message : err});
       console.log(err);
     }
   }

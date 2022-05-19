@@ -22,7 +22,7 @@ const gameSchema = mongoose.Schema({
         type:String,
         required: true
     },
-    video_location:{
+    video_key:{
         type:String,
         required: true
     }
