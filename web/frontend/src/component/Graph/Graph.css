@@ -13,8 +13,13 @@
   height: 271px;
 }
 .heatmap-canvas{
+<<<<<<< Updated upstream
   /* background-image: url("/public/image/tennis_court.png"); */
   /* background-image: url('/image/tennis_court.png'); */
+  background-image: url(../../../public/image/tennis_court.png);
+=======
+background-image: url('C:\Users\Yoon\Documents\GitHub\Pierrot\web\frontend\public\image\tennis_court.png');
+>>>>>>> Stashed changes
   background-color: transparent;
   /* background-size: 450px 271px;
   width: 450px;
@@ -22,15 +27,22 @@
 }
 .bounce canvas{
   margin: 10px;
+<<<<<<< Updated upstream
+  background-image: url(../../../public/image/tennis_court.png);
+
   /* background-image: url('/image/tennis_court.png'); */
   /* background-image: url('../image/profile.png'); */
+=======
+  background-image: url('C:\Users\Yoon\Documents\GitHub\Pierrot\web\frontend\public\image\tennis_court.png');
+
+>>>>>>> Stashed changes
 }
 
 .graph-info{
   display: flex;
   border-radius: 10px;
   background-color: #d2f15a;
-  padding: 5px 100px;
+  padding: 5px 800px;
   color: black;
 }
 .graph-info div{

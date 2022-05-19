@@ -1,0 +1,49 @@
+.meterial-table{
+  /* width: 300px;
+  height: 300px; */
+}
+
+.playerInfo{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100vw;
+}
+
+.profile_img img{
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 100px;
+  background-color: aliceblue;
+  border-radius: 50%;
+  border: 3px solid #d2f15a;
+}
+
+.player-info{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 9px 9px;
+}
+
+.player-info [class ^= 'profile']{
+  display: flex; 
+  flex-direction: row;
+}
+.player-info .tag{
+  padding: 0 60px;
+}
+
+.player-info-detail{
+  margin-left: 9px;
+  background-color: #d2f15a;
+  color: black;
+  font-weight: 500;
+  border-radius: 20px;
+  width: 350px;
+  text-align: center;
+}
