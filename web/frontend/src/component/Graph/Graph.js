@@ -45,6 +45,7 @@ const Graph = () => {
 
   const frontPoint = [];
   const backPoint = [];
+  const playerPoint =[];
   // const bounceJsonData = require("../../tempData/bounces.json");
   const bounceJsonData = [[452, 1191,'front_dueceside_right', 27 ], [494, 397,'back_adside_left', 119], [376, 1304,'front_dueceside_center', 184], [312, 546,'back_adside_center', 257], [628, 1285,'front_adside_center', 366], [676, 471,'back_dueceside_center', 431], [403, 720,'back_adside_left', 591], [511, 789,'back_dueceside_right', 739], [514, 889,'front_adside_left', 894]];
   bounceJsonData.forEach((data,i)=>{
@@ -53,6 +54,12 @@ const Graph = () => {
       y: parseInt(data[0]) + data[3]*0.1,
       r: 10,
     };
+    const playerPoint1 = {
+      y: parseInt(jsonData[data[3]].y_1),
+      x: parseInt(jsonData[data[3]].x_1),
+      r: 10,
+    };
+    playerPoint.push(playerPoint1);
     if(data[2].includes('front')){
       point.x += 0.1*(Object.keys(frontPoint).length + 1)
       frontPoint.push(point);
@@ -61,6 +68,7 @@ const Graph = () => {
       backPoint.push(point);
     }
   })
+  console.log(playerPoint)
   
   const charData = {
     datasets:[
@@ -76,25 +84,25 @@ const Graph = () => {
         backgroundColor:'rgb(54, 162, 235)',
         data: backPoint,
       },
-      
+      {
+        label:'player_0',
+        type: 'bubble',
+        backgroundColor:'rgb(200, 100, 100)',
+        data: playerPoint,
+      },
     ],
   }
 
   const options = {
     scales:{
-     y:{
-       display:false,
-     },
-     x:{
-       display:false,
-     }
+    //  y:{
+    //    display:false,
+    //  },
+    //  x:{
+    //    display:false,
+    //  }
     },     
     plugins:{
-      // title:{
-      //   display:true,
-      //   text:'hihihi',
-      //   color:'#000',
-      // },
       legend:{
         display:false,
       },
@@ -108,31 +116,21 @@ const Graph = () => {
               }
               return label;
           },
-          // footer: function(context) {
-          //   return `${context[0].dataIndex+1}`
-          // },
         }
       },
       datalabels: {
         display: true,
         color: "white",
         align: "center",
-        // padding: {
-        //   right: 2
-        // },
         labels: {
-          // padding: { top: 10 },
           title: {
             font: {
               weight: "bold"
             }
           },
-          // value: {
-          //   color: "red"
-          // }
         },
         formatter: function (value) {
-          console.log(value)
+          // console.log(value)
           return (value.x % 1).toFixed(1)*10;
         }
       },
