@@ -8,3 +8,4 @@ router.post("/uploadVideo",upload.single('video'),ctrl.video.upload_video);
 router.get("/downloadVideo",ctrl.video.download_video);
 
 module.exports=router;
+
