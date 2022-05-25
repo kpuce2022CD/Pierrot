@@ -8,9 +8,9 @@ if cap is None:
     print("no")
 
 position_xy = []
-position_df = pd.read_csv('tracking_balls.csv')
+position_df = pd.read_csv('test/tracking_balls.csv')
 position_xy = list(zip(position_df['x'], position_df['y']))
-idx_df = pd.read_csv('balls_bounce.csv')
+idx_df = pd.read_csv('test/balls_bounce.csv')
 idx = list(idx_df['idx'])
 
 balls_bounces = {'idx': [], 'x': [], 'y': [],

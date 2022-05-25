@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const ctrl = require('../ctrl');
+const ctrl = require('../../ctrl');
 
 router.post('/getGameInfo',ctrl.game.get_information);
 
