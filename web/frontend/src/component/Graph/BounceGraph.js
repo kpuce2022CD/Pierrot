@@ -72,11 +72,6 @@ const BounceGraph = () => {
     backPlayer.push(point2);
   });
 
-  // console.log("frontplayer", frontPlayer);
-  // console.log("backplayer", backPlayer);
-  // console.log("frontPoint", frontPoint);
-  // console.log("backPoint", backPoint);
-
   const [chartData, setChartData] = useState({ datasets: [] });
   const [chartOptions, setChartOptions] = useState({});
   const chartReference = useRef();

@@ -8,6 +8,9 @@
 .player-info-text {
   width: 30%;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 .player-info {
   display: flex;
@@ -128,4 +131,8 @@
   border: 1px solid red;
   width: 50%;
   height: 100%;
+}
+.MyCalendar {
+  width: fit-content;
+  height: fit-content;
 }

@@ -2,6 +2,7 @@ import Layout from "../../Layout/Layout";
 import React, { Component, useState, useEffect } from "react";
 import "./PlayerInfo.css";
 import { useNavigate } from "react-router-dom";
+import MyCalendar from "./MyCalendar";
 
 const PlayerInfo = () => {
   // 임시
@@ -103,7 +104,11 @@ const PlayerInfo = () => {
             ))}
           </div>
         </div>
-        <div className="playerinfo-graph">hi</div>
+        <div className="playerinfo-graph">
+          <div className="MyCalendar">
+            <MyCalendar />
+          </div>
+        </div>
       </div>
     </Layout>
   );
