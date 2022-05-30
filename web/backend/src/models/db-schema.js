@@ -25,7 +25,51 @@ const gameSchema = mongoose.Schema({
     video_key:{
         type:String,
         required: true
-    }
+    },
+    bounce:[{
+        idx:Number,
+        x:Number,
+        y:Number,
+        court_name:String
+    }],
+    // front_duceside_left:[{
+    //     x:Number,
+    //     y:Number,
+    //     court_name:String
+    // }],
+    // front_duceside_center:[{
+    //     x:Number,
+    //     y:Number,
+    //     court_name:String
+    // }],
+    // front_duceside_right:[{
+    //     x:Number,
+    //     y:Number,
+    //     court_name:String
+    // }],
+    // front_adside_left:[{
+    //     x:Number,
+    //     y:Number,
+    //     court_name:String
+    // }],
+    // front_adside_center:[{
+    //     x:Number,
+    //     y:Number,
+    //     court_name:String
+    // }],
+    // front_adside_right:[{
+    //     x:Number,
+    //     y:Number,
+    //     court_name:String
+    // }]
+    next_bounce:[{
+        front_dueceside_left : Array,
+        front_dueceside_center : Array,
+        front_dueceside_right : Array,
+        front_adside_left : Array,
+        front_adside_center : Array,
+        front_adside_right : Array,
+    }]
 })
 
 const member = mongoose.model('member', memberSchema);

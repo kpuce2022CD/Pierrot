@@ -1,7 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const ctrl = require('../../ctrl');
+const multer = require('multer');
+const upload = multer({dest:'games/'})
+const ctrl = require('./game_ctrl');
 
-router.post('/getGameInfo',ctrl.game.get_information);
+router.post('/postGameInfo',upload.single('game'),ctrl.game.upload_game);
+router.get('/getGameInfo',ctrl.game.download_all_game);
 
 module.exports=router;
