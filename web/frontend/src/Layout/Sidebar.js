@@ -6,81 +6,46 @@ import { logout } from "../apis";
 
 const Sidebar = () => {
   const navigate = useNavigate();
+
+  const clickItem = (e) => {
+    console.log(e.target.innerText);
+    navigate(`/${e.target.innerText}`);
+  };
+
   const clicklogout = async (e) => {
-    console.log(e);
     const res = await logout();
     if (res.success) {
-      // navigate()
+      console.log("성공", res);
+      navigate("/");
+    } else {
+      alert("로그아웃 오류");
+      navigate("/");
     }
   };
-  const clickitem = (e) => {
-    console.log(e);
-  };
-  const menus = [
-    {
-      name: "Main",
-      path: "/main",
-      fun: function () {
-        navigate("/main");
-      },
-    },
-    {
-      name: "Profile",
-      path: "/playerinfo",
-      fun: function () {
-        console.log(this.path);
-        navigate("/main");
-      },
-    },
-    {
-      name: "game",
-      path: "/gameinfo",
-      fun: function () {
-        console.log(this.path);
-        navigate("/main");
-      },
-    },
-    {
-      name: "upload",
-      path: "/videoupload",
-      fun: function () {
-        console.log(this.path);
-        navigate("/main");
-      },
-    },
-    {
-      name: "Guide",
-      path: "/guide",
-      fun: function () {
-        console.log(this.path);
-        navigate("/main");
-      },
-    },
-    {
-      name: "logout",
-      path: "/",
-      fun: function () {
-        console.log(this.path);
-        navigate("/main");
-      },
-    },
-  ];
 
   return (
     <div className="Sidebar">
       <img className="profile" src="../image/profile.png" />
-      {menus.map((menu, i) => (
-        <div className="Sidebar-menu" onClick={menu.fun} key={i}>
-          <p className="sidebar-item">{menu.name}</p>
+      <div className="sidebar-menu">
+        <div className="sidebar-item" onClick={clickItem}>
+          Main
         </div>
-      ))}
-      {/* {menus.map((menu, index) => {
-        return (
-          <NavLink className={"Sidebar-menu"} to={menu.path} key={index}>
-            <SidebarItem menu={menu} />
-          </NavLink>
-        );
-      })} */}
+        <div className="sidebar-item" onClick={clickItem}>
+          Profile
+        </div>
+        <div className="sidebar-item" onClick={clickItem}>
+          game
+        </div>
+        <div className="sidebar-item" onClick={clickItem}>
+          upload
+        </div>
+        <div className="sidebar-item" onClick={clickItem}>
+          Guide
+        </div>
+        <div className="sidebar-item" onClick={clicklogout}>
+          logout
+        </div>
+      </div>
     </div>
   );
 };

@@ -43,7 +43,7 @@ const PlayerInfo = () => {
 
   const goGraph = (e) => {
     console.log(e);
-    navigate(`/playerinfo/${e}`);
+    navigate(`/Profile/${e}`);
   };
 
   return (

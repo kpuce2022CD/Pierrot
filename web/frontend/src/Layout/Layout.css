@@ -29,7 +29,7 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  width: 200px;
+  width: 180px;
   height: 100vh;
 }
 
@@ -57,4 +57,5 @@
   justify-content: center;
   background-color: transparent;
   color: #3d414c;
+  cursor: pointer;
 }
