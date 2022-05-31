@@ -1,49 +1,138 @@
-.meterial-table{
-  /* width: 300px;
-  height: 300px; */
-}
-
-.playerInfo{
+.playerinfopage {
   display: flex;
   justify-content: center;
   align-items: center;
+  /* flex-direction: column; */
+  width: 100%;
+}
+.player-info-text {
+  width: 30%;
+  height: 100vh;
+  display: flex;
   flex-direction: column;
-  width: 100vw;
+  justify-content: center;
 }
-
-.profile_img img{
-  margin: auto;
+.player-info {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100px;
-  height: 100px;
-  background-color: aliceblue;
-  border-radius: 50%;
-  border: 3px solid #d2f15a;
+  margin: 9px 0;
 }
 
-.player-info{
+.player-info-detail {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 9px 9px;
-}
-
-.player-info [class ^= 'profile']{
-  display: flex; 
-  flex-direction: row;
-}
-.player-info .tag{
-  padding: 0 60px;
-}
-
-.player-info-detail{
-  margin-left: 9px;
+  flex-direction: column;
+  /* margin-left: 9px; */
   background-color: #d2f15a;
   color: black;
   font-weight: 500;
-  border-radius: 20px;
-  width: 350px;
+  border-radius: 10px;
+  width: 100%;
   text-align: center;
+}
+
+.profile-detail {
+  display: flex;
+  flex-direction: row;
+  border-bottom: 2px solid #fff;
+  padding: 5px 3px;
+  margin: 10px 13px;
+}
+
+.profile-detail div {
+  border-right: 7px solid #fff;
+  width: 90px;
+  height: fit-content;
+  padding: 5px 0;
+  font-weight: 700;
+  font-size: 20px;
+  color: rgb(52, 52, 52);
+}
+
+.profile-detail span {
+  padding: 0 15px;
+  font-size: 20px;
+}
+
+.game-info {
+  color: #fff;
+  border: 1px solid #d2f15a;
+  border-radius: 5px;
+  display: flex;
+  background-color: aliceblue;
+  padding: 10px;
+  margin: 5px 0;
+}
+.game-info-detail {
+  text-align: center;
+  margin: 0 10px;
+  color: #000;
+  padding: 5px 20px;
+  border: 1px solid rgba(0, 0, 0, 0.219);
+  border-radius: 10px;
+}
+.game-info-detail div {
+  /* border: 1px solid blue; */
+  padding: 5px 0;
+  border-bottom: #000 1px solid;
+  font-size: 16px;
+}
+.game-info-detail span {
+  padding-top: 3px;
+  font-size: 20px;
+}
+
+.opponent-info {
+  overflow: auto;
+  height: 40vh;
+  background-color: antiquewhite;
+  border: 1px solid red;
+  padding: 10px;
+}
+.opponent-info-detail {
+  display: flex;
+  /* border: 1px solid blue; */
+  margin: 8px 0;
+  padding: 10px 8px;
+  justify-content: space-between;
+  text-align: center;
+}
+.opponent-info-detail div {
+  /* border: 1px solid green; */
+  padding: 0 10px;
+}
+.opponent-info-detail span {
+  /* border: 1px solid red; */
+  padding: 0 20px;
+}
+.opponent-info-detail:first-child {
+  border-bottom: 2px solid black;
+  font-size: 18px;
+  font-weight: 600;
+}
+.opponent-info::-webkit-scrollbar {
+  width: 15px;
+}
+.opponent-info::-webkit-scrollbar-thumb {
+  background-color: #2f3542;
+  background-clip: padding-box;
+  border-radius: 10px;
+  border: 2px solid transparent;
+}
+.opponent-info::-webkit-scrollbar-track {
+  background-color: gray;
+  border-radius: 10px;
+  box-sizing: inset 0px 0px 5px white;
+}
+.playerinfo-graph {
+  box-sizing: border-box;
+  margin: 0 10px;
+  border: 1px solid red;
+  width: 50%;
+  height: 100%;
+}
+.MyCalendar {
+  width: fit-content;
+  height: fit-content;
 }

@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import React, { Component } from "react";
+import React from "react";
 import GameInfo from "./component/GameInfo/GameInfo";
 import Main from "./component/Main/Main";
 import PlayerInfo from "./component/PlayerInfo/PlayerInfo";
@@ -8,7 +8,8 @@ import Login from "./component/Login/Login";
 import Graph from "./component/Graph/Graph";
 import Signup from "./component/Signup/Signup";
 import VideoUpload from "./component/VideUpload/VideoUpload";
-import Introduction from "./component/Introduction/Introduction";
+
+import Opponent from "./component/PlayerInfo/Oppenent";
 
 function Router() {
   return (
@@ -21,7 +22,8 @@ function Router() {
       <Route path="/guide" element={<Guide />} />
       <Route path="/graph" element={<Graph />} />
       <Route path="/videoupload" element={<VideoUpload />} />
-      <Route path="/Introduction" element={<Introduction />} />
+
+      <Route path="/playerinfo/:id" element={<Opponent />} />
     </Routes>
   );
 }
