@@ -51,14 +51,10 @@
 
 .sidebar-item {
   font-size: 20px;
+  margin: 5px 0;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: transparent;
   color: #3d414c;
-}
-
-.sidebar-item p {
-  margin: 0px;
-  background-color: transparent;
 }
