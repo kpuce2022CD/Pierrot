@@ -4,8 +4,8 @@ import "./Calendar.css";
 import { useState } from "react";
 import CalendarItem from "./CalendarItem";
 
-const MyCalendar = () => {
-  const [date, setDate] = useState(new Date());
+const MyCalendar = ({ setDate, date }) => {
+  // const [date, setDate] = useState(new Date());
   const windate = ["2022-05-31", "2022-05-29"];
   const lose = ["2022-05-31"];
   console.log(date);

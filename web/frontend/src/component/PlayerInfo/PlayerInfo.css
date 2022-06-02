@@ -126,6 +126,8 @@
   box-sizing: inset 0px 0px 5px white;
 }
 .playerinfo-graph {
+  display: flex;
+  flex-direction: column;
   box-sizing: border-box;
   margin: 0 10px;
   /* border: 1px solid red; */
@@ -134,5 +136,12 @@
 }
 .MyCalendar {
   width: 100%;
-  height: 37%;
+  min-height: 40%;
+}
+
+.profile-chart {
+  margin: auto;
+  width: 100%;
+  background-color: #fff;
+  border: 1px red solid;
 }

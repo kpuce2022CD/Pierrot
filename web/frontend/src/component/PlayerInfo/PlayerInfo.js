@@ -3,6 +3,7 @@ import React, { Component, useState, useEffect } from "react";
 import "./PlayerInfo.css";
 import { useNavigate } from "react-router-dom";
 import MyCalendar from "./MyCalendar";
+import ProfileChart from "./ProflieChart";
 
 const PlayerInfo = () => {
   // 임시
@@ -40,6 +41,7 @@ const PlayerInfo = () => {
     },
   ];
   const navigate = useNavigate();
+  const [date, setDate] = useState(new Date());
 
   const goGraph = (e) => {
     console.log(e);
@@ -106,7 +108,10 @@ const PlayerInfo = () => {
         </div>
         <div className="playerinfo-graph">
           <div className="MyCalendar">
-            <MyCalendar />
+            <MyCalendar setDate={setDate} date={date} />
+          </div>
+          <div className="profile-chart">
+            <ProfileChart date={date} />
           </div>
         </div>
       </div>
