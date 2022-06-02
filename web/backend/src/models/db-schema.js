@@ -15,6 +15,15 @@ const memberSchema = mongoose.Schema({
     age:{
         type: Number,
     },
+    odds:[{
+        game:String,
+        opponent:String,
+        win:Boolean,
+        video_key:String,
+        date:String,
+        
+    }]
+
 });
 
 const gameSchema = mongoose.Schema({
@@ -26,42 +35,22 @@ const gameSchema = mongoose.Schema({
         type:String,
         required: true
     },
+    winner:{
+        type:String,
+        required:true
+    },
+    opponent:{
+        type:String
+    },
+    date : {
+        type:String,
+    },
     bounce:[{
         idx:Number,
         x:Number,
         y:Number,
         court_name:String
     }],
-    // front_duceside_left:[{
-    //     x:Number,
-    //     y:Number,
-    //     court_name:String
-    // }],
-    // front_duceside_center:[{
-    //     x:Number,
-    //     y:Number,
-    //     court_name:String
-    // }],
-    // front_duceside_right:[{
-    //     x:Number,
-    //     y:Number,
-    //     court_name:String
-    // }],
-    // front_adside_left:[{
-    //     x:Number,
-    //     y:Number,
-    //     court_name:String
-    // }],
-    // front_adside_center:[{
-    //     x:Number,
-    //     y:Number,
-    //     court_name:String
-    // }],
-    // front_adside_right:[{
-    //     x:Number,
-    //     y:Number,
-    //     court_name:String
-    // }]
     next_bounce:[{
         front_dueceside_left : Array,
         front_dueceside_center : Array,
@@ -70,6 +59,7 @@ const gameSchema = mongoose.Schema({
         front_adside_center : Array,
         front_adside_right : Array,
     }]
+    
 })
 
 const member = mongoose.model('member', memberSchema);
