@@ -2,7 +2,8 @@ import React, { Component, useState, useEffect, useRef } from "react";
 import "./Login.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form"; // form에서 유요성 검사를 하기 위해
-import Axios from 'axios'
+import Axios from "axios";
+import { login } from "../../apis";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -17,27 +18,20 @@ const Login = () => {
   } = useForm();
 
   // react hook form
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log(data);
-    navigate("/main");
+    const res = await login(data.email, data.password);
+    console.log(res);
+    if (res.success) {
+      navigate("/main");
+    } else {
+      alert(res.message);
+    }
   };
 
   const onError = (error) => {
     console.log(error);
     error.next("label").addClass("warning");
-  };
-
-  const getMember = () =>{
-    Axios.post('http://localhost:3001/getMember',{
-    //보낼데이터
-    }).then((response) =>{
-        if(response.data[0]){
-            console.log(response);
-            onSubmit(response.data[0]);
-        }else{
-            console.log("login failed");
-        }
-    });
   };
 
   return (
@@ -50,7 +44,7 @@ const Login = () => {
               type="text"
               autoComplete="off"
               required
-              {...register("userId", { required: true })}
+              {...register("email", { required: true })}
             />
             <label>Email</label>
           </div>
@@ -59,7 +53,7 @@ const Login = () => {
               type="password"
               autoComplete="off"
               required
-              {...register("userPw", { required: true })}
+              {...register("password", { required: true })}
             />
             <label>Password</label>
           </div>

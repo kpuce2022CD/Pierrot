@@ -1,172 +1,65 @@
-import h337 from "heatmap.js";
-import "heatmap.js";
-import React, { Component, useState, useEffect } from "react";
+// import "heatmap.js";
+
+import React from "react";
 import Layout from "../../Layout/Layout";
 import "./Graph.css";
-import {
-  Chart as ChartJS,
-  LinearScale,
-  PointElement,
-  Tooltip,
-  Legend,
-  Title,
-} from 'chart.js';
-import { Bubble } from 'react-chartjs-2'
-import ChartDataLabels from 'chartjs-plugin-datalabels';
-ChartJS.register(LinearScale, PointElement, Tooltip, Legend,Title, ChartDataLabels);
+
+import BounceGraph from "./BounceGraph";
+import PlyaerHeatmap from "./PlyaerHeatmap";
+
 const Graph = () => {
   // 추출한 데이터의 x, y좌표와 그려줄 x, y좌표 변환 필요
   // 추출했을 당시 세로, 그려줄 좌표는 가로
   // width: 450, height: 271
-  const points = [];
-  const jsonData = require("../../tempData/playerCoords.json");
-  // console.log(jsonData[0]);
-  // console.log(typeof jsonData[0]);
-  jsonData.forEach((data) => {
-    const point = {
-      x: parseInt(data.y_0),
-      y: parseInt(data.x_0),
-      value: 1,
-    };
-    points.push(point);
-  });
-
-  const max = 50;
-  const playerData = {
-    max: max,
-    data: points,
-  };
-
-  const frontPoint = [];
-  const backPoint = [];
-  // const bounceJsonData = require("../../tempData/bounces.json");
-  const bounceJsonData = [[452, 1191,'front_dueceside_right', 27 ], [494, 397,'back_adside_left', 119], [376, 1304,'front_dueceside_center', 184], [312, 546,'back_adside_center', 257], [628, 1285,'front_adside_center', 366], [676, 471,'back_dueceside_center', 431], [403, 720,'back_adside_left', 591], [511, 789,'back_dueceside_right', 739], [514, 889,'front_adside_left', 894]];
-  bounceJsonData.forEach((data,i)=>{
-    const point = {
-      x: parseInt(data[1]),
-      y: parseInt(data[0]) + data[3]*0.1,
-      r: 10,
-    };
-    if(data[2].includes('front')){
-      point.x += 0.1*(Object.keys(frontPoint).length + 1)
-      frontPoint.push(point);
-    }else{
-      point.x += 0.1*(Object.keys(backPoint).length + 1)
-      backPoint.push(point);
-    }
-  })
-  
-  const charData = {
-    datasets:[
-      {
-        label:'back',
-        type: 'bubble',
-        backgroundColor:'rgb(100, 1, 93)',
-        data: frontPoint,
-      },
-      {
-        label:'front',
-        type: 'bubble',
-        backgroundColor:'rgb(54, 162, 235)',
-        data: backPoint,
-      },
-      
-    ],
-  }
-
-  const options = {
-    scales:{
-     y:{
-       display:false,
-     },
-     x:{
-       display:false,
-     }
-    },     
-    plugins:{
-      // title:{
-      //   display:true,
-      //   text:'hihihi',
-      //   color:'#000',
-      // },
-      legend:{
-        display:false,
-      },
-      tooltip:{
-        callbacks: {
-          label: function(context) {
-              let label = context.dataset.label || '';
-              if (label) {
-                  label += ': ';
-                  label += `(${parseInt(context.parsed.x)}, ${parseInt(context.parsed.y)})`
-              }
-              return label;
-          },
-          // footer: function(context) {
-          //   return `${context[0].dataIndex+1}`
-          // },
-        }
-      },
-      datalabels: {
-        display: true,
-        color: "white",
-        align: "center",
-        // padding: {
-        //   right: 2
-        // },
-        labels: {
-          // padding: { top: 10 },
-          title: {
-            font: {
-              weight: "bold"
-            }
-          },
-          // value: {
-          //   color: "red"
-          // }
-        },
-        formatter: function (value) {
-          console.log(value)
-          return (value.x % 1).toFixed(1)*10;
-        }
-      },
-      
-      
-    },
-    
-  }
-
-  useEffect(() => {
-    const playerHeatmapInstance = h337.create({
-      container: document.querySelector(".player-heatmap"),
-      opacity: "0.3",
-    });
-    // console.log(playerData);
-    // console.log(playerHeatmapInstance);
-    playerHeatmapInstance.setData(playerData);
-
-  }, []);
+  // 0번 데이터를 프론트선수로
 
   return (
     <Layout>
       <div className="graph">
-        <div className="player-heatmap"></div>
-        <div className="graph-info">
-          <div>
-            <h2>총 이동 거리</h2>
-            <p>000m</p>
-          </div>
-          <div>
-            <h2>총 000</h2>
-            <p>000</p>
-          </div>
-        </div>
-        <div className="bounce">
-          <Bubble options={options} data = {charData} width={450} height={271}/>
-        </div>
+        <PlyaerHeatmap />
+        {/* <div className="player-heatmap"></div> */}
+
+        <BounceGraph />
       </div>
+
+      {/* <div>
+        <Bar
+          data={gamescoreData}
+          width={450}
+          height={271}
+          options={gamescoreoptions}
+        />
+      </div>
+      <div>
+        <Line
+          data={serveceonfig}
+          width={450}
+          height={271}
+          options={serveOptions}
+        />
+      </div>
+      <div>
+        <Bar
+          data={gamescoreData}
+          width={450}
+          height={271}
+          options={gamescoreoptions}
+        />
+      </div>
+      <div>
+        <Line
+          data={serveceonfig}
+          width={450}
+          height={271}
+          options={serveOptions}
+        />
+      </div> */}
     </Layout>
   );
 };
 
 export default Graph;
+
+// TODO
+// 현재 front, backPlyaer 의 정보 정의 필요
+// 크기 조정 -> 경기장 이미지 좀 더 큰걸로 구할 필요 현재 이미지(width: 450, height=271)

@@ -1,39 +1,78 @@
-.graph{
+.graph {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
 }
+.bounce {
+  display: flex;
+  border: 1px solid red;
+  background-color: #26282e;
+  padding: 10px;
+  margin-top: 10px;
+}
+.bounce-chart canvas {
+  margin: 10px;
+  background-image: url("/public/image/tennis_court.png");
+}
+.bounce-detail {
+  padding: 20px;
+  border: 1px solid rgb(128, 128, 128);
+  background-color: rgb(200, 200, 200);
+  border-radius: 10px;
+  margin: 10px;
+}
+.bounce-detail h2 {
+  padding: 0;
+  margin: 16px 0 5px 0;
+  border-bottom: 1px solid gray;
+}
+.bounce-detail p {
+  margin: 0;
+  padding: 0;
+}
+
+.graph-info {
+  display: flex;
+  border-radius: 10px;
+  background-color: #d2f15a;
+  color: black;
+}
+.graph-info div {
+  text-align: center;
+  padding: 5px 30px;
+}
+
+.game-heatmap {
+  border: 1px solid #3e4047;
+  border-radius: 10px;
+  display: flex;
+  background-color: #26282e;
+  margin: 10px;
+  padding: 5px 20px;
+  width: fit-content;
+}
 
 .player-heatmap {
-  margin: 0 auto;
-  margin-top: 15px;
   padding: 10px;
   width: 450px;
   height: 271px;
 }
-.heatmap-canvas{
-  /* background-image: url("/public/image/tennis_court.png"); */
-  background-image: url('/image/tennis_court.png');
-  background-color: transparent;
-  /* background-size: 450px 271px;
-  width: 450px;
-  height: 271px; */
+.heatmap-canvas {
+  background-image: url(../../../public/image/tennis_court.png);
 }
-.bounce canvas{
-  margin: 10px;
-  background-image: url('/image/tennis_court.png');
-  /* background-image: url('../image/profile.png'); */
-}
-
-.graph-info{
-  display: flex;
+.game-heatmap-detail {
+  border: 1px solid rgb(128, 128, 128);
+  background-color: rgb(200, 200, 200);
   border-radius: 10px;
-  background-color: #d2f15a;
-  padding: 5px 100px;
-  color: black;
+  padding: 20px;
 }
-.graph-info div{
-  text-align: center;
-  padding: 5px 30px;
+.game-heatmap-detail h2 {
+  padding: 0;
+  margin: 16px 0 5px 0;
+  border-bottom: 1px solid gray;
+}
+.game-heatmap-detail p {
+  padding: 0;
+  margin: 0;
 }

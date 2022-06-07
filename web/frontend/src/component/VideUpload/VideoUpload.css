@@ -127,3 +127,38 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   width: 30vh;
   background-color: #d2f15a;
 }
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  background-color: #fff;
+}
+
+.video-area {
+  background-color: #999;
+  border: none;
+  border-radius: 8px;
+  width: fit-content;
+  padding: 0 10px;
+  margin-bottom: 10px;
+  color: #fff;
+  font-size: 20px;
+}
+
+.video-area input[type="file"] {
+  position: absolute;
+  width: 0;
+  height: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+}
+
+.video-submit-btn button {
+  border-style: solid;
+  border-color: #a4bb47;
+  border-radius: 10px;
+  width: 100px;
+  padding: 10px;
+  font-size: 18px;
+  width: 30vh;
+  background-color: #d2f15a;
+}

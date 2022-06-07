@@ -3,6 +3,7 @@ import "./Signup.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form"; // form에서 유요성 검사를 하기 위해
 import Axios from "axios";
+import { signup } from "../../apis";
 
 function Signup() {
   const navigate = useNavigate();
@@ -16,9 +17,21 @@ function Signup() {
   } = useForm();
 
   // react hook form
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log(data);
-    postMember(data);
+    if (data.pw !== data.checkPw) {
+      alert("비밀번호를 확인해주세요");
+      return;
+    }
+    const res = await signup(data.email, data.pw, data.name, data.age);
+    console.log("res", res);
+    if (res.success) {
+      alert(res.message);
+      navigate("/");
+    } else {
+      alert(res.message);
+    }
+    // postMember(data);
     // navigate("/");
   };
 
@@ -27,15 +40,16 @@ function Signup() {
     error.next("label").addClass("warning");
   };
 
-  const postMember = (data) =>{
-    Axios.post('http://localhost:3001/postMember',{
-      loginId : data.loginId,
-      loginPw : data.loginPw,
-      name : data.name
-    }).then(() => {
-        console.log("success");
-    }).then(goLoginPage);
-  };
+  // const postMember = (data) =>{
+  //   Axios.post('http://localhost:3001/postMember',{
+  //     loginId : data.loginId,
+  //     loginPw : data.loginPw,
+  //     name : data.name,
+  //     age : data.userAge,
+  //   }).then(() => {
+  //       console.log("success");
+  //   }).then(goLoginPage);
+  // };
 
   return (
     <div className="login-page">
@@ -44,28 +58,28 @@ function Signup() {
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="singup-area">
             <input
-              type="text"
+              type="email"
               autoComplete="off"
               required
-              {...register("loginId")}
+              {...register("email")}
             />
             <label>Email</label>
           </div>
           <div className="singup-area">
             <input
-              type="text"
+              type="password"
               autoComplete="off"
               required
-              {...register("loginPw")}
+              {...register("pw")}
             />
             <label>Pw</label>
           </div>
           <div className="singup-area">
             <input
-              type="text"
+              type="password"
               autoComplete="off"
               required
-              {...register("checkUserPw")}
+              {...register("checkPw")}
             />
             <label>Check PW</label>
           </div>
@@ -80,10 +94,10 @@ function Signup() {
           </div>
           <div className="singup-area">
             <input
-              type="text"
+              type="number"
               autoComplete="off"
               required
-              {...register("userAge")}
+              {...register("age")}
             />
             <label>Age</label>
           </div>
