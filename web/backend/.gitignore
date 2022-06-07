@@ -44,6 +44,8 @@ node_modules/
 jspm_packages/
 src/config/
 config.env
+videos/
+games/
 
 # TypeScript v1 declaration files
 typings/
