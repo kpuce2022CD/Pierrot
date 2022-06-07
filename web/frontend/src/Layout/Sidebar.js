@@ -1,28 +1,51 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import React, { Component } from "react";
 import SidebarItem from "./SidebarItem";
 import "./Layout.css";
+import { logout } from "../apis";
 
 const Sidebar = () => {
-  const menus = [
-    { name: "Main", path: "/main" },
-    { name: "Profile", path: "/playerinfo" },
-    { name: "game", path: "/gameinfo" },
-    { name: "upload", path: "/videoupload" },
-    { name: "Guide", path: "/guide" },
-    { name: "logout", path: "/" },
-  ];
+  const navigate = useNavigate();
+
+  const clickItem = (e) => {
+    console.log(e.target.innerText);
+    navigate(`/${e.target.innerText}`);
+  };
+
+  const clicklogout = async (e) => {
+    const res = await logout();
+    if (res.success) {
+      console.log("성공", res);
+      navigate("/");
+    } else {
+      alert("로그아웃 오류");
+      navigate("/");
+    }
+  };
 
   return (
     <div className="Sidebar">
       <img className="profile" src="../image/profile.png" />
-      {menus.map((menu, index) => {
-        return (
-          <NavLink className={"Sidebar-menu"} to={menu.path} key={index}>
-            <SidebarItem menu={menu} />
-          </NavLink>
-        );
-      })}
+      <div className="sidebar-menu">
+        <div className="sidebar-item" onClick={clickItem}>
+          Main
+        </div>
+        <div className="sidebar-item" onClick={clickItem}>
+          Profile
+        </div>
+        <div className="sidebar-item" onClick={clickItem}>
+          game
+        </div>
+        <div className="sidebar-item" onClick={clickItem}>
+          upload
+        </div>
+        <div className="sidebar-item" onClick={clickItem}>
+          Guide
+        </div>
+        <div className="sidebar-item" onClick={clicklogout}>
+          logout
+        </div>
+      </div>
     </div>
   );
 };
