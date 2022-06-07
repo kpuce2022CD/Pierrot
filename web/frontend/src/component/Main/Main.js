@@ -23,7 +23,7 @@ const Main = () => {
           <h1>Tennis</h1>
           <div className="card">
             <figure>
-              <Link to="/playerinfo">
+              <Link to="/profile">
                 <img src="./image/player.png" />
                 <figcaption>
                   <div className="line">
@@ -35,7 +35,7 @@ const Main = () => {
               </Link>
             </figure>
             <figure>
-              <Link to="/gameinfo">
+              <Link to="/game">
                 <img src="./image/playImage.jpg" />
                 <figcaption>
                   <div className="line">
