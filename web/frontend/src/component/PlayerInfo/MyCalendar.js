@@ -1,13 +1,19 @@
 import Calendar from "react-calendar";
 import moment from "moment";
 import "./Calendar.css";
+import { useState } from "react";
+import CalendarItem from "./CalendarItem";
 
-const MyCalendar = () => {
+const MyCalendar = ({ setDate, date }) => {
+  // const [date, setDate] = useState(new Date());
   const windate = ["2022-05-31", "2022-05-29"];
   const lose = ["2022-05-31"];
+  console.log(date);
   return (
-    <>
+    <div className="calendar-layout">
       <Calendar
+        onChange={setDate}
+        value={date}
         navigationAriaLabel={null}
         formatDay={(locale, date) => moment(date).format("DD")}
         tileClassName={({ date, view }) => {
@@ -32,7 +38,11 @@ const MyCalendar = () => {
           return <div className="calendar-tag">{html}</div>;
         }}
       />
-    </>
+      <div className="calendar-item">
+        <div> {moment(date).format("YYYY년 MM월 DD일")}</div>
+        <CalendarItem date={date} />
+      </div>
+    </div>
   );
 };
 
