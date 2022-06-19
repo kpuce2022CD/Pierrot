@@ -16,7 +16,6 @@ const auth = {
       console.log(savedMember);
     } catch (err) {
       res.json({ success: false, message: err });
-      // res.json({ message: err });
       console.log(err);
     }
   },
@@ -38,11 +37,11 @@ const auth = {
       }
       console.log("password", user.passwd, req.body.password);
       if (user.passwd == req.body.password) {
-        console.log("1");
+        console.log("password collect");
         req.session.user = user.email;
         res.json({ success: true });
       } else {
-        console.log("!!");
+        console.log("password false");
         return res.json({
           success: false,
           message: "비밀번호가 틀렸습니다.",
