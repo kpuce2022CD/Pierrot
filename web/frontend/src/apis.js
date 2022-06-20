@@ -1,6 +1,7 @@
 import axios from "axios";
+import { URL } from "./config";
 
-const baseUrl = "http://localhost:3001";
+const baseUrl = URL.base;
 
 const urls = {
   login: `${baseUrl}/auth/login`,
@@ -11,15 +12,15 @@ const urls = {
 };
 // winer: 누가 이겼는지(이름String), opponent: 누구랑 쳤는지(이름String), date: 언제 쳤는지(Date), score: 몇대몇('00:00')
 
-export const uploadVideo = async (winer, opponent, date, score) => {
+export const uploadVideo = async (winer, opponent, date, frm) => {
   try {
     const result = await axios.post(
       urls.uploadVideo,
+      frm,
       {
         winer: winer,
         opponent: opponent,
         date: date,
-        score: score,
       },
       { withCredentials: true }
     );

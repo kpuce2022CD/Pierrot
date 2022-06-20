@@ -23,10 +23,10 @@ function VideoUpload() {
   } = useForm();
 
   const onSubmit = (data) => {
+    console.log("submit");
     const video = data.video[0];
     if (!isVide(video)) return false;
     // const loader = document.querySelector(".loader");
-
     // loader.style.display = "block";
     ref.current.style.display = "block";
     console.log(data);
@@ -36,25 +36,24 @@ function VideoUpload() {
     formData.append("file", video);
     console.log(formData);
 
-    upload(
-      data.video_winer,
-      data.video_opponent,
-      data.video_date,
-      data.video_score
-    );
+    const frm = new FormData();
+    frm.append("video", data.video);
+    console.log("puload 전");
+    upload(data.video_winer, data.video_opponent, data.video_date, frm);
   };
 
   const onError = (error) => {
     console.log(error);
   };
 
-  const upload = async (winer, opponent, date, score) => {
-    const res = await uploadVideo(winer, opponent, date, score);
+  const upload = async (winer, opponent, date) => {
+    const res = await uploadVideo(winer, opponent, date);
     if (res.success) {
       alert("성공");
     } else {
       alert("실패");
     }
+    console.log("puload 후");
     ref.current.style.display = "none";
   };
   return (
@@ -80,7 +79,7 @@ function VideoUpload() {
             />
             <label>opponent</label>
           </div>
-          <div className="score-area">
+          {/* <div className="score-area">
             <input
               type="text"
               autoComplete="off"
@@ -88,7 +87,7 @@ function VideoUpload() {
               {...register("video_score", { required: true })}
             />
             <label>score</label>
-          </div>
+          </div> */}
           <div className="date-area">
             <input
               type="date"
