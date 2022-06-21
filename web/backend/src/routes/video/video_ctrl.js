@@ -76,7 +76,6 @@ const video ={
                 //get video file from S3
                 readStream = s3.getObject(downloadParams).createReadStream();
             }
-
         }catch(err){
             res.json({
                 success: false,
@@ -84,7 +83,7 @@ const video ={
             })
        }
         
-       console.log("finish download_video")
+       console.log("finish download_video");
         //비디오파일 내보내기
         readStream.pipe(res);
     },

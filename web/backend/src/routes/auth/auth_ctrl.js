@@ -70,15 +70,25 @@ const auth = {
 
   get_info : async (req, res) =>{
     console.log("start get_info");
-    console.log("email :",req.body.email);
 
     const info =  await member.findOne({ 
       email: req.body.email });
     
-    
-    console.log(info.length);
-    res.json(info.odds);
+    const num_game = info.odds.length;
+    let count = 0;
 
+    for(i in info.odds){
+      if(info.odds[i].win === true){
+        count++;
+      }
+    }
+
+    JSON.stringify(info);
+
+    info.__v = count/num_game;
+    // console.log(info.current);
+
+    res.json(info);
   }
 };
 
