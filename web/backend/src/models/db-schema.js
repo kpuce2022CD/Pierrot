@@ -81,7 +81,6 @@ const gameSchema = mongoose.Schema({
     }]
     
 });
-
 const member = mongoose.model("member", memberSchema);
 const game = mongoose.model("game", gameSchema);
 

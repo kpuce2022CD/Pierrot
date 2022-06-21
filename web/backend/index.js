@@ -56,7 +56,9 @@ app.use("/auth", auth);
 app.use("/video", video);
 
 //if you want add game Information enter into 'http://localhost:3001/game/postGameInfo'
-//if you want get game Information enter into 'http://localhost:3001/game/getGameInfo'
+//if you want get game Information enter into 'http://localhost:3001/game/getAllGameInfo'
+//if you wnat get All game Information enter into 'http//localhost:3001/game/getAllGame'
+//if you wnat get game Infromation by id enter into 'http//localhost:3001/game/getGameInfoById'
 //model from /models/db-schema/gameSchema
 app.use("/game", game);
 
