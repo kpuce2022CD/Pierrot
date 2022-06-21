@@ -32,22 +32,25 @@ function VideoUpload() {
     console.log(data);
     // {video-name: 'ㅇ', video-date: '2022-03-01', video: FileList}
     console.log(data.video);
-    const formData = new FormData();
-    formData.append("file", video);
-    console.log(formData);
 
     const frm = new FormData();
-    frm.append("video", data.video);
-    console.log("puload 전");
-    upload(data.video_winer, data.video_opponent, data.video_date, frm);
+    frm.append("video", video);
+    frm.append("date", data.video_date);
+    frm.append("opponent", data.video_opponent);
+    frm.append("winder", data.video_winder);
+    for (let key of frm.entries()) {
+      console.log(`${key}`);
+    }
+    console.log("puload 전", frm);
+    upload(data.video_winer, data.video_opponent, data.video_date, video);
   };
 
   const onError = (error) => {
     console.log(error);
   };
 
-  const upload = async (winer, opponent, date) => {
-    const res = await uploadVideo(winer, opponent, date);
+  const upload = async (winer, opponent, date, video) => {
+    const res = await uploadVideo(winer, opponent, date, video);
     if (res.success) {
       alert("성공");
     } else {

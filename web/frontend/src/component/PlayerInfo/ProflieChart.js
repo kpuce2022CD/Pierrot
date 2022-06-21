@@ -42,6 +42,8 @@ const ProfileChart = ({ date }) => {
           display: false,
         },
       },
+      responsive: true,
+      maintainAspectRatio: false,
       scales: {
         x: {
           display: false,
@@ -73,8 +75,9 @@ const ProfileChart = ({ date }) => {
         <p>win / lose</p>
       </div>
       <Doughnut
+        width={"fit-content"}
+        height={"5%"}
         className="profile-doughnut-chart"
-        style={{ width: "30px", heigth: "30px" }}
         data={chartData}
         options={chartOptions}
       />

@@ -14,7 +14,8 @@
 }
 
 .profile-doughnut-chart {
-  background: #fff;
-  width: 20px;
-  height: 20px;
+  width: fit-content;
+  background: transparent;
+  margin: 0;
+  padding: 0;
 }

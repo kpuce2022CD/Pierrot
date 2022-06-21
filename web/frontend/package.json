@@ -44,7 +44,6 @@
     "start_front": "yarn start",
     "dev": "concurrently --kill-others-on-fail \"yarn start_server\" \"yarn start_front\""
   },
-  "proxy": "http://localhost:3001",
   "eslintConfig": {
     "extends": [
       "react-app",
