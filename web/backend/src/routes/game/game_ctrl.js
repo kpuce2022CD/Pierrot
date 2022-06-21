@@ -1,5 +1,6 @@
 const schema = require('../../models/db-schema');
 const fs = require('fs');
+const CSV = require('comma-separated-values');
 
 const game ={
     upload_game : async (req,res) => {
@@ -37,7 +38,7 @@ const game ={
         console.log("start download_all_game")
         try{
             const gameData = await schema.game.find({
-                email:req.body.email
+                email:req.session.user
             });
             // await schema.game.findOne()
       
@@ -104,39 +105,48 @@ const game ={
 
 const stringToCsv = (csv) =>{
     console.log("start stringToCsv");
-    const rows = csv.split("\r\n");
-    if(rows[rows.length - 1]===''){
-        console.log("'' has been found");
-        rows.pop();
-    }
+    const modifiedCsv = new CSV(csv, {header: true}).parse();
+    const cols = [[],[],[],[],[]];
+    modifiedCsv.forEach(row => {
+        row.forEach((cell, idx) => {
+            cols[idx].push(cell);
+        });
+    })
 
-    let results = [];
-    let columnTitle = [];
+    console.log(cols);
+    // const rows = csv.split("\r\n");
+    // if(rows[rows.length - 1]===''){
+    //     console.log("'' has been found");
+    //     rows.pop();
+    // }
 
-    for(const i in rows){
-        console.log(i);
-        const row = rows[i];
-        const data = row.split(",");
-        if(i==="0"){
-            columnTitle = data;
-        }else{
-            let row_data = {};
-            for(const index in columnTitle){
-                const title = columnTitle[index];
-                if(title !== "court_location"){
-                    if(title === "court_name"){
-                        console.log("title",title);
-                        row_data[title] = data[index];
-                    }else{
-                        row_data[title] = parseInt(data[index]);
-                    }
-                }
-            }
-            results.push(row_data);
-        }
-    }
+    // let results = [];
+    // let columnTitle = [];
+
+    // for(const i in rows){
+    //     console.log(i);
+    //     const row = rows[i];
+    //     const data = row.split(",");
+    //     if(i==="0"){
+    //         columnTitle = data;
+    //     }else{
+    //         let row_data = {};
+    //         for(const index in columnTitle){
+    //             const title = columnTitle[index];
+    //             if(title !== "court_location"){
+    //                 if(title === "court_name"){
+    //                     console.log("title",title);
+    //                     row_data[title] = data[index];
+    //                 }else{
+    //                     row_data[title] = parseInt(data[index]);
+    //                 }
+    //             }
+    //         }
+    //         results.push(row_data);
+    //     }
+    // }
     console.log("finish stringToCsv");
-    return results;
+    return cols;
 }
 
 const predict_next_court = (csvs) =>{

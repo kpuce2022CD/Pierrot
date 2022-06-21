@@ -37,8 +37,8 @@ const video ={
             s3.upload(uploadParams);
 
             //upload game Info into mongodb
-            upload_db_games(body.email, file.filename+".mp4",body.winner,body.opponent,body.date);
-            upload_db_member(body.email,file.filename+".mp4",win,body.opponent,body.date);
+            upload_db_games(req.session.user, file.filename+".mp4",body.winner,body.opponent,body.date);
+            upload_db_member(req.session.user,file.filename+".mp4",win,body.opponent,body.date);
             
             res.json({
                 success: true

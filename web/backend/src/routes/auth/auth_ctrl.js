@@ -67,6 +67,19 @@ const auth = {
       return res.json({ success: false });
     }
   },
+
+  get_info : async (req, res) =>{
+    console.log("start get_info");
+    console.log("email :",req.body.email);
+
+    const info =  await member.findOne({ 
+      email: req.body.email });
+    
+    
+    console.log(info.length);
+    res.json(info.odds);
+
+  }
 };
 
 module.exports = { auth };
