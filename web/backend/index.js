@@ -45,8 +45,10 @@ app.use(
     credentials: true,
   })
 );
-//if you want get member information enter into 'http://localhost:3001/auth/getMember'
-//if you want postMember information enter into 'http://localhost:3001/auth/postMember'
+//if you want get login enter into 'http://localhost:3001/auth/login'
+//if you want signup enter into 'http://localhost:3001/auth/signup'
+//if you want logout enter into 'http://localhost:3001/auth/logout'
+//if you want get member information enter into 'http://localhost:3001/auth/getInfo'
 //model from /models/db-schema/memberSchema
 app.use("/auth", auth);
 

@@ -22,7 +22,7 @@ const auth = {
 
   login: async (req, res) => {
     console.log(req.body);
-    if (req.session.user) {
+    if (req.body.email) {
       console.log(req.session);
       req.session.destroy();
       return res.json({ success: false, message: "로그인 상태" });
@@ -38,7 +38,7 @@ const auth = {
       console.log("password", user.passwd, req.body.password);
       if (user.passwd == req.body.password) {
         console.log("password collect");
-        req.session.user = user.email;
+        req.body.email = user.email;
         res.json({ success: true });
       } else {
         console.log("password false");
@@ -51,7 +51,7 @@ const auth = {
   },
 
   logout: async (req, res) => {
-    if (req.session.user) {
+    if (req.body.email) {
       req.session.destroy((err) => {
         if (err) throw err;
         res.json({ success: true });
@@ -61,7 +61,7 @@ const auth = {
     }
   },
   auth: async (req, res) => {
-    if (req.session.user) {
+    if (req.body.email) {
       return res.json({ success: true });
     } else {
       return res.json({ success: false });
@@ -74,11 +74,11 @@ const auth = {
     const info =  await member.findOne({ 
       email: req.body.email });
     
-    const num_game = info.odds.length;
+    const num_game = info.game.length;
     let count = 0;
 
-    for(i in info.odds){
-      if(info.odds[i].win === true){
+    for(i in info.game){
+      if(info.game[i].win === true){
         count++;
       }
     }

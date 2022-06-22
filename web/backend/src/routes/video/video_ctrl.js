@@ -18,11 +18,9 @@ const video ={
     upload_video : async (req,res) => {
         console.log("start upload_video");
         //get video
-        const file = req.file;
-        const body = req.body;
-        const fileStream = fs.createReadStream(file.path)
+        const fileStream = fs.createReadStream(req.file.path);
         let win = true;
-        if(body.winner === body.opponent){
+        if(req.body.winner === req.body.opponent){
             win = false;
         }
 
@@ -30,15 +28,16 @@ const video ={
         const uploadParams = {
             Bucket: bucketName,
             Body: fileStream,
-            Key: file.filename+".mp4"
+            Key: req.file.filename+".mp4"
         };
+
         try{
             //upload video file into S3
             s3.upload(uploadParams);
 
             //upload game Info into mongodb
-            upload_db_games(req.session.user, file.filename+".mp4",body.winner,body.opponent,body.date);
-            upload_db_member(req.session.user,file.filename+".mp4",win,body.opponent,body.date);
+            upload_db_games(req.body.email, req.file.filename+".mp4",req.body.winner,req.body.opponent,req.body.date);
+            upload_db_member(req.body.email,req.file.filename+".mp4",win,req.body.opponent,req.body.date);
             
             res.json({
                 success: true
@@ -122,7 +121,7 @@ const get_db_games = async(_id) => {
 
 const upload_db_member = async (email,file_name,win,opponent,date) =>{
     console.log("start upload_db_member");
-    const odds = {
+    const game = {
         video_key : file_name,
         win : win,
         opponent : opponent,
@@ -131,7 +130,7 @@ const upload_db_member = async (email,file_name,win,opponent,date) =>{
     try{
         const member = await schema.member.updateOne(
             {email: email},
-            {$push : {odds : odds}});
+            {$push : {game : game}});
 
         return member;
       }catch(err){
