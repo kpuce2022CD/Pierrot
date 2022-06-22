@@ -53,7 +53,7 @@ const PlyaerHeatmap = () => {
   return (
     <div className="game-heatmap">
       <div className="player-heatmap" ref={ref}></div>
-      <div className="game-heatmap-detail">
+      <div className="graph-detail">
         <h2>평균 위치</h2>
         <p>{message}</p>
         <h2>총 이동 거리</h2>

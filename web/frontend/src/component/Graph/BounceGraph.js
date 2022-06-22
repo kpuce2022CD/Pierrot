@@ -224,7 +224,7 @@ const BounceGraph = () => {
         />
       </div>
 
-      <div className="bounce-detail">
+      <div className="graph-detail">
         <h2>position</h2>
         <p>left</p>
         <h2>playerposition</h2>

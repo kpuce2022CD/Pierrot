@@ -71,7 +71,7 @@ const ProfileChart = ({ date }) => {
   return (
     <>
       <div className="profile-chart-title">
-        {moment(date).format("YYYY년 MM월")}
+        {moment(date).format("YYYY  MM")}
         <p>win / lose</p>
       </div>
       <Doughnut
