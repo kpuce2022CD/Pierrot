@@ -19,7 +19,7 @@ const memberSchema = mongoose.Schema({
         type: Number,
         default: 0,
     },
-    adds : {
+    odds : {
         type: Number,
         default:0,
     },
