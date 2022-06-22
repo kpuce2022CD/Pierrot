@@ -18,18 +18,8 @@ const Graph = () => {
       <div className="graph">
         <PlyaerHeatmap />
         {/* <div className="player-heatmap"></div> */}
-        <div className="graph-info">
-          <div>
-            <h2>총 이동 거리</h2>
-            <p>000m</p>
-          </div>
-          <div>
-            <h2>총 000</h2>
-            <p>000</p>
-          </div>
-        </div>
+
         <BounceGraph />
-        <div className="bounce"></div>
       </div>
 
       {/* <div>

@@ -17,13 +17,13 @@ function Router() {
       <Route path="/main" element={<Main />} />
       <Route path="/" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
-      <Route path="/playerinfo" element={<PlayerInfo />} />
-      <Route path="/gameinfo" element={<GameInfo />} />
+      <Route path="/profile" element={<PlayerInfo />} />
+      <Route path="/game" element={<GameInfo />} />
       <Route path="/guide" element={<Guide />} />
       <Route path="/graph" element={<Graph />} />
-      <Route path="/videoupload" element={<VideoUpload />} />
+      <Route path="/upload" element={<VideoUpload />} />
 
-      <Route path="/playerinfo/:id" element={<Opponent />} />
+      <Route path="/profile/:id" element={<Opponent />} />
     </Routes>
   );
 }

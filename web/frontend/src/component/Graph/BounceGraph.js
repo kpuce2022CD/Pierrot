@@ -20,6 +20,7 @@ ChartJS.register(
 );
 const BounceGraph = () => {
   const playerTopData = require("../../tempData/csvjson.json");
+  const [bounceposition, setBounceposition] = useState([]);
 
   const frontPoint = [];
   const backPoint = [];
@@ -37,41 +38,45 @@ const BounceGraph = () => {
     [511, 789, "back_dueceside_right", 739],
     [514, 889, "front_adside_left", 894],
   ];
-  bounceJsonData.forEach((data, i) => {
-    const point = {
-      x: parseInt(data[1]),
-      y: parseInt(data[0]) + data[3] * 0.001,
-      r: 10,
-    };
-    if (data[2].includes("front")) {
-      point.x += 0.1 * (i + 1);
-      frontPoint.push(point);
-    } else {
-      point.x += 0.1 * (i + 1);
-      backPoint.push(point);
-    }
-  });
-  // console.log(bounceJsonData);
 
-  const bounceIndex = bounceJsonData.map((e) => e[3]);
-  // 임시데이터
+  const saveDate = () => {
+    bounceJsonData.forEach((data, i) => {
+      const point = {
+        x: parseInt(data[1]),
+        y: parseInt(data[0]) + data[3] * 0.001,
+        r: 10,
+      };
+      const tmp = data[2].split("_");
+      if (tmp[0] === "front") {
+        point.x += 0.1 * (i + 1);
+        frontPoint.push(point);
+      } else {
+        point.x += 0.1 * (i + 1);
+        backPoint.push(point);
+        setBounceposition([...bounceposition, tmp[2]]);
+        console.log(bounceposition, tmp[2]);
+      }
+    });
 
-  // 바운드 했을 당시 두 선수들의 위치 저장
-  bounceIndex.forEach((v, i) => {
-    const point1 = {
-      x: parseInt(playerTopData[v].y_0),
-      y: parseInt(playerTopData[v].x_0) + 0.1 * (i + 1),
-      r: 0,
-    };
-    frontPlayer.push(point1);
-    const point2 = {
-      x: parseInt(playerTopData[v].y_1),
-      y: parseInt(playerTopData[v].x_1) + 0.1 * (i + 1),
-      r: 0,
-    };
-    backPlayer.push(point2);
-  });
+    const bounceIndex = bounceJsonData.map((e) => e[3]);
+    // 임시데이터
 
+    // 바운드 했을 당시 두 선수들의 위치 저장
+    bounceIndex.forEach((v, i) => {
+      const point1 = {
+        x: parseInt(playerTopData[v].y_0),
+        y: parseInt(playerTopData[v].x_0) + 0.1 * (i + 1),
+        r: 0,
+      };
+      frontPlayer.push(point1);
+      const point2 = {
+        x: parseInt(playerTopData[v].y_1),
+        y: parseInt(playerTopData[v].x_1) + 0.1 * (i + 1),
+        r: 0,
+      };
+      backPlayer.push(point2);
+    });
+  };
   const [chartData, setChartData] = useState({ datasets: [] });
   const [chartOptions, setChartOptions] = useState({});
   const chartReference = useRef();
@@ -197,17 +202,28 @@ const BounceGraph = () => {
   };
 
   useEffect(() => {
+    saveDate();
     chart();
+    console.log(bounceposition);
   }, []);
   return (
     <div className="bounce">
-      <Bubble
-        ref={chartReference}
-        data={chartData}
-        options={chartOptions}
-        width={450}
-        height={271}
-      />
+      <div className="bounce-chart">
+        <Bubble
+          ref={chartReference}
+          data={chartData}
+          options={chartOptions}
+          width={"450px"}
+          height={"271px"}
+        />
+      </div>
+
+      <div className="bounce-detail">
+        <h2>position</h2>
+        <p>left</p>
+        <h2>playerposition</h2>
+        <p>left-rigth</p>
+      </div>
     </div>
   );
 };
