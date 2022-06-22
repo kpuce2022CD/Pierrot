@@ -136,12 +136,16 @@
 }
 .MyCalendar {
   width: 100%;
-  min-height: 40%;
+  min-height: 20%;
+  height: fit-content;
 }
 
 .profile-chart {
   margin: auto;
   width: 100%;
-  background-color: #fff;
-  border: 1px red solid;
+  height: 50%;
+  /* background-color: #fff; */
+  display: flex;
+  /* flex-direction: column; */
+  /* border: 1px red solid; */
 }

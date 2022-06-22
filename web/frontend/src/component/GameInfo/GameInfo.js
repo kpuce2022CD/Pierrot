@@ -7,7 +7,7 @@ function GameInfo() {
   const navigate = useNavigate();
   const goGraph = (id) => {
     console.log(id);
-    navigate("/graph");
+    navigate(`/graph/${id}`);
   };
 
   const Game = ({ game }) => {

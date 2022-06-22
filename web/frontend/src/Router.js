@@ -20,7 +20,8 @@ function Router() {
       <Route path="/profile" element={<PlayerInfo />} />
       <Route path="/game" element={<GameInfo />} />
       <Route path="/guide" element={<Guide />} />
-      <Route path="/graph" element={<Graph />} />
+      {/* <Route path="/graph" element={<Graph />} /> */}
+      <Route path="/graph/:id" element={<Graph />} />
       <Route path="/upload" element={<VideoUpload />} />
 
       <Route path="/profile/:id" element={<Opponent />} />

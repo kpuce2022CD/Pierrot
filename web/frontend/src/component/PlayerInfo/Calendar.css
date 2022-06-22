@@ -174,7 +174,7 @@
   background-color: #21242b;
   width: fit-content;
   display: flex;
-  margin-top: 20px;
+  margin-top: 10px;
   border: 1px solid #69707e;
   justify-content: space-around;
 }
@@ -193,8 +193,13 @@
   background-color: #f0f0f0;
   border-bottom: 2px solid black;
 }
-
-.calendar-item p {
+.calendar-item div:nth-child(2) {
+  display: flex;
+  flex-direction: column;
+}
+.calendar-item a {
+  text-decoration: none;
+  color: #21242b;
   margin: 10px 0;
   padding: 5px;
   border-radius: 5px;
