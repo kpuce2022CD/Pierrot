@@ -40,7 +40,7 @@ app.use(
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: ["http://localhost:3000","https://han.d2st12ycswul38.amplifyapp.com/"],
     methods: ["GET", "POST", "OPTIONS"],
     credentials: true,
   })
