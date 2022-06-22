@@ -6,6 +6,7 @@ const auth = (req, res, next) => {
     memberSchema.findOne({ email: req.session.user }, (err, user) => {
       if (user) {
         req.memberSchema = user;
+        console.log("user",user);
         next();
       }
     });

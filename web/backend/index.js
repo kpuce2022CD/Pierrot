@@ -47,11 +47,19 @@ app.use(
 );
 //if you want get member information enter into 'http://localhost:3001/auth/getMember'
 //if you want postMember information enter into 'http://localhost:3001/auth/postMember'
-//member
+//model from /models/db-schema/memberSchema
 app.use("/auth", auth);
 
 //if you want get video information enter into 'http://localhost:3001/video/uploadVideo'
+//if you want post video information enter into 'http://localhost:3001/video/downloadVideo'
+//model from /models/db-schema/gameSchema
 app.use("/video", video);
+
+//if you want add game Information enter into 'http://localhost:3001/game/postGameInfo'
+//if you want get game Information enter into 'http://localhost:3001/game/getAllGameInfo'
+//if you wnat get All game Information enter into 'http//localhost:3001/game/getAllGame'
+//if you wnat get game Infromation by id enter into 'http//localhost:3001/game/getGameInfoById'
+//model from /models/db-schema/gameSchema
 app.use("/game", game);
 
 module.exports = app;

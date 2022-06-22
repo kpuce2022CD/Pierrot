@@ -140,7 +140,6 @@ class CentroidTracker:
         del self.objects[objectID]
         del self.disappeared[objectID]
 
-    ############## 해석 필요 ####################
     def update(self, rects):
         # rects 가 비어있는지 확인
         if len(rects) == 0:
