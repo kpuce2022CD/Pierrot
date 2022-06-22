@@ -10,16 +10,16 @@ const game ={
         console.log(csv);
 
         //csv 읽을수 있는 형태로 변환
-        const csvs = stringToCsv(csv);
-        console.log(csvs);
+        const csvs = csvToString(csv);
 
         //각 오브젝트로 변환
         //ex) front_adside_right : [back_dueceside_left,~]
         const court_list = predict_next_court(csvs);
         console.log(court_list);
+
         //findAndUpdate from mongodb
         schema.game.findOneAndUpdate({_id : req.body._id},
-        {$set:{bounce:csvs,next_bounce:court_list}},function(err,doc){
+            {$set:{bounce:csvs,next_bounce:court_list}},function(err,doc){
             if(err){
                 console.log("Something wrong when updating data!");
                 res.json({
@@ -31,6 +31,8 @@ const game ={
                 success : true
             });
         });
+
+
         
     },
 
@@ -38,9 +40,8 @@ const game ={
         console.log("start download_all_game")
         try{
             const gameData = await schema.game.find({
-                email:req.session.user
+                email:req.body.email
             });
-            // await schema.game.findOne()
       
             console.log(gameData);
             console.log("finish download_all_game")
@@ -103,50 +104,12 @@ const game ={
     }
 }
 
-const stringToCsv = (csv) =>{
+const csvToString = (csv) =>{
     console.log("start stringToCsv");
-    const modifiedCsv = new CSV(csv, {header: true}).parse();
-    const cols = [[],[],[],[],[]];
-    modifiedCsv.forEach(row => {
-        row.forEach((cell, idx) => {
-            cols[idx].push(cell);
-        });
-    })
-
-    console.log(cols);
-    // const rows = csv.split("\r\n");
-    // if(rows[rows.length - 1]===''){
-    //     console.log("'' has been found");
-    //     rows.pop();
-    // }
-
-    // let results = [];
-    // let columnTitle = [];
-
-    // for(const i in rows){
-    //     console.log(i);
-    //     const row = rows[i];
-    //     const data = row.split(",");
-    //     if(i==="0"){
-    //         columnTitle = data;
-    //     }else{
-    //         let row_data = {};
-    //         for(const index in columnTitle){
-    //             const title = columnTitle[index];
-    //             if(title !== "court_location"){
-    //                 if(title === "court_name"){
-    //                     console.log("title",title);
-    //                     row_data[title] = data[index];
-    //                 }else{
-    //                     row_data[title] = parseInt(data[index]);
-    //                 }
-    //             }
-    //         }
-    //         results.push(row_data);
-    //     }
-    // }
+    const info = new CSV(csv, {header: true}).parse();
+    console.log(info);
     console.log("finish stringToCsv");
-    return cols;
+    return info;
 }
 
 const predict_next_court = (csvs) =>{
