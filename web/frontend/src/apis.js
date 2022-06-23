@@ -1,7 +1,7 @@
 import axios from "axios";
 import { URL } from "./config";
-axios.defaults.withCredentials = true;
-const baseUrl = URL.base;
+// axios.defaults.withCredentials = true;
+const baseUrl = "https://angry-falcons-stare-118-222-85-227.loca.lt";
 
 const urls = {
   login: `${baseUrl}/auth/login`,
