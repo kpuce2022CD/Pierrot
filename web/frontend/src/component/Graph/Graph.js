@@ -14,7 +14,7 @@ const Graph = () => {
   const jsonData3 = require("../../tempData/3.json");
   const jsonData4 = require("../../tempData/4.json");
   const jsonData5 = require("../../tempData/5.json");
-  const [rally, setRally] = useState([]);
+  const [rally, setRally] = useState([1, 3, 7, 1, 7]);
   const [videoUrl, setVideoUrl] = useState([]);
   const [videoIndex, setVideoIndex] = useState(0);
 
@@ -42,7 +42,7 @@ const Graph = () => {
       console.log(rally, cnt);
       console.log([...rally, cnt]);
     }
-    setRally(array);
+    // setRally(array);
   };
   const getVideo = () => {
     setVideoUrl([

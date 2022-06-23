@@ -1,7 +1,7 @@
 import axios from "axios";
 import { URL } from "./config";
 // axios.defaults.withCredentials = true;
-const baseUrl = "https://angry-falcons-stare-118-222-85-227.loca.lt";
+const baseUrl = "https://early-ears-eat-118-222-85-227.loca.lt";
 
 const urls = {
   login: `${baseUrl}/auth/login`,
@@ -41,8 +41,8 @@ export const login = async (email, password) => {
       {
         email: email,
         password: password,
-      },
-      { withCredentials: true }
+      }
+      // { withCredentials: true }
     );
     return result.data;
   } catch (e) {
