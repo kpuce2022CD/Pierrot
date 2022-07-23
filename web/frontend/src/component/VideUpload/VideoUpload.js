@@ -6,6 +6,7 @@ import { uploadVideo } from "../../apis";
 
 function VideoUpload() {
   const ref = useRef();
+  const { register, handleSubmit } = useForm();
 
   const isVide = (video) => {
     const ext = video.name.split(".").pop();
@@ -26,8 +27,6 @@ function VideoUpload() {
       return false;
     }
   };
-
-  const { register, handleSubmit } = useForm();
 
   const onSubmit = (data) => {
     const video = data.video[0];

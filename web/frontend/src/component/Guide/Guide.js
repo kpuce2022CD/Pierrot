@@ -1,6 +1,5 @@
-import Footer from "../../Layout/Footer";
 import Layout from "../../Layout/Layout";
-import React, { Component, useState } from "react";
+import React from "react";
 import "./Guide.css";
 
 const Guide = () => {
