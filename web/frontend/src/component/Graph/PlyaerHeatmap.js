@@ -57,7 +57,7 @@ const PlyaerHeatmap = () => {
         <h2>평균 위치</h2>
         <p>{message}</p>
         <h2>총 이동 거리</h2>
-        <p>000m</p>
+        <p>375m</p>
         <h2>총 000</h2>
         <p>000</p>
       </div>
