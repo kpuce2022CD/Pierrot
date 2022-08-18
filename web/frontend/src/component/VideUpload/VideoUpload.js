@@ -1,52 +1,53 @@
-import React, { useState, useRef } from "react";
+import React, { useRef } from "react";
 import "./VideoUpload.css";
 import Layout from "../../Layout/Layout";
 import { useForm } from "react-hook-form"; // form에서 유요성 검사를 하기 위해
-import axios, { Axios } from "axios";
 import { uploadVideo } from "../../apis";
 
 function VideoUpload() {
   const ref = useRef();
+  const { register, handleSubmit } = useForm();
 
   const isVide = (video) => {
     const ext = video.name.split(".").pop();
     if (ext !== "mp4") {
       alert(".mp4 파일 영상만 업로드 가능합니다.");
       return false;
-    } else return true;
+    } else {
+      return true;
+    }
   };
 
-  const {
-    register,
-    handleSubmit,
-    formState: { error },
-  } = useForm();
+  const isScore = (text = "") => {
+    const score = text.replace(/ /g, "");
+    if (/^\d+:\d+$/.test(score)) {
+      return true;
+    } else {
+      alert("점수 형식을 맞춰주세요. 내점수 : 상대 점수");
+      return false;
+    }
+  };
 
   const onSubmit = (data) => {
-    console.log("submit");
     const video = data.video[0];
-    if (!isVide(video)) return false;
-    // const loader = document.querySelector(".loader");
-    // loader.style.display = "block";
+    const text = data.video_score;
+    console.log(text, data);
+    if (!isVide(video) || !isScore(text)) {
+      return false;
+    }
     ref.current.style.display = "block";
-    console.log(data);
-    // {video-name: 'ㅇ', video-date: '2022-03-01', video: FileList}
-    console.log(data.video);
 
     const frm = new FormData();
     frm.append("video", video);
     frm.append("date", data.video_date);
     frm.append("opponent", data.video_opponent);
     frm.append("winder", data.video_winder);
-    for (let key of frm.entries()) {
-      console.log(`${key}`);
-    }
-    console.log("puload 전", frm);
+
     upload(data.video_winer, data.video_opponent, data.video_date, video);
   };
 
   const onError = (error) => {
-    console.log(error);
+    alert("error");
   };
 
   const upload = async (winer, opponent, date, video) => {
@@ -56,7 +57,6 @@ function VideoUpload() {
     } else {
       alert("실패");
     }
-    console.log("puload 후");
     ref.current.style.display = "none";
   };
   return (
@@ -64,14 +64,15 @@ function VideoUpload() {
       <div className="loader" ref={ref}></div>
       <div className="video-upload-area">
         <form onSubmit={handleSubmit(onSubmit, onError)}>
-          <div className="winer-area">
+          <div className="score-area">
             <input
               type="text"
               autoComplete="off"
+              placeholder="내 점수 : 상대 점수"
               required
-              {...register("video_winer", { required: true })}
+              {...register("video_score", { required: true })}
             />
-            <label>winer</label>
+            <label>점수</label>
           </div>
           <div className="opponent-area">
             <input
@@ -80,17 +81,8 @@ function VideoUpload() {
               required
               {...register("video_opponent", { required: true })}
             />
-            <label>opponent</label>
+            <label>상대선수</label>
           </div>
-          {/* <div className="score-area">
-            <input
-              type="text"
-              autoComplete="off"
-              required
-              {...register("video_score", { required: true })}
-            />
-            <label>score</label>
-          </div> */}
           <div className="date-area">
             <input
               type="date"
@@ -100,12 +92,10 @@ function VideoUpload() {
             />
           </div>
           <div className="video-area">
-            <span className="file-text"></span>
-
-            <label htmlFor="video">업로드</label>
             <input
               id="video"
               type="file"
+              accept=".mp4"
               required
               {...register("video", { required: true })}
             />

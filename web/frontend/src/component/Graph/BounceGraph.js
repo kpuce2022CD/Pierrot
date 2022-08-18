@@ -32,6 +32,11 @@ const BounceGraph = () => {
   const frontPlayer = [];
   const backPlayer = [];
   // 임시데이터 -> id 기반으로 가져와야함
+  const pos = new Array(6).fill(0);
+  // due 0,1,2 adside 3,4,5
+  // r c l
+  const [posi, setPosi] = useState([]);
+  const [len, setLen] = useState(0);
 
   const bounceJsonData = [
     [452, 1191, "front_dueceside_right", 27],
@@ -46,6 +51,7 @@ const BounceGraph = () => {
   ];
 
   const saveDate = () => {
+    let leng = 0;
     bounceJsonData.forEach((data, i) => {
       const point = {
         x: parseInt(data[1]),
@@ -54,6 +60,21 @@ const BounceGraph = () => {
       };
       const tmp = data[2].split("_");
       if (tmp[0] === "front") {
+        const num = tmp[1] === "dueceside" ? 0 : 3;
+        switch (tmp[2]) {
+          case "right":
+            pos[num]++;
+            break;
+          case "center":
+            pos[num + 1]++;
+            break;
+          case "left":
+            pos[num + 2]++;
+            break;
+        }
+        leng++;
+        setPosi(pos);
+        console.log("asdfasf", pos, posi, len);
         point.x += 0.1 * (i + 1);
         frontPoint.push(point);
       } else {
@@ -62,6 +83,7 @@ const BounceGraph = () => {
         setBounceposition([...bounceposition, tmp[2]]);
         console.log(bounceposition, tmp[2]);
       }
+      setLen(leng);
     });
 
     const bounceIndex = bounceJsonData.map((e) => e[3]);
@@ -225,10 +247,24 @@ const BounceGraph = () => {
       </div>
 
       <div className="graph-detail">
-        <h2>position</h2>
-        <p>left</p>
-        <h2>playerposition</h2>
-        <p>left-rigth</p>
+        <h2>dueceside-right</h2>
+        <p>{posi[0]}</p>
+        <p>{Math.floor((posi[0] / len) * 100)}%</p>
+        <h2>dueceside-center</h2>
+        <p>{posi[1]}</p>
+        <p>{Math.floor((posi[1] / len) * 100)}%</p>
+        <h2>dueceside-left</h2>
+        <p>{posi[2]}</p>
+        <p>{Math.floor((posi[2] / len) * 100)}%</p>
+        <h2>adside-right</h2>
+        <p>{posi[3]}</p>
+        <p>{Math.floor((posi[3] / len) * 100)}%</p>
+        <h2>adside-center</h2>
+        <p>{posi[4]}</p>
+        <p>{Math.floor((posi[4] / len) * 100)}%</p>
+        <h2>adside-right</h2>
+        <p>{posi[5]}</p>
+        <p>{Math.floor((posi[5] / len) * 100)}%</p>
       </div>
     </div>
   );

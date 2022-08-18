@@ -1,7 +1,7 @@
 import h337 from "heatmap.js";
 import { useParams } from "react-router-dom";
 
-import { forwardRef, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 const PlyaerHeatmap = () => {
   // 추출한 데이터의 x, y좌표와 그려줄 x, y좌표 변환 필요
   // 추출했을 당시 세로, 그려줄 좌표는 가로
@@ -52,12 +52,12 @@ const PlyaerHeatmap = () => {
 
   return (
     <div className="game-heatmap">
-      <div className="player-heatmap" ref={ref}></div>
+      <div className="heatmap-chart" ref={ref}></div>
       <div className="graph-detail">
         <h2>평균 위치</h2>
         <p>{message}</p>
         <h2>총 이동 거리</h2>
-        <p>000m</p>
+        <p>375m</p>
         <h2>총 000</h2>
         <p>000</p>
       </div>

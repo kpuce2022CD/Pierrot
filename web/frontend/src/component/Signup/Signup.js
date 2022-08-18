@@ -1,15 +1,12 @@
-import React, { component, useState, useRef } from "react";
+import React from "react";
 import "./Signup.css";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form"; // form에서 유요성 검사를 하기 위해
-import Axios from "axios";
 import { signup } from "../../apis";
 
 function Signup() {
   const navigate = useNavigate();
-  const goLoginPage = () => {
-    navigate("/");
-  };
+
   const {
     register,
     handleSubmit,
@@ -31,25 +28,7 @@ function Signup() {
     } else {
       alert(res.message);
     }
-    // postMember(data);
-    // navigate("/");
   };
-
-  const onError = (error) => {
-    console.log(error);
-    error.next("label").addClass("warning");
-  };
-
-  // const postMember = (data) =>{
-  //   Axios.post('http://localhost:3001/postMember',{
-  //     loginId : data.loginId,
-  //     loginPw : data.loginPw,
-  //     name : data.name,
-  //     age : data.userAge,
-  //   }).then(() => {
-  //       console.log("success");
-  //   }).then(goLoginPage);
-  // };
 
   return (
     <div className="login-page">
