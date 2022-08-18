@@ -40,13 +40,15 @@ app.use(
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: ["http://localhost:3000","https://han.d2st12ycswul38.amplifyapp.com/","*"],
     methods: ["GET", "POST", "OPTIONS"],
     credentials: true,
   })
 );
-//if you want get member information enter into 'http://localhost:3001/auth/getMember'
-//if you want postMember information enter into 'http://localhost:3001/auth/postMember'
+//if you want get login enter into 'http://localhost:3001/auth/login'
+//if you want signup enter into 'http://localhost:3001/auth/signup'
+//if you want logout enter into 'http://localhost:3001/auth/logout'
+//if you want get member information enter into 'http://localhost:3001/auth/getInfo'
 //model from /models/db-schema/memberSchema
 app.use("/auth", auth);
 
@@ -56,7 +58,9 @@ app.use("/auth", auth);
 app.use("/video", video);
 
 //if you want add game Information enter into 'http://localhost:3001/game/postGameInfo'
-//if you want get game Information enter into 'http://localhost:3001/game/getGameInfo'
+//if you want get game Information enter into 'http://localhost:3001/game/getAllGameInfo'
+//if you wnat get All game Information enter into 'http//localhost:3001/game/getAllGame'
+//if you wnat get game Infromation by id enter into 'http//localhost:3001/game/getGameInfoById'
 //model from /models/db-schema/gameSchema
 app.use("/game", game);
 

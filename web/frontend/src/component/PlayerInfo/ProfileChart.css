@@ -2,4 +2,21 @@
   background-color: aliceblue;
   font-size: 26px;
   text-align: center;
+  padding: 10px;
+  border-radius: 20px;
+  font-weight: 700;
+  width: fit-content;
+  margin: 10px auto 10px auto;
+  height: fit-content;
+}
+.profile-chart-title p {
+  margin: 0;
+  padding: 0;
+}
+
+.profile-doughnut-chart {
+  width: fit-content;
+  background: transparent;
+  margin: 0;
+  padding: 0;
 }

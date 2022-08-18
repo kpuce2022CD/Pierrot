@@ -6,28 +6,31 @@
 }
 .bounce {
   display: flex;
-  border: 1px solid red;
+  border: 1px solid #3e4047;
+  border-radius: 10px;
+
+  /* border: 1px solid red; */
   background-color: #26282e;
-  padding: 10px;
+  padding: 5px 20px;
   margin-top: 10px;
 }
 .bounce-chart canvas {
   margin: 10px;
   background-image: url("/public/image/tennis_court.png");
 }
-.bounce-detail {
+.graph-detail {
   padding: 20px;
   border: 1px solid rgb(128, 128, 128);
   background-color: rgb(200, 200, 200);
   border-radius: 10px;
   margin: 10px;
 }
-.bounce-detail h2 {
+.graph-detail h2 {
   padding: 0;
   margin: 16px 0 5px 0;
   border-bottom: 1px solid gray;
 }
-.bounce-detail p {
+.graph-detail p {
   margin: 0;
   padding: 0;
 }
@@ -61,18 +64,34 @@
 .heatmap-canvas {
   background-image: url(../../../public/image/tennis_court.png);
 }
-.game-heatmap-detail {
+.graph-game {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+}
+.graph-rally {
+  padding: 20px;
   border: 1px solid rgb(128, 128, 128);
   background-color: rgb(200, 200, 200);
   border-radius: 10px;
-  padding: 20px;
+  margin: 10px;
 }
-.game-heatmap-detail h2 {
+
+.graph-rally p {
   padding: 0;
   margin: 16px 0 5px 0;
   border-bottom: 1px solid gray;
 }
-.game-heatmap-detail p {
-  padding: 0;
+.graph-rally div {
   margin: 0;
+  padding: 0;
+}
+.graph-rally-button {
+  display: flex;
+}
+.graph-rally-button div {
+  padding: 3px 10px;
+}
+.graph-rally-button button {
+  margin: 0 0 0 auto;
 }

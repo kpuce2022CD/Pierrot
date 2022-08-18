@@ -1,3 +1,5 @@
+import { useParams } from "react-router-dom";
+
 import { useEffect, useState, useRef } from "react";
 import { Bubble } from "react-chartjs-2";
 import {
@@ -19,6 +21,9 @@ ChartJS.register(
   ChartDataLabels
 );
 const BounceGraph = () => {
+  const id = useParams();
+  console.log("bounce", id);
+
   const playerTopData = require("../../tempData/csvjson.json");
   const [bounceposition, setBounceposition] = useState([]);
 
@@ -26,7 +31,8 @@ const BounceGraph = () => {
   const backPoint = [];
   const frontPlayer = [];
   const backPlayer = [];
-  // 임시데이터
+  // 임시데이터 -> id 기반으로 가져와야함
+
   const bounceJsonData = [
     [452, 1191, "front_dueceside_right", 27],
     [494, 397, "back_adside_left", 119],
@@ -218,7 +224,7 @@ const BounceGraph = () => {
         />
       </div>
 
-      <div className="bounce-detail">
+      <div className="graph-detail">
         <h2>position</h2>
         <p>left</p>
         <h2>playerposition</h2>

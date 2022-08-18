@@ -16,14 +16,13 @@ const auth = {
       console.log(savedMember);
     } catch (err) {
       res.json({ success: false, message: err });
-      // res.json({ message: err });
       console.log(err);
     }
   },
 
   login: async (req, res) => {
     console.log(req.body);
-    if (req.session.user) {
+    if (req.body.email) {
       console.log(req.session);
       req.session.destroy();
       return res.json({ success: false, message: "로그인 상태" });
@@ -38,11 +37,11 @@ const auth = {
       }
       console.log("password", user.passwd, req.body.password);
       if (user.passwd == req.body.password) {
-        console.log("1");
-        req.session.user = user.email;
+        console.log("password collect");
+        req.body.email = user.email;
         res.json({ success: true });
       } else {
-        console.log("!!");
+        console.log("password false");
         return res.json({
           success: false,
           message: "비밀번호가 틀렸습니다.",
@@ -52,7 +51,7 @@ const auth = {
   },
 
   logout: async (req, res) => {
-    if (req.session.user) {
+    if (req.body.email) {
       req.session.destroy((err) => {
         if (err) throw err;
         res.json({ success: true });
@@ -62,12 +61,35 @@ const auth = {
     }
   },
   auth: async (req, res) => {
-    if (req.session.user) {
+    if (req.body.email) {
       return res.json({ success: true });
     } else {
       return res.json({ success: false });
     }
   },
+
+  get_info : async (req, res) =>{
+    console.log("start get_info");
+
+    const info =  await member.findOne({ 
+      email: req.body.email });
+    
+    const num_game = info.game.length;
+    let count = 0;
+
+    for(i in info.game){
+      if(info.game[i].win === true){
+        count++;
+      }
+    }
+
+    JSON.stringify(info);
+
+    info.__v = count/num_game;
+    // console.log(info.current);
+
+    res.json(info);
+  }
 };
 
 module.exports = { auth };
