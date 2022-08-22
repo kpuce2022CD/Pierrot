@@ -1,6 +1,7 @@
 ### 선수 트랙킹 ###
 import collections
 import cv2
+import csv
 
 
 # 트랙킹놓쳤을 때 정지 시킨 후 다시 잡기, main 에서 실행시키기
@@ -24,10 +25,12 @@ class Player:
         self.fps = self.cap.get(cv2.CAP_PROP_FPS)
         self.win_name = win_name
 
+
     def play_video(self):
         if self.cap.isOpened():
-            player_coord_text = open('../coord/player_coord.txt', 'w')
-            rival_coord_text = open('../coord/rival_coord.txt', 'w')
+            player_coord_text = open('../coord/player_coord.json', 'w')
+            rival_coord_text = open('../coord/rival_coord.json', 'w')
+
             count = 0
             while True:
                 ret, frame = self.cap.read()

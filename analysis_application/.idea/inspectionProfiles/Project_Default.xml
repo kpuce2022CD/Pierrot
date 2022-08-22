@@ -5,6 +5,7 @@
       <option name="ignoredIdentifiers">
         <list>
           <option value="cv2" />
+          <option value="asposecells" />
         </list>
       </option>
     </inspection_tool>
