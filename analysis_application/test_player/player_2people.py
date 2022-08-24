@@ -28,8 +28,8 @@ class Player:
 
     def play_video(self):
         if self.cap.isOpened():
-            player_coord_text = open('../coord/player_coord.json', 'w')
-            rival_coord_text = open('../coord/rival_coord.json', 'w')
+            player_coord_text = open('../Player_coord/2gamevideo_score1_player.json_coord.json', 'w')
+            rival_coord_text = open('../Player_coord/2gamevideo_score1_rival_coord.json', 'w')
 
             count = 0
             while True:

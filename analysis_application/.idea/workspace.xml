@@ -2,39 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ef2bc455-7374-4ff0-afff-6d8886e1e13a" name="Changes" comment="Changes">
-      <change afterPath="$PROJECT_DIR$/Functions/txtTojson.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/coord/player_coord.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/coord/rival_coord.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/video/3gamevideo_score1.mp4" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/video/3gamevideo_score2.mp4" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/video/3gamevideo_score3.mp4" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/video/3gamevideo_score4.mp4" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/video/3gamevideo_score5.mp4" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/video/3gamevideo_score6.mp4" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/video/3gamevideo_score7.mp4" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/video/3gamevideo_score8.mp4" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/video/4gamevideo_score1.mp4" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/video/4gamevideo_score3.mp4" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/video/4gamevideo_score4.mp4" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/video/4gamevideo_score5.mp4" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/video/4gamevideo_score6.mp4" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/video/5gamevideo_score1.mp4" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/video/5gamevideo_score2.mp4" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/video/5gamevideo_score3.mp4" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/video/5gamevideo_score4.mp4" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/video/6gamevideo_score1.mp4" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/video/6gamevideo_score3.mp4" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/video/6gamevideo_score4.mp4" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/video/6gamevideo_score5.mp4" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/video/7gamevideo_score1.mp4" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/video/7gamevideo_score2.mp4" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/video/7gamevideo_score3.mp4" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/video/7gamevideo_score4.mp4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Functions/csvTojson.py" beforeDir="false" afterPath="$PROJECT_DIR$/Functions/csvTojson.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coord/player_coord.txt" beforeDir="false" afterPath="$PROJECT_DIR$/coord/player_coord.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coord/rival_coord.txt" beforeDir="false" afterPath="$PROJECT_DIR$/coord/rival_coord.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test_player/player_2people.py" beforeDir="false" afterPath="$PROJECT_DIR$/test_player/player_2people.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test_player/player_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/test_player/player_main.py" afterDir="false" />
     </list>
