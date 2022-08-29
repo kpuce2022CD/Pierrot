@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start_server": "node ./bin/www.js",
+    "start": "node ./index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start_front": "cd ../frontend && yarn start",
     "dev": "concurrently --kill-others-on-fail \"yarn start_server\" \"yarn start_front\""

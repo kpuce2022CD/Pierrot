@@ -19,6 +19,12 @@ const auth = require("./src/routes/auth/auth");
 const video = require("./src/routes/video/video");
 const game = require("./src/routes/game/game");
 
+const PORT = 3001;
+
+app.listen(PORT,() =>{
+    console.log("서버 가동");
+});
+
 mongoose.connect(process.env.DB_URL, { useNewUrlParser: true }, (err) => {
   if (err) {
     console.log(err);
