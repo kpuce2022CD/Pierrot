@@ -70,6 +70,8 @@ const gameSchema = mongoose.Schema({
     player_position:{
         user:Array,
         opponent:Array,
+        user_distance:Number,
+        opponent_distance:Number,
     }
     
 });

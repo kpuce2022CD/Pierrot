@@ -6,14 +6,23 @@ const game ={
     upload_game : async (req,res) => {
         console.log("start upload_game");
 
+        //플레이어들의 움직임좌표 불러오기
         let user_position = fs.readFileSync(req.files[1].path,"utf-8");
         user_position = JSON.parse(user_position);
         let opponent_position = fs.readFileSync(req.files[2].path,"utf-8");
         opponent_position = JSON.parse(opponent_position);
-        const players_position = {user:user_position,opponent:opponent_position};
+        
+        var user_distance = 0,opponent_distance = 0;
+        for(var i =1;i< user_position.length;i++){
+            user_distance += Math.abs(user_position[i][0] -user_position[i-1][0]) + Math.abs(user_position[i][1]-user_position[i-1][1]);
+            opponent_distance += Math.abs(opponent_position[i][0]-opponent_position[i-1][0]) + Math.abs(opponent_position[i][1]-opponent_position[i-1][1]);
+        }
+        user_distance /= 90;
+        opponent_distance /= 85;
+
+        const players_position = {user:user_position,opponent:opponent_position,user_distance:user_distance,opponent_distance:opponent_distance};
         //get csv file
         const csv = fs.readFileSync(req.files[0].path,"utf-8");
-        // console.log(csv);
 
         //csv 읽을수 있는 형태로 변환
         const csvs = csvToString(csv);
@@ -21,7 +30,6 @@ const game ={
         //각 오브젝트로 변환
         //ex) front_adside_right : [back_dueceside_left,~]
         const court_list = predict_next_court(csvs);
-        console.log(court_list);
 
         //findAndUpdate from mongodb
         schema.game.findOneAndUpdate({_id : req.body._id},
@@ -113,7 +121,6 @@ const game ={
 const csvToString = (csv) =>{
     console.log("start stringToCsv");
     const info = new CSV(csv, {header: true}).parse();
-    console.log(info);
     console.log("finish stringToCsv");
     return info;
 }
