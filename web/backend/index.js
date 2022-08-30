@@ -12,7 +12,7 @@ const cookieParser = require("cookie-parser");
 //import to mongodb
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-require("dotenv").config({ path: "./config.env" });
+require("dotenv").config({ path: "./.env" });
 
 //import to routes
 const auth = require("./src/routes/auth/auth");

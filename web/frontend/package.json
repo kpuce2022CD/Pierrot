@@ -41,7 +41,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "start_server": "node ../backend/bin/www.js",
+    "start_server": "node ../backend/index.js",
     "start_front": "yarn start",
     "dev": "concurrently --kill-others-on-fail \"yarn start_server\" \"yarn start_front\""
   },

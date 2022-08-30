@@ -40,12 +40,9 @@ bower_components
 build/Release
 
 # Dependency directories
-node_modules/
 jspm_packages/
-src/config/
-config.env
-videos/
-games/
+node_modules/
+
 
 # TypeScript v1 declaration files
 typings/
