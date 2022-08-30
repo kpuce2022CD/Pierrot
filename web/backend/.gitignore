@@ -42,6 +42,8 @@ build/Release
 # Dependency directories
 jspm_packages/
 node_modules/
+games
+videos
 
 
 # TypeScript v1 declaration files

@@ -5,9 +5,15 @@ const CSV = require('comma-separated-values');
 const game ={
     upload_game : async (req,res) => {
         console.log("start upload_game");
+
+        let user_position = fs.readFileSync(req.files[1].path,"utf-8");
+        user_position = JSON.parse(user_position);
+        let opponent_position = fs.readFileSync(req.files[2].path,"utf-8");
+        opponent_position = JSON.parse(opponent_position);
+        const players_position = {user:user_position,opponent:opponent_position};
         //get csv file
-        const csv = fs.readFileSync(req.file.path,"utf-8");
-        console.log(csv);
+        const csv = fs.readFileSync(req.files[0].path,"utf-8");
+        // console.log(csv);
 
         //csv 읽을수 있는 형태로 변환
         const csvs = csvToString(csv);
@@ -19,12 +25,12 @@ const game ={
 
         //findAndUpdate from mongodb
         schema.game.findOneAndUpdate({_id : req.body._id},
-            {$set:{bounce:csvs,next_bounce:court_list}},function(err,doc){
+            {$set:{bounce:csvs,next_bounce:court_list,player_position:players_position}},function(err,doc){
             if(err){
                 console.log("Something wrong when updating data!");
                 res.json({
                     sucess:false,
-                    message: "비디오업로드에 실패했습니다."
+                    message: "게임정보업로드에 실패했습니다."
                 });
             }
             res.json({

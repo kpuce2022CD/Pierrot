@@ -1,7 +1,7 @@
 import axios from "axios";
 import { URL } from "./config";
 // axios.defaults.withCredentials = true;
-const baseUrl = "https://early-ears-eat-118-222-85-227.loca.lt";
+const baseUrl = "http://localhost:3001";
 
 const urls = {
   login: `${baseUrl}/auth/login`,

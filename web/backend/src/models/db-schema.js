@@ -59,14 +59,18 @@ const gameSchema = mongoose.Schema({
         v:Number,
         court_name:String
     }],
-    next_bounce:[{
+    next_bounce:{
         front_dueceside_left : Array,
         front_dueceside_center : Array,
         front_dueceside_right : Array,
         front_adside_left : Array,
         front_adside_center : Array,
         front_adside_right : Array,
-    }]
+    },
+    player_position:{
+        user:Array,
+        opponent:Array,
+    }
     
 });
 const member = mongoose.model("member", memberSchema);
