@@ -13,7 +13,7 @@ def onMouse(event, x, y, flags, param):
     #         cv2.imshow('image', img)
 
 
-img = cv2.imread('./frame0.jpg')
+img = cv2.imread('./frame/frame0.jpg')
 if img is None:
     print("no")
 cv2.imshow('image', img)
