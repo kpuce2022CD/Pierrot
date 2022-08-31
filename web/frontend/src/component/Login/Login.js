@@ -3,7 +3,7 @@ import "./Login.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form"; // form에서 유요성 검사를 하기 위해
 import Axios from "axios";
-import { login } from "../../apis";
+import { getInfo, login } from "../../apis";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -23,6 +23,8 @@ const Login = () => {
     const res = await login(data.email, data.password);
     console.log(res);
     if (res.success) {
+      const userInfo = await getInfo(data.email);
+      console.log(userInfo);
       navigate("/main");
     } else {
       alert(res.message);

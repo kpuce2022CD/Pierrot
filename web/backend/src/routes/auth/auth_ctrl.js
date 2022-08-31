@@ -21,24 +21,27 @@ const auth = {
   },
 
   login: async (req, res) => {
-    try{
-      member.findOne({ email: req.body.email,passwd:req.body.password }, (err, user) => {
-        console.log("user", user);
-        if (!user){
+    try {
+      member.findOne(
+        { email: req.body.email, passwd: req.body.password },
+        (err, user) => {
+          console.log("user", user);
+          if (!user) {
+            res.json({
+              success: false,
+              message: "로그인에 실패했습니다",
+            });
+          }
           res.json({
-            success:false,
-            message : "로그인에 실패했습니다"
-          })
+            success: true,
+          });
         }
-        res.json({ 
-          success : true,
-        });
-      });
-    }catch(err){
+      );
+    } catch (err) {
       res.json({
         succes: false,
-        message: err
-      })
+        message: err,
+      });
     }
   },
 
@@ -60,39 +63,40 @@ const auth = {
     }
   },
 
-  get_info : async (req, res) =>{
+  get_info: async (req, res) => {
     console.log("start get_info");
-    try{
-      const user =  await schema.member.findOne({ 
-        email: req.body.email 
+    const { email } = req.params;
+    try {
+      const user = await schema.member.findOne({
+        email: email,
       });
       const game = await schema.game.find({
-        email:req.body.email
+        email: email,
       });
 
       const num_game = user.game.length;
       let count = 0;
-      for(i in user.game){
-        if(user.game[i].win === true){
+      for (i in user.game) {
+        if (user.game[i].win === true) {
           count++;
         }
       }
       JSON.stringify(user);
-      user.__v = count/num_game;
+      user.__v = count / num_game;
 
       res.json({
-        email:user.email,
-        name:user.name,
-        age:user.age,
-        odds:user.__v,
-        game:game,
+        email: user.email,
+        name: user.name,
+        age: user.age,
+        odds: user.__v,
+        game: game,
       });
-    }catch(err){
+    } catch (err) {
       res.json({
-        err:err
+        err: err,
       });
     }
-  }
+  },
 };
 
 module.exports = { auth };

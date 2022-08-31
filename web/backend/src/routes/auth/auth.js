@@ -6,6 +6,6 @@ router.post("/signup", ctrl.auth.signup);
 router.post("/login", ctrl.auth.login);
 router.get("/logout", ctrl.auth.logout);
 // router.get("/auth", ctrl.auth.auth);
-router.get("/getInfo",ctrl.auth.get_info);
+router.get("/getInfo/:email", ctrl.auth.get_info);
 
 module.exports = router;
