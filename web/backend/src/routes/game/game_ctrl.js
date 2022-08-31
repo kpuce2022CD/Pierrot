@@ -110,10 +110,6 @@ const game ={
             });
           }
     },
-
-    delete_game_by_id : (req,res) =>{
-
-    }
 }
 
 const csvToString = (csv) =>{

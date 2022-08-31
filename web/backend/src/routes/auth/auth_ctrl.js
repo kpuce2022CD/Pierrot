@@ -21,33 +21,25 @@ const auth = {
   },
 
   login: async (req, res) => {
-    console.log(req.body);
-    if (req.body.email) {
-      console.log(req.session);
-      req.session.destroy();
-      return res.json({ success: false, message: "로그인 상태" });
+    try{
+      member.findOne({ email: req.body.email,passwd:req.body.password }, (err, user) => {
+        console.log("user", user);
+        if (!user){
+          res.json({
+            success:false,
+            message : "로그인에 실패했습니다"
+          })
+        }
+        res.json({ 
+          success : true,
+        });
+      });
+    }catch(err){
+      res.json({
+        succes: false,
+        message: err
+      })
     }
-    member.findOne({ email: req.body.email }, (err, user) => {
-      // console.log("user", user);
-      if (!user) {
-        return res.json({
-          success: false,
-          message: "유저가 없습니다",
-        });
-      }
-      console.log("password", user.passwd, req.body.password);
-      if (user.passwd == req.body.password) {
-        console.log("password collect");
-        req.body.email = user.email;
-        res.json({ success: true });
-      } else {
-        console.log("password false");
-        return res.json({
-          success: false,
-          message: "비밀번호가 틀렸습니다.",
-        });
-      }
-    });
   },
 
   logout: async (req, res) => {
@@ -70,25 +62,36 @@ const auth = {
 
   get_info : async (req, res) =>{
     console.log("start get_info");
+    try{
+      const user =  await schema.member.findOne({ 
+        email: req.body.email 
+      });
+      const game = await schema.game.find({
+        email:req.body.email
+      });
 
-    const info =  await member.findOne({ 
-      email: req.body.email });
-    
-    const num_game = info.game.length;
-    let count = 0;
-
-    for(i in info.game){
-      if(info.game[i].win === true){
-        count++;
+      const num_game = user.game.length;
+      let count = 0;
+      for(i in user.game){
+        if(user.game[i].win === true){
+          count++;
+        }
       }
+      JSON.stringify(user);
+      user.__v = count/num_game;
+
+      res.json({
+        email:user.email,
+        name:user.name,
+        age:user.age,
+        odds:user.__v,
+        game:game,
+      });
+    }catch(err){
+      res.json({
+        err:err
+      });
     }
-
-    JSON.stringify(info);
-
-    info.__v = count/num_game;
-    // console.log(info.current);
-
-    res.json(info);
   }
 };
 

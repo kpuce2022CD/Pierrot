@@ -8,35 +8,35 @@ import ProfileChart from "./ProflieChart";
 const PlayerInfo = () => {
   // 임시
   const user = {
-    name: "test",
-    age: 32,
+    name: "피에로",
+    age: 27,
     height: 177,
     team: "tuk",
   };
   const game = {
-    winrate: "10%",
-    highestscore: "10",
+    winrate: "70%",
+    highestscore: "12",
     bbb: "10",
   };
   const opponent = [
     {
-      name: "player1",
+      name: "pierrot",
       total: "1",
-      winrate: "10%",
+      winrate: "20%",
     },
     {
-      name: "player2",
-      total: "2",
-      winrate: "10%",
+      name: "earlybd",
+      total: "3",
+      winrate: "67%",
     },
     {
-      name: "player3",
-      winrate: "10%",
+      name: "honey",
+      winrate: "33%",
       total: "3",
     },
     {
-      name: "player4",
-      winrate: "10%",
+      name: "butter",
+      winrate: "50%",
       total: "4",
     },
   ];
