@@ -1,5 +1,111 @@
-.guide {
-  color: white;
-  font-size: 16px;
-  background-color: transparent;
+.title1 {
+  display: flex;
+  flex-direction: column;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  width: 100%;
+}
+.title1 h1 {
+  margin: 0px auto;
+  color: whitesmoke;
+  font-size: 100px;
+}
+
+.div#wrap {
+  height: 20px;
+  background-color: rgb(19, 21, 26);
+  display: flex;
+  flex-direction: row;
+  float: left;
+}
+div.d1 {
+  width: 100px;
+  height: 100px;
+  float: left;
+}
+
+.card {
+  margin-top: 100px;
+  margin-right: -15px;
+  margin-left: -15px;
+  text-align: center;
+}
+.cardin {
+  width: 33.3333%;
+}
+.cardin img {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+}
+
+.cardin h2 {
+  color: aliceblue;
+}
+.cardin p {
+  color: aliceblue;
+}
+.hh {
+  color: aliceblue;
+  background-color: aliceblue;
+  border-top: 1px solid #eee;
+  text-align: center;
+  margin: 80px 0;
+  margin-left: 5%;
+  margin-right: 5%;
+  opacity: 0.3;
+}
+.feature {
+  margin-left: 10px;
+}
+
+.featuretext {
+  float: left;
+  width: 50%;
+  position: relative;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.featuretext h2 {
+  margin-top: 120px;
+  font-size: 50px;
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -1px;
+  color: aliceblue;
+  margin-bottom: 10px;
+}
+
+.featuretext p {
+  margin-bottom: 20px;
+  font-size: 21px;
+  font-weight: 300;
+  line-height: 1.4;
+  color: aliceblue;
+}
+
+.featureimg {
+  width: 41.6666667%;
+  float: left;
+  position: relative;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.featureimg img {
+  max-width: 100%;
+  height: auto;
+  border: 0;
+  display: block;
+}
+
+.featureimg_left {
+  right: 50%;
+}
+
+.featuretext_right {
+  left: 40%;
 }
