@@ -36,8 +36,8 @@ const video ={
             s3.upload(uploadParams);
 
             //upload game Info into mongodb
-            upload_db_games(req.body.email, req.file.filename+".mp4",req.body.winner,req.body.opponent,req.body.date);
-            upload_db_member(req.body.email,req.file.filename+".mp4",win,req.body.opponent,req.body.date);
+            upload_db_games(req.body.email, req.file.filename+".mp4",req.body.winner,req.body.opponent,req.body.date,req.body.game_num);
+            // upload_db_member(req.body.email,req.file.filename+".mp4",win,req.body.opponent,req.body.date);
             
             res.json({
                 success: true
@@ -88,7 +88,7 @@ const video ={
     },
 }
 
-const upload_db_games = (email,video_key,winner,opponent,date) => {
+const upload_db_games = (email,video_key,winner,opponent,date,game_num) => {
     console.log("start upload_db_games");
     const game = new schema.game({
         email: email,
@@ -96,6 +96,7 @@ const upload_db_games = (email,video_key,winner,opponent,date) => {
         winner : winner,
         opponent : opponent,
         date:date,
+        game_num:game_num,
       });
       try{
         const savedGame = game.save();

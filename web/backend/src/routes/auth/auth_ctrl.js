@@ -70,15 +70,15 @@ const auth = {
         email:req.body.email
       });
 
-      const num_game = user.game.length;
-      let count = 0;
-      for(i in user.game){
-        if(user.game[i].win === true){
-          count++;
-        }
-      }
-      JSON.stringify(user);
-      user.__v = count/num_game;
+      // const num_game = user.game.length;
+      // let count = 0;
+      // for(i in user.game){
+      //   if(user.game[i].win === true){
+      //     count++;
+      //   }
+      // }
+      // JSON.stringify(user);
+      // user.__v = count/num_game;
 
       res.json({
         email:user.email,
