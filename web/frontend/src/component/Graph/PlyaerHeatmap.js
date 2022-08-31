@@ -2,10 +2,14 @@ import h337 from "heatmap.js";
 import { useParams } from "react-router-dom";
 
 import { useEffect, useRef, useState } from "react";
-const PlyaerHeatmap = () => {
+const PlyaerHeatmap = (props) => {
   // 추출한 데이터의 x, y좌표와 그려줄 x, y좌표 변환 필요
   // 추출했을 당시 세로, 그려줄 좌표는 가로
   // width: 450, height: 271
+
+  // 960 x 540
+  // 1920 x 1080
+
   // 0번 데이터를 프론트선수로
   const id = useParams();
   console.log("heatmap", id);
@@ -13,23 +17,22 @@ const PlyaerHeatmap = () => {
   // 임시데이터 -> id 기반으로 가져와야함
   let position = 0;
   const [message, setMessage] = useState("");
-  const jsonData = require("../../tempData/playerCoords.json");
+  // const jsonData = require("../../tempData/playerCoords.json");
+  const jsonData = props.data;
   const ref = useRef();
   jsonData.forEach((data) => {
     const point = {
-      x: parseInt(data.y_1),
-      y: parseInt(data.x_1),
+      // x: parseInt(data.y_1),
+      // y: parseInt(data.x_1),
+      x: data[1] * 0.2,
+      y: data[0] * 0.2,
       value: 1,
     };
-    position += data.x_1;
+    position += data[0];
     points.push(point);
   });
+  console.log("heatmpa point", points);
   position = position / jsonData.length;
-
-  const playerData = {
-    max: 50,
-    data: points,
-  };
 
   useEffect(() => {
     const playerHeatmapInstance = h337.create({
@@ -47,8 +50,8 @@ const PlyaerHeatmap = () => {
     } else {
       setMessage("중앙에 오래 머물고 있습니다.");
     }
-    console.log(message);
-  }, []);
+    console.log(message, points);
+  }, [props]);
 
   return (
     <div className="game-heatmap">

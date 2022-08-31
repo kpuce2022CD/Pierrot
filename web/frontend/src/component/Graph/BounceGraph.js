@@ -20,11 +20,14 @@ ChartJS.register(
   Title,
   ChartDataLabels
 );
-const BounceGraph = () => {
+const BounceGraph = (props) => {
   const id = useParams();
   console.log("bounce", id);
+  console.log("props!!!!!!!!!!!!!!!!!", props);
 
-  const playerTopData = require("../../tempData/csvjson.json");
+  // const playerTopData = require("../../tempData/csvjson.json");
+  const playerTopData = props.player;
+  const player2 = props.player2;
   const [bounceposition, setBounceposition] = useState([]);
 
   const frontPoint = [];
@@ -38,26 +41,35 @@ const BounceGraph = () => {
   const [posi, setPosi] = useState([]);
   const [len, setLen] = useState(0);
 
-  const bounceJsonData = [
-    [452, 1191, "front_dueceside_right", 27],
-    [494, 397, "back_adside_left", 119],
-    [376, 1304, "front_dueceside_center", 184],
-    [312, 546, "back_adside_center", 257],
-    [628, 1285, "front_adside_center", 366],
-    [676, 471, "back_dueceside_center", 431],
-    [403, 720, "back_adside_left", 591],
-    [511, 789, "back_dueceside_right", 739],
-    [514, 889, "front_adside_left", 894],
-  ];
+  // 점수 기준
+  // const bounceJsonData = [
+  //   [452, 1191, "front_dueceside_right", 27],
+  //   [494, 397, "back_adside_left", 119],
+  //   [376, 1304, "front_dueceside_center", 184],
+  //   [312, 546, "back_adside_center", 257],
+  //   [628, 1285, "front_adside_center", 366],
+  //   [676, 471, "back_dueceside_center", 431],
+  //   [403, 720, "back_adside_left", 591],
+  //   [511, 789, "back_dueceside_right", 739],
+  //   [514, 889, "front_adside_left", 894],
+  // ];
 
+  const bounceJsonData = props.data;
+  const yData = props.data.map((v) => v[1] * 0.2);
+  const xData = props.data.map((v) => v[0] * 0.2);
+  const yMin = Math.min(...yData);
+  const yMax = Math.max(...yData);
+  const xMin = Math.min(...xData);
+  const xMax = Math.max(...xData);
   const saveDate = () => {
     let leng = 0;
     bounceJsonData.forEach((data, i) => {
       const point = {
-        x: parseInt(data[1]),
-        y: parseInt(data[0]) + data[3] * 0.001,
+        x: data[0] * 0.2,
+        y: (data[1] + data[3] * 0.001) * 0.2,
         r: 10,
       };
+      console.log("ampampamp", point, data);
       const tmp = data[2].split("_");
       if (tmp[0] === "front") {
         const num = tmp[1] === "dueceside" ? 0 : 3;
@@ -85,21 +97,27 @@ const BounceGraph = () => {
       }
       setLen(leng);
     });
-
+    console.log("font back", frontPoint, backPoint);
     const bounceIndex = bounceJsonData.map((e) => e[3]);
     // 임시데이터
 
     // 바운드 했을 당시 두 선수들의 위치 저장
     bounceIndex.forEach((v, i) => {
+      console.log("!!!!!!!!!!!!!!!", v, i);
       const point1 = {
-        x: parseInt(playerTopData[v].y_0),
-        y: parseInt(playerTopData[v].x_0) + 0.1 * (i + 1),
+        x: playerTopData[v][1] * 0.2,
+        y: (playerTopData[v][0] + 0.1 * (i + 1)) * 0.2,
+        // x: parseInt(playerTopData[v].y_0),
+        // y: parseInt(playerTopData[v].x_0) + 0.1 * (i + 1),
         r: 0,
       };
       frontPlayer.push(point1);
       const point2 = {
-        x: parseInt(playerTopData[v].y_1),
-        y: parseInt(playerTopData[v].x_1) + 0.1 * (i + 1),
+        x: player2[v][1] * 0.2,
+        y: (player2[v][0] + 0.1 * (i + 1)) * 0.2,
+
+        // x: parseInt(playerTopData[v].y_1),
+        // y: parseInt(playerTopData[v].x_1) + 0.1 * (i + 1),
         r: 0,
       };
       backPlayer.push(point2);
@@ -142,19 +160,24 @@ const BounceGraph = () => {
       scales: {
         y: {
           display: false,
-          max: 730,
-          min: 300,
+          // max: 730,
+          // min: 300,
+          max: yMax + 50,
+          min: yMin - 50,
         },
         x: {
           display: false,
-          max: 1700,
-          min: 200,
+          // max: 1700,
+          // min: 200,
+          max: xMax + 50,
+          min: xMin - 50,
         },
       },
       onClick: (evt, e) => {
         // 클릭시 상대 두 선수들의 위치 보여줌
         console.log("e", e);
         const bounceChart = chartReference.current;
+        console.log("councechart", bounceChart.data);
         const index = e[0]?.index;
         if (index === undefined || e[0].datasetIndex >= 2) {
           return;
@@ -180,12 +203,20 @@ const BounceGraph = () => {
         // 특정 원소 반지름 10으로
         for (let i = 2; i < 4; i++) {
           const chart = bounceChart.data.datasets[i].data;
+          console.log("원소 반지름 확인: ", chart);
           for (let j = 0; j < chart.length; j++) {
             const yy =
               chart[j].y % 1 === 0 ? null : (chart[j].y % 1).toFixed(1) * 10;
-            // console.log("yy", yy, chart[j]);
+            console.log("yy", yy, chart[j]);
             if (yy == tmp) {
               bounceChart.data.datasets[i].data[yy - 1].r = 10;
+              console.log(
+                "yy",
+                yy,
+                chart[j],
+                bounceChart.data.datasets[i].data[yy - 1].r,
+                bounceChart.data.datasets[i].data[yy - 1]
+              );
             }
           }
         }
@@ -220,10 +251,10 @@ const BounceGraph = () => {
               },
             },
           },
-          formatter: function (value) {
-            // console.log(value);
-            return value.x % 1 === 0 ? null : (value.x % 1).toFixed(1) * 10;
-          },
+          // formatter: function (value) {
+          //   console.log("vaule", (value.x % 1).toFixed(1) * 10);
+          //   return value.x % 1 === 0 ? null : (value.x % 1).toFixed(1) * 10;
+          // },
         },
       },
     });
@@ -232,8 +263,9 @@ const BounceGraph = () => {
   useEffect(() => {
     saveDate();
     chart();
-    console.log(bounceposition);
-  }, []);
+    console.log("chartdata", chartData);
+    console.log("datadfsadf", frontPlayer, backPlayer, frontPoint, backPoint);
+  }, [props]);
   return (
     <div className="bounce">
       <div className="bounce-chart">

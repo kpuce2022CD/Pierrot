@@ -17,6 +17,87 @@ const Graph = () => {
   const [rally, setRally] = useState([1, 3, 7, 1, 7]);
   const [videoUrl, setVideoUrl] = useState([]);
   const [videoIndex, setVideoIndex] = useState(0);
+  const [setNum, setSetNum] = useState(0);
+
+  // y, x, name, idx
+  const [bounce, setBounce] = useState([]);
+  const [position, setPosition] = useState([]);
+  const [player2, setPlayer2] = useState([]);
+
+  const getPosition = () => {
+    const game = localStorage.getItem("game");
+    const gameJSON = JSON.parse(game);
+    console.log("!!!!!!!!!!!", gameJSON[0].bounce[0].idx);
+    if (setNum === 0) {
+      const tmp = gameJSON[0].bounce.map((v) => {
+        return [v.y, v.x, v.court_name, v.idx];
+      });
+      console.log("tmptmptmptmpt", tmp);
+      setBounce(tmp);
+      setPosition(gameJSON[0].player_position.user);
+      setPlayer2(gameJSON[0].player_position.opponent);
+    } else if (setNum === 1) {
+      const tmp = gameJSON[1].bounce.map((v) => [
+        v.y,
+        v.x,
+        v.court_name,
+        v.idx,
+      ]);
+      setBounce(tmp);
+      setPosition(gameJSON[1].player_position.user);
+      setPlayer2(gameJSON[1].player_position.opponent);
+    } else if (setNum === 2) {
+      const tmp = gameJSON[2].bounce.map((v) => [
+        v.y,
+        v.x,
+        v.court_name,
+        v.idx,
+      ]);
+      setBounce(tmp);
+      setPosition(gameJSON[2].player_position.user);
+      setPlayer2(gameJSON[2].player_position.opponent);
+    } else if (setNum === 3) {
+      const tmp = gameJSON[3].bounce.map((v) => [
+        v.y,
+        v.x,
+        v.court_name,
+        v.idx,
+      ]);
+      setBounce(tmp);
+      setPosition(gameJSON[3].player_position.user);
+      setPlayer2(gameJSON[3].player_position.opponent);
+    } else if (setNum === 4) {
+      const tmp = gameJSON[4].bounce.map((v) => [
+        v.y,
+        v.x,
+        v.court_name,
+        v.idx,
+      ]);
+      setBounce(tmp);
+      setPosition(gameJSON[4].player_position.user);
+      setPlayer2(gameJSON[4].player_position.opponent);
+    } else if (setNum === 5) {
+      const tmp = gameJSON[5].bounce.map((v) => [
+        v.y,
+        v.x,
+        v.court_name,
+        v.idx,
+      ]);
+      setBounce(tmp);
+      setPosition(gameJSON[5].player_position.user);
+      setPlayer2(gameJSON[5].player_position.opponent);
+    } else if (setNum === 6) {
+      const tmp = gameJSON[6].bounce.map((v) => [
+        v.y,
+        v.x,
+        v.court_name,
+        v.idx,
+      ]);
+      setBounce(tmp);
+      setPosition(gameJSON[6].player_position.user);
+      setPlayer2(gameJSON[6].player_position.opponent);
+    }
+  };
 
   // 렐리 구하기
   // y: 513
@@ -61,11 +142,26 @@ const Graph = () => {
   useEffect(() => {
     getRally();
     getVideo();
-  }, []);
+    getPosition();
+  }, [setNum]);
+
+  useEffect(() => {
+    console.log("user position: ", position);
+    console.log("user bounce: ", bounce);
+  }, [position, bounce]);
 
   return (
     <Layout>
       <div className="graph">
+        <div className="graph-set">
+          <button onClick={() => setSetNum(0)}>1</button>
+          <button onClick={() => setSetNum(1)}>2</button>
+          <button onClick={() => setSetNum(2)}>3</button>
+          <button onClick={() => setSetNum(3)}>4</button>
+          <button onClick={() => setSetNum(4)}>5</button>
+          <button onClick={() => setSetNum(5)}>6</button>
+          <button onClick={() => setSetNum(6)}>7</button>
+        </div>
         <div className="graph-game">
           <ReactPlayer url={videoUrl[videoIndex]} controls={true}></ReactPlayer>
           <div className="graph-rally">
@@ -80,9 +176,9 @@ const Graph = () => {
             ))}
           </div>
         </div>
-        <PlyaerHeatmap />
+        <PlyaerHeatmap data={position} />
 
-        <BounceGraph />
+        <BounceGraph data={bounce} player={position} player2={player2} />
       </div>
     </Layout>
   );

@@ -25,6 +25,7 @@ const Login = () => {
     if (res.success) {
       const userInfo = await getInfo(data.email);
       console.log(userInfo);
+      localStorage.setItem("game", JSON.stringify(userInfo.game));
       navigate("/main");
     } else {
       alert(res.message);

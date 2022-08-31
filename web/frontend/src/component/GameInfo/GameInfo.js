@@ -10,46 +10,45 @@ function GameInfo() {
     navigate(`/graph/${id}`);
   };
 
-  const Game = ({ game }) => {
-    return (
-      <div className="gamelist" onClick={goGraph}>
-        {game.title}
-        {game.day}
-      </div>
-    );
-  };
-
   // db 연동 전 테스트
+  // const games = [
+  //   {
+  //     id: 0,
+  //     title: "정왕동",
+  //     player: "kim",
+  //     day: "2022-02-10",
+  //   },
+  //   {
+  //     id: 1,
+  //     title: "정왕동",
+  //     player: "lee",
+  //     day: "2022-02-11",
+  //   },
+  //   {
+  //     id: 2,
+  //     title: "정왕동",
+  //     player: "park",
+  //     day: "2022-02-12",
+  //   },
+  //   {
+  //     id: 3,
+  //     title: "정왕동",
+  //     player: "han",
+  //     day: "2022-02-13",
+  //   },
+  //   {
+  //     id: 4,
+  //     title: "정왕동",
+  //     player: "kim",
+  //     day: "2022-02-14",
+  //   },
+  // ];
+  const game = localStorage.getItem("game");
   const games = [
     {
-      id: 0,
-      title: "정왕동",
-      player: "kim",
-      day: "2022-02-10",
-    },
-    {
       id: 1,
-      title: "정왕동",
-      player: "lee",
-      day: "2022-02-11",
-    },
-    {
-      id: 2,
-      title: "정왕동",
-      player: "park",
-      day: "2022-02-12",
-    },
-    {
-      id: 3,
-      title: "정왕동",
-      player: "han",
-      day: "2022-02-13",
-    },
-    {
-      id: 4,
-      title: "정왕동",
-      player: "kim",
-      day: "2022-02-14",
+      day: JSON.parse(game)[0].date,
+      player: JSON.parse(game)[0].opponent,
     },
   ];
 
@@ -62,9 +61,9 @@ function GameInfo() {
             onClick={() => goGraph(game.id)}
             key={game.id}
           >
-            {game.id}
-            {game.title}
-            {game.day}
+            {/* title:{game.id} */}
+            {/* {game.title} */}
+            day : {game.day}
           </div>
           // <div key={game.id}>
           //   <Game game={game} />

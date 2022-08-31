@@ -115,3 +115,9 @@
 .graph-rally-button button {
   margin: 0 0 0 auto;
 }
+.graph-set {
+  display: flex;
+}
+.graph-set > button {
+  margin: 20px 10px;
+}
