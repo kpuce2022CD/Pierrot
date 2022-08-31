@@ -63,12 +63,15 @@ const auth = {
   get_info : async (req, res) =>{
     console.log("start get_info");
     try{
+      console.log("starte get userInfo");
       const user =  await schema.member.findOne({ 
         email: req.body.email 
       });
+      console.log("finish get userInfo && start get gameInfo");
       const game = await schema.game.find({
         email:req.body.email
       });
+      console.log("finish get gameInfo");
 
       const num_game = user.game.length;
       let count = 0;
@@ -79,6 +82,7 @@ const auth = {
       }
       JSON.stringify(user);
       user.__v = count/num_game;
+      console.log("finish get_info");
 
       res.json({
         email:user.email,
@@ -88,9 +92,7 @@ const auth = {
         game:game,
       });
     }catch(err){
-      res.json({
-        err:err
-      });
+      res.error(err);
     }
   }
 };
