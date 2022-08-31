@@ -46,11 +46,9 @@ const game ={
             });
         });
 
-
-        
     },
 
-    download_all_game : async (req,res) =>{
+    download_all_game_by_email : async (req,res) =>{
         console.log("start download_all_game")
         try{
             const gameData = await schema.game.find({
