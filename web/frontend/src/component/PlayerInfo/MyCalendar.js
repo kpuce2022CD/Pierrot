@@ -6,8 +6,8 @@ import CalendarItem from "./CalendarItem";
 
 const MyCalendar = ({ setDate, date }) => {
   // const [date, setDate] = useState(new Date());
-  const windate = ["2022-05-31", "2022-05-29"];
-  const lose = ["2022-05-31"];
+  const windate = ["2022-08-20", "2022-07-29"];
+  const lose = ["2022-06-31"];
   console.log(date);
   return (
     <div className="calendar-layout">

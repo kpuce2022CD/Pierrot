@@ -6,7 +6,7 @@ const Oppenent = () => {
   const { id } = useParams();
   const player = {
     id: id,
-    winrate: "10%",
+    winrate: "70%",
     total: 10,
   };
   return (
