@@ -75,34 +75,29 @@ const auth = {
         email: email,
       });
       console.log("finish get user&game Info");
-      
-      // for(var i=0;i<game.length;i++){
-      //   console.log(game[i].game_num);
-      //   if(game[i].game_num == game[i-1])
+
+      // var i =0;
+      // var cnt =0;
+      // const new_game = new Array(Array(),Array());
+      // while(i<game.length){
+      //   var j = i+1
+      //   for(j;j<game.length;j++){
+      //     if (game[i].game_num == game[j].game_num){
+      //       new_game[cnt].push(game[j]);
+      //     }else{
+      //       break;
+      //     }
+      //   }
+      //   i=j+1;
+      //   cnt++;
       // }
-      var i =0;
-      var cnt =0;
-      const new_game = new Array(Array(),Array());
-      while(i<game.length){
-        var j = i+1
-        for(j;j<game.length;j++){
-          if (game[i].game_num == game[j].game_num){
-            new_game[cnt].push(game[j]);
-          }else{
-            break;
-          }
-        }
-        i=j+1;
-        cnt++;
-      }
-      // console.log(new_game);
-      // console.log(game);
+
       res.json({
         email: user.email,
         name: user.name,
         age: user.age,
         odds: user.__v,
-        game: new_game,
+        game: game,
       });
     } catch (err) {
       res.json({
