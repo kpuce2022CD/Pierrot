@@ -67,7 +67,7 @@ const auth = {
     console.log("start get_info");
     const { email } = req.params;
     console.log("start get user&game Info");
-    // try {
+    try {
       const user = await schema.member.findOne({
         email: email,
       });
@@ -104,11 +104,11 @@ const auth = {
         odds: user.__v,
         game: new_game,
       });
-    // } catch (err) {
-    //   res.json({
-    //     err: err,
-    //   });
-    // }
+    } catch (err) {
+      res.json({
+        err: err,
+      });
+    }
   },
 };
 
