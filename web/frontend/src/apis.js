@@ -9,6 +9,7 @@ const urls = {
   logout: `${baseUrl}/auth/logout`,
   auth: `${baseUrl}/auth/auth`,
   uploadVideo: `${baseUrl}/video/uploadVideo`,
+  getInfo: `${baseUrl}/auth/getInfo`,
 };
 // winer: 누가 이겼는지(이름String), opponent: 누구랑 쳤는지(이름String), date: 언제 쳤는지(Date), score: 몇대몇('00:00')
 
@@ -81,6 +82,18 @@ export const auth = async () => {
 export const logout = async () => {
   try {
     const reuslt = await axios.get(urls.logout, { withCredentials: true });
+    return reuslt.data;
+  } catch (e) {
+    console.log("err", e);
+  }
+};
+
+export const getInfo = async (email) => {
+  try {
+    const reuslt = await axios.get(urls.getInfo + `/${email}`, {
+      withCredentials: true,
+    });
+    console.log("getinfo: ", reuslt);
     return reuslt.data;
   } catch (e) {
     console.log("err", e);
