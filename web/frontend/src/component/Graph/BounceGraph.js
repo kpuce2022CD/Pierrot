@@ -65,8 +65,8 @@ const BounceGraph = (props) => {
     let leng = 0;
     bounceJsonData.forEach((data, i) => {
       const point = {
-        x: data[0] * 0.2,
-        y: (data[1] + data[3] * 0.001) * 0.2,
+        x: parseInt(data[0] * 0.2),
+        y: parseInt(data[1] * 0.2) + data[3] * 0.001,
         r: 10,
       };
       console.log("ampampamp", point, data);
@@ -105,16 +105,16 @@ const BounceGraph = (props) => {
     bounceIndex.forEach((v, i) => {
       console.log("!!!!!!!!!!!!!!!", v, i);
       const point1 = {
-        x: playerTopData[v][1] * 0.2,
-        y: (playerTopData[v][0] + 0.1 * (i + 1)) * 0.2,
+        x: parseInt(playerTopData[v][1] * 0.2),
+        y: parseInt(playerTopData[v][0] * 0.2) + 0.1 * (i + 1),
         // x: parseInt(playerTopData[v].y_0),
         // y: parseInt(playerTopData[v].x_0) + 0.1 * (i + 1),
         r: 0,
       };
       frontPlayer.push(point1);
       const point2 = {
-        x: player2[v][1] * 0.2,
-        y: (player2[v][0] + 0.1 * (i + 1)) * 0.2,
+        x: parseInt(player2[v][1] * 0.2),
+        y: parseInt(player2[v][0] * 0.2) + 0.1 * (i + 1),
 
         // x: parseInt(playerTopData[v].y_1),
         // y: parseInt(playerTopData[v].x_1) + 0.1 * (i + 1),
@@ -177,7 +177,7 @@ const BounceGraph = (props) => {
         // 클릭시 상대 두 선수들의 위치 보여줌
         console.log("e", e);
         const bounceChart = chartReference.current;
-        console.log("councechart", bounceChart.data);
+        console.log("councechart", e, bounceChart.data);
         const index = e[0]?.index;
         if (index === undefined || e[0].datasetIndex >= 2) {
           return;
@@ -186,13 +186,20 @@ const BounceGraph = (props) => {
         // console.log(bounceChart.data.datasets[2].data);
 
         // 바운스 순서 구하기
+        // bounceChart.data.datasets : 배열
+        // e[0].datasetIndex : front, bakc, frontplayer, bakcplayer 인지
+        // bounceChart.data.datasets[e[0].datasetIndex].data[index] :
         const tmp =
           bounceChart.data.datasets[e[0].datasetIndex].data[index].x % 1 === 0
             ? null
             : (
                 bounceChart.data.datasets[e[0].datasetIndex].data[index].x % 1
               ).toFixed(1) * 10;
-        console.log("tmp: ", tmp);
+        console.log(
+          "tmp: ",
+          tmp,
+          bounceChart.data.datasets[e[0].datasetIndex].data[index]
+        );
 
         // 모든 원소 반지름 0으로
         for (let i = 2; i < 4; i++) {
@@ -251,10 +258,10 @@ const BounceGraph = (props) => {
               },
             },
           },
-          // formatter: function (value) {
-          //   console.log("vaule", (value.x % 1).toFixed(1) * 10);
-          //   return value.x % 1 === 0 ? null : (value.x % 1).toFixed(1) * 10;
-          // },
+          formatter: function (value) {
+            console.log("vaule", (value.x % 1).toFixed(1) * 10);
+            return value.x % 1 === 0 ? null : (value.x % 1).toFixed(1) * 10;
+          },
         },
       },
     });
@@ -264,7 +271,13 @@ const BounceGraph = (props) => {
     saveDate();
     chart();
     console.log("chartdata", chartData);
-    console.log("datadfsadf", frontPlayer, backPlayer, frontPoint, backPoint);
+    console.log(
+      "player position",
+      frontPlayer,
+      backPlayer,
+      frontPoint,
+      backPoint
+    );
   }, [props]);
   return (
     <div className="bounce">
