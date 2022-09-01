@@ -16,7 +16,7 @@ const PlayerInfo = () => {
   const game = {
     winrate: "70%",
     highestscore: "12",
-    bbb: "10",
+    bbb: "11",
   };
   const opponent = [
     {
@@ -82,7 +82,7 @@ const PlayerInfo = () => {
               <span>{game.highestscore}</span>
             </div>
             <div className="game-info-detail">
-              <div>???</div>
+              <div>총 경기</div>
               <span>{game.bbb}</span>
             </div>
           </div>
