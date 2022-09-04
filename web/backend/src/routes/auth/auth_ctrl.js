@@ -1,6 +1,9 @@
 const schema = require("../../models/db-schema");
 const { member } = require("../../models/db-schema");
 
+
+
+
 const auth = {
   signup: async (req, res) => {
     console.log(req.body);
@@ -71,39 +74,35 @@ const auth = {
       const user = await schema.member.findOne({
         email: email,
       });
-      const game = await schema.game.find({
+      const games = await schema.game.find({
         email: email,
       });
-      console.log("finish get user&game Info");
 
-      // var i =0;
-      // var cnt =0;
-      // const new_game = new Array(Array(),Array());
-      // while(i<game.length){
-      //   var j = i+1
-      //   for(j;j<game.length;j++){
-      //     if (game[i].game_num == game[j].game_num){
-      //       new_game[cnt].push(game[j]);
-      //     }else{
-      //       break;
-      //     }
-      //   }
-      //   i=j+1;
-      //   cnt++;
-      // }
+      const opponents= [];
+      
+      for (var i = 0;i<games.length;i++){
+        opponents.push({
+          opponent : games[i].opponent,
+          winner : games[i].winner,
+          date : games[i].date,
+        })
+      }
+
+      console.log("finish get user&game Info");
 
       res.json({
         email: user.email,
         name: user.name,
         age: user.age,
         odds: user.__v,
-        game: game,
-      });
+        game: games,
+        opponent:opponents
+      })
     } catch (err) {
       res.json({
         err: err,
       });
-    }
+    };
   },
 };
 
