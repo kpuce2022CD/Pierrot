@@ -18,28 +18,51 @@ const PlayerInfo = () => {
     highestscore: "12",
     bbb: "11",
   };
-  const opponent = [
-    {
-      name: "pierrot",
-      total: "1",
-      winrate: "20%",
-    },
-    {
-      name: "earlybd",
-      total: "3",
-      winrate: "67%",
-    },
-    {
-      name: "honey",
-      winrate: "33%",
-      total: "3",
-    },
-    {
-      name: "butter",
-      winrate: "50%",
-      total: "4",
-    },
-  ];
+  const loacl = localStorage.getItem("opponent");
+  const opponents = JSON.parse(loacl);
+  console.log("freach", opponents);
+  const opponent = [];
+  opponents.forEach((v) => {
+    console.log("freach", v, opponent);
+    const index = opponent.findIndex((e) => e.name === v.opponent);
+    console.log("index>0", opponent[index], index);
+    if (index > -1) {
+      opponent[index].total += 1;
+      opponent[index].win += 1;
+    } else {
+      opponent.push({
+        name: v.opponent,
+        total: 1,
+        win: v.winner === "pierrot" ? 1 : 0,
+        winrate: "",
+      });
+    }
+  });
+  opponent.forEach((v) => (v.winrate = `${(v.win / v.total) * 100}%`));
+  console.log("opponent", opponent);
+  // opponent.forEach((v) => (v.winrate = `${win / total}%`));
+  // const opponent = [
+  //   {
+  //     name: "pierrot",
+  //     total: "1",
+  //     winrate: "20%",
+  //   },
+  //   {
+  //     name: "earlybd",
+  //     total: "3",
+  //     winrate: "67%",
+  //   },
+  //   {
+  //     name: "honey",
+  //     winrate: "33%",
+  //     total: "3",
+  //   },
+  //   {
+  //     name: "butter",
+  //     winrate: "50%",
+  //     total: "4",
+  //   },
+  // ];
   const navigate = useNavigate();
   const [date, setDate] = useState(new Date());
 
