@@ -14,9 +14,9 @@ const PlayerInfo = () => {
     team: "tuk",
   };
   const game = {
-    winrate: "70%",
+    winrate: "94%",
     highestscore: "12",
-    bbb: "11",
+    bbb: "16",
   };
   const loacl = localStorage.getItem("opponent");
   const opponents = JSON.parse(loacl);
@@ -38,7 +38,7 @@ const PlayerInfo = () => {
       });
     }
   });
-  opponent.forEach((v) => (v.winrate = `${(v.win / v.total) * 100}%`));
+  opponent.forEach((v) => (v.winrate = `${(v.win / v.total) .toFixed(2)* 100}%`));
   console.log("opponent", opponent);
   // opponent.forEach((v) => (v.winrate = `${win / total}%`));
   // const opponent = [

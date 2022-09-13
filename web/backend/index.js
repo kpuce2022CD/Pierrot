@@ -24,7 +24,6 @@ const PORT = 3001;
 app.listen(PORT,() =>{
     console.log("서버 가동");
 });
-
 mongoose.connect(process.env.DB_URL, { useNewUrlParser: true }, (err) => {
   if (err) {
     console.log(err);

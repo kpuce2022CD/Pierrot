@@ -1,9 +1,6 @@
 const schema = require("../../models/db-schema");
 const { member } = require("../../models/db-schema");
 
-
-
-
 const auth = {
   signup: async (req, res) => {
     console.log(req.body);
