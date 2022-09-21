@@ -1,4 +1,4 @@
-.loginPage {
+.signupPage {
   width: 100%;
   height: 100%;
   background: #1b1b27;
@@ -7,23 +7,23 @@
   justify-content: center;
   align-items: center;
 }
-.login-title > a {
+.signup-title > a {
   display: flex;
   gap: 23px;
+  align-items: center;
 }
-.login-title img {
-  width: 70px;
-  height: 79.89px;
+.signup-title img {
+  width: 50px;
+  height: 59.89px;
 }
-.login-title h1 {
+.signup-title h1 {
   font-family: "Poppins";
   font-style: normal;
   font-weight: 800;
-  font-size: 64px;
-  line-height: 96px;
+  font-size: 54px;
   color: #ffffff;
 }
-.login-card {
+.signup-card {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -32,59 +32,45 @@
   border-radius: 43px;
   width: 600px;
   /* height: 450px; */
-  min-height: 450px;
+  height: 600px;
+}
+.signup-msg {
   height: fit-content;
+  /* margin: 5px; */
 }
-.login-msg {
-  height: fit-content;
-  margin: 20px;
-}
-.login-msg p {
-  height: 45px;
-}
-.login-msg p:last-child {
+.signup-msg p {
   font-style: normal;
   font-weight: 500;
-  font-size: 36px;
-  line-height: 50px;
-  text-align: center;
-
-  color: #6c727f;
-}
-.login-msg p:first-child {
-  font-style: normal;
-  font-weight: 500;
-  font-size: 40px;
-  line-height: 56px;
+  font-size: 32px;
   text-align: center;
   color: #b1e457;
 }
 
-.login-form {
+.signup-form {
   display: flex;
   gap: 16px;
   flex-direction: column;
   align-items: center;
 }
-.login-form input {
+.signup-form input {
   width: 500px;
-  height: 50px;
+  height: 40px;
   border: none;
   background: #6c727f;
   border-radius: 22px;
   padding-left: 10px;
-  font-size: 27px;
+  font-size: 24px;
 }
-.login-form input::placeholder {
+.signup-form input::placeholder {
   font-style: normal;
   font-weight: 500;
 
   color: #c4c4c4;
 }
-.login-form input[type="submit"] {
+.signup-form input[type="submit"] {
   padding: 0;
   width: 280px;
-  height: 50px;
+  height: 40px;
 
   background: #14142c;
   border-radius: 22px;
@@ -92,15 +78,14 @@
   font-style: normal;
   font-weight: 500;
   font-size: 32px;
-  line-height: 45px;
   text-align: center;
 
   color: #6c727f;
 }
-.login-card-footer {
+.signup-card-footer {
   text-align: center;
 }
-.login-card-footer > p {
+.signup-card-footer > p {
   font-family: "Mohave";
   font-style: normal;
   font-weight: 500;
@@ -109,7 +94,7 @@
 
   color: #ffffff;
 }
-.login-card-footer a {
+.signup-card-footer a {
   font-family: "Mohave";
   font-style: normal;
   font-weight: 500;
