@@ -1,0 +1,67 @@
+.gamelist-card {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  width: 80%;
+  height: 90%;
+  background: #1d1d1d;
+  box-shadow: 0px 10px 60px rgba(0, 0, 0, 0.5);
+  border-radius: 30px;
+}
+.gamelist-title {
+  margin: 20px 0 0 20px;
+  width: fit-content;
+  height: fit-content;
+}
+.gamelist-title > h1 {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 33px;
+  letter-spacing: -0.01em;
+  color: #ffffff;
+}
+.gamelist-title > p {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
+  letter-spacing: -0.01em;
+
+  color: #b1e457;
+}
+.gamelist-table {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  height: 80%;
+  margin: auto;
+  color: #b5b7c0;
+}
+.gamelist-table > table > thead {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 21px;
+  letter-spacing: -0.01em;
+}
+.gamelist-table td {
+  padding: 20px 5px;
+  border-bottom: 1px solid #000;
+}
+.gamelist-table > table > thead > tr > td {
+  padding: 10px 5px;
+}
+
+.gamelist-item td:nth-child(4) > div {
+  background: #ae2d5d;
+  border-radius: 4px;
+  color: #5c010b;
+  text-align: center;
+  width: 50%;
+}
+.gamelist-table > table > tbody > .win td:nth-child(4) > div {
+  background: #b1e457;
+  border-radius: 4px;
+  color: #164900;
+}

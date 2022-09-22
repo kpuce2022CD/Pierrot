@@ -1,14 +1,17 @@
 import "Styles/LoginPage.css";
 import useInput from "Hooks/useInput";
 import { ICON } from "Constants/icons";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
   const email = useInput("");
   const password = useInput("");
 
   const onSubmit = (e) => {
     e.preventDefault();
     console.log(email.value, password.value);
+    navigate("/game/list");
   };
   return (
     <div className="loginPage">
