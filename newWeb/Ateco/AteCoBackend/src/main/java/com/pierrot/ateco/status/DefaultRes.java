@@ -18,16 +18,16 @@ public class DefaultRes<T> {
 		this.data = null;
 	}
 	
-	public static<T> DefaultRes<T> res(final int statusCode, final String responseMessage){
-		return res(statusCode, responseMessage,null);
-	}
+//	public static<T> DefaultRes<T> res(final int statusCode, final String responseMessage){
+//		return res(statusCode, responseMessage,null);
+//	}
 	
-	public static<T> DefaultRes<T> res(final int statusCode, final String responseMessage,final T t){
-		return DefaultRes.<T>builder()
-				.data(t)
-				.statusCode(statusCode)
-				.responseMessage(responseMessage)
-				.build();
-	}
+//	public static<T> DefaultRes<T> res(final int statusCode, final String responseMessage,final T t){
+//		return DefaultRes.<T>builder()
+//				.data(t)
+//				.statusCode(statusCode)
+//				.responseMessage(responseMessage)
+//				.build();
+//	}
 	
 }
