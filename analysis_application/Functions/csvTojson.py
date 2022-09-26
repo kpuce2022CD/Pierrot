@@ -1,8 +1,8 @@
 import csv
 import json
 
-input_file_name = "tracking_ball_3.csv"
-output_file_name = "tracking_ball_3.json"
+input_file_name = "../coord/player_coord.txt"
+output_file_name = "tracking_ball_4.json"
 
 with open(input_file_name, "r", encoding="utf-8", newline="") as input_file, \
         open(output_file_name, "w", encoding="utf-8", newline="") as output_file:
