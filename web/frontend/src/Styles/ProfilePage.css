@@ -1,0 +1,37 @@
+.profile-page {
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+.profile-page > div {
+  padding: 20px;
+  margin: 20px;
+  width: fit-content;
+  height: fit-content;
+  background: #1d1d1d;
+  box-shadow: 0px 4px 8px 2px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 29px;
+
+  color: #ffffff;
+}
+.profile-user-info {
+  display: flex;
+  flex-direction: column;
+}
+.profile-user-info > div {
+  display: flex;
+  width: 100%;
+}
+.profile-user-info > div > span {
+  width: 50%;
+}
+.profile-opponent td {
+  text-align: center;
+  padding: 4px;
+}

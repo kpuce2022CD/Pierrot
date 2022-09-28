@@ -11,7 +11,7 @@ const Login = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     console.log(email.value, password.value);
-    navigate("/game/list");
+    navigate("/game");
   };
   return (
     <div className="loginPage">

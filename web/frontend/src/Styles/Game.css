@@ -1,0 +1,44 @@
+.game-page {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.game-page > div {
+  width: 100%;
+  margin: 10px;
+  display: flex;
+  color: #ffffff;
+  border: 1px solid red;
+  align-items: center;
+}
+.game-page > div > div:first-child {
+  width: 40%;
+  margin: 0 10px;
+}
+.game-page > div > div {
+  background-color: #1d1d1d;
+  border: 1px solid blue;
+  width: fit-content;
+  max-width: 40%;
+  height: 100%;
+}
+.game-page div[class$="item-list"] {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.game-page div[class$="item"] {
+  padding: 1px 5px;
+  border-bottom: 1px solid rgb(174, 174, 174);
+}
+.game-page div[class$="item"] > span:first-child {
+  font-weight: 600;
+  display: inline-block;
+  width: 150px;
+}
+.game-chart,
+.game-video {
+  background-color: #855959;
+  text-align: center;
+}

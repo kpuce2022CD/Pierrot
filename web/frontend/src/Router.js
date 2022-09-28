@@ -8,11 +8,13 @@ import Profile from "page/Profile";
 import Upload from "page/Upload";
 import About from "page/About";
 import Setting from "page/Setting";
+import Game from "page/Game";
 function Router() {
   return (
     <Routes>
       <Route path="/" element={<Main />} />
-      <Route path="/game/list" element={<List />} />
+      <Route path="/game" element={<List />} />
+      <Route path="/game/:id" element={<Game />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/profile" element={<Profile />} />

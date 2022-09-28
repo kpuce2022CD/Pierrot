@@ -10,7 +10,7 @@ const Sidebar = () => {
     {
       title: "GameList",
       icon: ICON.DASHBOAD,
-      url: "/game/list",
+      url: "/game",
       click: true,
     },
     {
@@ -48,6 +48,13 @@ const Sidebar = () => {
       navigate("/");
     }
   };
+  const isMatch = (url) => {
+    if (window.location.pathname.split("/").length > 2) {
+      const urlArr = window.location.pathname.split("/");
+      return url === `/${urlArr[1]}/${urlArr[2]}`;
+    }
+    return url === window.location.pathname;
+  };
 
   return (
     <div className="SidebarContainer">
@@ -59,12 +66,9 @@ const Sidebar = () => {
         {items.map((v, i) => (
           <div
             key={i}
-            className={`sidebar-item ${
-              v.url === window.location.pathname ? "sidebar-line" : ""
-            }`}
+            className={`sidebar-item ${isMatch(v.url) ? "sidebar-line" : ""}`}
             onClick={() => navigate(v.url)}
           >
-            {/* {v.url === window.location.pathname ? <div>||</div> : <></>} */}
             <img src={v.icon} />
             <div>{v.title}</div>
           </div>

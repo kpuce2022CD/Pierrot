@@ -1,9 +1,15 @@
 import Layout from "Layout/Layout";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "Styles/GameListPage.css";
 
 const List = () => {
   const [listData, setListData] = useState([]);
+  const navigate = useNavigate();
+  const onclick = (page) => {
+    console.log("onclick");
+    navigate(`/game/${page}`);
+  };
   useEffect(() => {
     setListData([
       { date: "2022.01.01", opponent: "aaa", name: "asdf", win: true },
@@ -33,6 +39,7 @@ const List = () => {
               {listData.map((v, i) => (
                 <tr
                   key={`gamelist-item-${i}`}
+                  onClick={() => onclick(i)}
                   className={`gamelist-item ${v.win ? `win` : ``}`}
                 >
                   <td>{v.date}</td>

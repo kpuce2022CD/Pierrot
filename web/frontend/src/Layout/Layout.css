@@ -8,7 +8,9 @@
 
 .SidebarContainer {
   position: sticky;
-  width: 219px;
+  /* width: 200px; */
+  width: 13%;
+  min-width: fit-content;
   height: 100vh;
 
   background: #2a2a40;
