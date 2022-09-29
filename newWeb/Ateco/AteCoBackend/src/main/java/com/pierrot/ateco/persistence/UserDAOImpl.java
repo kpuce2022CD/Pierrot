@@ -17,21 +17,30 @@ public class UserDAOImpl implements UserDAO{
 	
 	@Override
 	public void signUpUser(UserVO user) throws Exception {
-		// TODO Auto-generated method stub
 		sqlSession.insert(namespace+".signUpUser",user);
 	}
 
 	@Override
 	public UserVO signInUser(UserVO user) throws Exception {
-		// TODO Auto-generated method stub
-		
 		return sqlSession.selectOne(namespace+".signInUser",user);
 	}
 
 	@Override
 	public UserVO readUser(String email) throws Exception {
-		// TODO Auto-generated method stub
 		return sqlSession.selectOne(namespace+".selectUser",email);
 	}
+
+	@Override
+	public void deleteUser(String email) throws Exception {
+		sqlSession.delete(namespace+".deleteUser", email);
+	}
+
+	@Override
+	public void updateUser(Object obj, String value, String email) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
 	
 }

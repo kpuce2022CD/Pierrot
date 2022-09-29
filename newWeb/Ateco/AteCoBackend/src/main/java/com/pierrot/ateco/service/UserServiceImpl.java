@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.pierrot.ateco.domain.UserVO;
+import com.pierrot.ateco.exception.DataNotFoundException;
 import com.pierrot.ateco.persistence.UserDAO;
 
 @Service
@@ -19,6 +20,7 @@ public class UserServiceImpl implements UserService{
 		UserVO user = new UserVO();
 		user.setEmail(email);
 		user.setPasswd(passwd);
+		if(userDAO.readUser(email) == null) throw new DataNotFoundException(email);
 		return userDAO.signInUser(user);
 	}
 
@@ -31,7 +33,15 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public UserVO readUser(String email) throws Exception {
 		// TODO Auto-generated method stub
+		if(userDAO.readUser(email) == null) throw new DataNotFoundException(email);
 		return userDAO.readUser(email);
+	}
+
+	@Override
+	public void deleteUser(String email) throws Exception {
+		// TODO Auto-generated method stub
+		if(userDAO.readUser(email) == null) throw new DataNotFoundException(email);
+		userDAO.deleteUser(email);
 	}
 
 }
