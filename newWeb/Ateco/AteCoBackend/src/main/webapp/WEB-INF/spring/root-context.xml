@@ -30,23 +30,8 @@
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
 		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"></constructor-arg>
 	</bean>
-	
-	<mongo:mongo host="127.0.0.1" port="27017">
- 		<mongo:options connections-per-host="8"
-		  threads-allowed-to-block-for-connection-multiplier="4"
-		  connect-timeout="1000"
-		  auto-connect-retry="true"
-		  write-number="1"
-		  write-timeout="0"
-		  write-fsync="true"/>
-	</mongo:mongo>
-	
-	<mongo:db-factory dbname="mydb"/>
-	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
-		 <constructor-arg name="mongoDbFactory" ref="mongoDbFactory" />
-	</bean>
 
-	<mongo:repositories base-package="xxx.xxx.xxx.*.repos" />
+
 	
 	<context:component-scan base-package="com.pierrot.ateco.persistence"/>
 	<context:component-scan base-package="com.pierrot.ateco.service"/>

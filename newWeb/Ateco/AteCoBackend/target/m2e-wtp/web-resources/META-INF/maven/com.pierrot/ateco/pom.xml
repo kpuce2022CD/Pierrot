@@ -17,18 +17,12 @@
 	
 	<dependencies>
 	
-			<!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-mongodb -->
-		<dependency>
-		    <groupId>org.springframework.data</groupId>
-		    <artifactId>spring-data-mongodb</artifactId>
-		    <version>3.4.2</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.mongodb/mongodb-driver -->
-		<dependency>
-		    <groupId>org.mongodb</groupId>
-		    <artifactId>mongodb-driver</artifactId>
-		    <version>3.4.2</version>
-		</dependency>
+	    <dependency>
+	        <groupId>org.mongodb</groupId>
+	        <artifactId>mongodb-driver-sync</artifactId>
+	        <version>4.2.3</version>
+	    </dependency>
+
 		
 		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
 		<dependency>
