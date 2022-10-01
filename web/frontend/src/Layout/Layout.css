@@ -7,8 +7,7 @@
 }
 
 .SidebarContainer {
-  position: sticky;
-  /* width: 200px; */
+  position: relative;
   width: 13%;
   min-width: fit-content;
   height: 100vh;
@@ -63,4 +62,11 @@
 }
 .sidebar-line {
   border-left: 7px #5b4dff solid;
+}
+.logout {
+  width: fit-content;
+  height: fit-content;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
 }

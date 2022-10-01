@@ -1,3 +1,4 @@
+import Bounce from "Components/Chart/Bounce";
 import { useState } from "react";
 
 const BounceInfo = (props) => {
@@ -13,7 +14,7 @@ const BounceInfo = (props) => {
 
   return (
     <div className="bounce-info-component">
-      <div className="game-chart">BounceChart</div>
+      <div className="game-chart">{/* <Bounce /> */}</div>
       <div>
         <div className="bounce-item-list">
           {Object.keys(bounceInfo).map((v, i) => (

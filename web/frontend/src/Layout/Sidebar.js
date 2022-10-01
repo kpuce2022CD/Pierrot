@@ -74,6 +74,9 @@ const Sidebar = () => {
           </div>
         ))}
       </div>
+      <div className="logout">
+        <img src={ICON.LOGOUT} />
+      </div>
     </div>
   );
 };

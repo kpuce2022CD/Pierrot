@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Heatmap from "./Chart/Heatmap";
 
 const HeatmapInfo = (props) => {
   const { id } = props;
@@ -10,7 +11,7 @@ const HeatmapInfo = (props) => {
 
   return (
     <div className="heapmap-info-component">
-      <div className="game-chart">heatmap</div>
+      <div className="game-chart">{/* <Heatmap /> */}</div>
       <div>
         <div className="heatmap-item-list">
           {Object.keys(info).map((v, i) => (
