@@ -2,6 +2,9 @@ package com.pierrot.ateco.domain;
 
 import java.util.ArrayList;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection="ATeCo")
 public class GameInfoVO {
 	private String _id;
 	private String video;
@@ -47,6 +50,12 @@ public class GameInfoVO {
 	public void setBall(ArrayList<Integer> ball) {
 		this.ball = ball;
 	}
+	@Override
+	public String toString() {
+		return "GameInfoVO [_id=" + _id + ", video=" + video + ", bounce=" + bounce + ", player=" + player
+				+ ", opponent=" + opponent + ", ball=" + ball + "]";
+	}
+	
 	
 	
 }
