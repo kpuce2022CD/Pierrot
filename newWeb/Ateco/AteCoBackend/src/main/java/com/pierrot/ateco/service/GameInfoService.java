@@ -1,6 +1,7 @@
 package com.pierrot.ateco.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -16,6 +17,10 @@ public class GameInfoService {
 
     @Autowired
     GameInfoDAO gameInfoDAO;
+    
+    
+    @Autowired
+    private MongoTemplate mongoTemplate;
 
     public String selectGame(String _id) {
         ObjectMapper objectMapper = new ObjectMapper();
@@ -37,13 +42,19 @@ public class GameInfoService {
         gameInfoVO.set_id(_id);
         gameInfoVO.setVideo(video);
 
-        if (gameInfoDAO.findBy_id(_id) != null) {
-            gameInfoVO.set_id(gameInfoDAO.findBy_id(_id).get_id());
-        }
-//        else {
-//            log.info("[Service][insert] New name received!!");
+//        if (gameInfoDAO.findBy_id(_id) != null) {
+//            gameInfoVO.set_id(gameInfoDAO.findBy_id(_id).get_id());
 //        }
+////        else {
+////            log.info("[Service][insert] New name received!!");
+////        }
 
-        gameInfoDAO.save(gameInfoVO);
+//        gameInfoDAO.save(gameInfoVO);
+        mongoTemplate.save(gameInfoVO,"ATeCo");
     }
+
+//    
+//    public void saveGame2(){
+//    	mongoTemplate.save(null)
+//    }
 }
