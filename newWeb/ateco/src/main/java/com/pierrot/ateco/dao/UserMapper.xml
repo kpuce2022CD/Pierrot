@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.pierrot.ateco.dao.UserMapper">
+    <insert id="insertUser" parameterType="userDto">
+        INSERT INTO user VALUES (#{email}, #{passwd}, #{name}, #{userGender}, #{userEmail})
+    </insert>
+    
+    <update id="updateUser" parameterType="userDto">
+        UPDATE user 
+        SET userPw = #{userPw}, userName = #{userName}, userGender = #{userGender}, userEmail = #{userEmail} 
+        WHERE userId = #{userId}
+    </update>
+    
+    <delete id="deleteUser" parameterType="string">
+        DELETE FROM user WHERE userId = #{userId}
+    </delete>
+    
+    <select id="selectOneUser" parameterType="string" resultType="userDto">
+        SELECT * FROM user WHERE email = #{email}
+    </select>
+    
+    <select id="selectAllUser" resultType="userDto">
+        SELECT * FROM user
+    </select>
+</mapper>
