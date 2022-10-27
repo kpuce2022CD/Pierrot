@@ -1,13 +1,13 @@
-package com.pierrot.tennisAnalysis;
+package com.pierrot.ateco;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class TennisAnalysisApplication {
+public class AtecoApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(TennisAnalysisApplication.class, args);
+		SpringApplication.run(AtecoApplication.class, args);
 	}
 
 }
