@@ -1,15 +1,16 @@
-package com.pierrot.ateco.persistance;
+package com.pierrot.ateco.domain;
 
-import lombok.Builder;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 @Getter
 @Setter
-@ToString
-@Builder
-public class MemberDTO {
+@NoArgsConstructor
+@AllArgsConstructor
+public class UserDto {
 	private String email;
 	private String passwd;
 	private String name;
