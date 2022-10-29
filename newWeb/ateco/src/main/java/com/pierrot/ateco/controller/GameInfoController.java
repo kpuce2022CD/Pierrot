@@ -16,10 +16,10 @@ import com.pierrot.ateco.repository.GameInfoRepository;
 @RestController
 @RequestMapping("/gameinfo")
 public class GameInfoController {
-	
+
 	@Autowired
 	private GameInfoRepository repository;
-	
+
 	@PostMapping
 	public void addGameInfo(@RequestBody GameInfoDto gameInfo) {
 		repository.save(gameInfo);
@@ -30,3 +30,9 @@ public class GameInfoController {
 //		return repository.findOne({id: test});
 //	}
 }
+
+// @GetMapping
+// public GameInfoDto getGameInfo(@RequestParam("id") String id) {
+// return repository.findOne(id);
+// }
+// }
