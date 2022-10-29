@@ -15,7 +15,7 @@ public class UserDto {
 	private String passwd;
 	private String name;
 	private int age;
-	private int wegiht;
+	private int weight;
 	private int height;
 	private boolean role;
 	private String team;
