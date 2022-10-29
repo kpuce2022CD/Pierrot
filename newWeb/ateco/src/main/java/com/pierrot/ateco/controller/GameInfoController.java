@@ -1,5 +1,7 @@
 package com.pierrot.ateco.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,8 +25,8 @@ public class GameInfoController {
 		repository.save(gameInfo);
 	}
 	
-	@GetMapping
-	public GameInfoDto getGameInfo(@RequestParam("id") String id) {
-		return repository.findOne(id);
-	}
+//	@GetMapping
+//	public Optional<GameInfoDto> getGameInfo(@RequestParam("id") String id) {
+//		return repository.findOne({id: test});
+//	}
 }
