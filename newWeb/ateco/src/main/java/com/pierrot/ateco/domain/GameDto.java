@@ -1,5 +1,7 @@
 package com.pierrot.ateco.domain;
 
+import java.sql.Date;
+
 import org.springframework.data.annotation.Id;
 
 import lombok.AllArgsConstructor;
@@ -11,14 +13,17 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDto {
+public class GameDto {
 	@Id
 	private String email;
-	private String passwd;
+	@Id
+	private int index;
+	@Id
+	private int setNo;
 	private String name;
-	private int age;
-	private int weight;
-	private int height;
-	private boolean role;
-	private String team;
+	private Date date;
+	private String opponent;
+	private boolean win;
+	private String server;
+	private String fullVideo;
 }

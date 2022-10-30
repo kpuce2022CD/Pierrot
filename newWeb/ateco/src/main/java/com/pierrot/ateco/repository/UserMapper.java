@@ -20,5 +20,5 @@ public interface UserMapper {
 	UserDto selectUser(@Param("email") String email);
 	
 	@Delete("DELETE FROM member WHERE email = #{email}")
-	void deleteUser(@Param("email") String email);
+	void deleteUserByEmail(@Param("email") String email);
 }

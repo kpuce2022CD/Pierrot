@@ -11,14 +11,18 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDto {
+public class ScoreDto {
 	@Id
 	private String email;
-	private String passwd;
-	private String name;
-	private int age;
-	private int weight;
-	private int height;
-	private boolean role;
-	private String team;
+	@Id
+	private int index;
+	@Id
+	private int setNo;
+	@Id
+	private int gameNo;
+	@Id
+	private int pointNo;
+	private boolean win;
+	private String server;
+	private String mongoUrl;
 }
