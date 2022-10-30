@@ -16,8 +16,8 @@ public interface UserMapper {
 	@Insert("INSERT INTO member VALUES (#{user.email}, #{user.passwd}, #{user.name}, #{user.age}, #{user.weight},#{user.height}, false, #{user.team})")
 	void insertUser(@Param("user") UserDto user);
 	
-	@Select("SELECT * FROM member WHERE email = #{email}")
-	UserDto selectUser(@Param("email") String email);
+	@Select("SELECT * FROM member WHERE email = #{email} and passwd = #{passwd}")
+	UserDto selectUser(@Param("email") String email, @Param("passwd") String passwd);
 	
 	@Delete("DELETE FROM member WHERE email = #{email}")
 	void deleteUserByEmail(@Param("email") String email);

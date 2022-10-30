@@ -1,5 +1,11 @@
 package com.pierrot.ateco.controller;
 
+import java.nio.charset.Charset;
+
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -21,9 +27,14 @@ public class UserController {
 		this.mapper = mapper;
 	}
 	
-	@GetMapping
-	public UserDto getOneUser(@RequestParam("email") String email){
-		return mapper.selectUser(email);
+	@PostMapping("login")
+	public ResponseEntity<Boolean> getOneUser(@RequestParam("email") String email,@RequestParam("passwd") String passwd){
+		if (mapper.selectUser(email,passwd) != null) {
+			return new ResponseEntity<Boolean>(true,HttpStatus.OK);
+		}else {
+			return new ResponseEntity<Boolean>(false,HttpStatus.BAD_REQUEST);
+		}
+		
 	}
 	
 	@PostMapping
