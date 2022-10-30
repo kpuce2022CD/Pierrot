@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pierrot.ateco.domain.UserDto;
-import com.pierrot.ateco.mapper.UserMapper;
+import com.pierrot.ateco.repository.UserMapper;
 
 @RestController
 @RequestMapping("/users")
