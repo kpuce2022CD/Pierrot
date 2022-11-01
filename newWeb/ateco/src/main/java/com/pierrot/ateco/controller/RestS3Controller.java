@@ -8,23 +8,23 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 @RestController
-@RequestMapping("/storage/")
+@RequestMapping("/games/")
 public class RestS3Controller {
 
     @Autowired
     private AmazonService amazonService;
 
-    @PostMapping("/uploadFile")
+    @PostMapping("/uploadvideo")
     public String uploadFile(@RequestPart(value = "file") MultipartFile file) {
         return this.amazonService.uploadFile(file);
     }
 
-    @DeleteMapping("/deleteFile")
+    @DeleteMapping("/deletevideo")
     public String deleteFile(@RequestPart(value = "url") String fileUrl) {
         return this.amazonService.deleteFileFromS3Bucket(fileUrl);
     }
 
-    @GetMapping("/getFileList")
+    @GetMapping("/getVideoList")
     public List<String> getFileList() {
         return this.amazonService.listFiles();
     }
