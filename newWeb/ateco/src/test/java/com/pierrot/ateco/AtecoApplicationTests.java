@@ -12,10 +12,11 @@ class AtecoApplicationTests {
 
 	@Autowired
 	GameInfoRepository gameInfoRepository;
-	
-//	@Test
-//	public void insertMongoDB() {
-//		GameInfoDto gameInfoDto = new GameInfoDto("id",null, null, null, null, null, null);
-//				
-//	}
+
+	// @Test
+	// public void insertMongoDB() {
+	// GameInfoDto gameInfoDto = new GameInfoDto("id",null, null, null, null, null,
+	// null);
+	//
+	// }
 }
