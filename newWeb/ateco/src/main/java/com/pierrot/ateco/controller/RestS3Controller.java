@@ -8,7 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 @RestController
-@RequestMapping("/games/")
+@RequestMapping("/videos/")
 public class RestS3Controller {
 
     @Autowired

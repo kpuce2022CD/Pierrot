@@ -9,7 +9,6 @@ import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -44,7 +43,6 @@ public class AmazonService {
                 .build();
     }
 
-    // 파일 업로드
     public String uploadFile(MultipartFile multipartFile) {
         String fileUrl = "";
         try {
@@ -75,14 +73,14 @@ public class AmazonService {
                 .withCannedAcl(CannedAccessControlList.PublicRead));
     }
 
-    // 파일 삭제
+
     public String deleteFileFromS3Bucket(String fileUrl) {
         String fileName = fileUrl.substring(fileUrl.lastIndexOf("/") + 1);
         s3client.deleteObject(new DeleteObjectRequest(bucketName, fileName));
         return "Successfully deleted";
     }
 
-    // 파일 리스트
+
     public List<String> listFiles() {
         ListObjectsRequest listObjectsRequest = new ListObjectsRequest()
                 .withBucketName(bucketName)
