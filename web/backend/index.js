@@ -19,7 +19,7 @@ const auth = require("./src/routes/auth/auth");
 const video = require("./src/routes/video/video");
 const game = require("./src/routes/game/game");
 
-const PORT = 3001;
+const PORT = 3003;
 
 app.listen(PORT,() =>{
     console.log("서버 가동");

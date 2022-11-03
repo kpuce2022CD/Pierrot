@@ -1,24 +1,30 @@
 require("dotenv").config({ path: "../../../.env" });
 const schema = require('../../models/db-schema');
 const fs = require('fs');
-const S3 = require('aws-sdk/clients/s3');
+const AWS = require('aws-sdk');
 
-const bucketName = process.env.AWS_BUCKET_NAME;
-const region = process.env.AWS_BUCKET_REGION;
-const accessKeyId = process.env.AWS_ACCESS_KEY;
-const secretAccessKey = process.env.AWS_SECRET_KEY;
+const bucketName = 'ateco';
+const region = 'ap-northeast-2';
+const accessKeyId = 'AKIAUYOGGEALH3FIQQI2';
+const secretAccessKey = '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';
 
-const s3 = new S3({
-    region,
-    accessKeyId,
-    secretAccessKey
-});
+AWS.config.update({
+    accessKeyId: accessKeyId,
+    secretAccessKey: secretAccessKey
+  });
+  
+  const s3 = new AWS.S3({
+    params: { Bucket: bucketName},
+    region: region,
+  });
+
 
 const video ={
     upload_video : async (req,res) => {
         console.log("start upload_video");
         //get video
         const fileStream = fs.createReadStream(req.file.path);
+        console.log(fileStream);
         let win = true;
         if(req.body.winner === req.body.opponent){
             win = false;
@@ -26,20 +32,24 @@ const video ={
 
         //s3에 들어갈 자료
         const uploadParams = {
+            ACL: 'public-read',
             Bucket: bucketName,
             Body: fileStream,
             Key: req.file.filename+".mp4"
         };
 
         try{
+            console.log("BucketName :" + fileStream);
             //upload video file into S3
-            s3.upload(uploadParams);
+            s3.putObject(uploadParams).send((err,nn) => {
+                if(err){console.log(err)}})
+            
 
             //upload game Info into mongodb
             upload_db_games(req.body.email, req.file.filename+".mp4",req.body.winner,req.body.opponent,req.body.date,req.body.game_num);
             // upload_db_member(req.body.email,req.file.filename+".mp4",win,req.body.opponent,req.body.date);
-            
-            res.json({
+            console.log("test"+req.body.email, req.file.filename+".mp4");
+            res.status(200).json({
                 success: true
             });
         }catch(err){
