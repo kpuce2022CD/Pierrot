@@ -24,20 +24,21 @@ const memberSchema = mongoose.Schema({
         type: Number,
         default:0,
     },
-    // //경기 전적
-    // game:[{
-    //     //??
-    //     game:String,
-    //     //상대방 이름
-    //     opponent:String,
     //     //사용자 기준 승리여부
-    //     win:Boolean,
-    //     //비디오 url
-    //     video_key:String,
-    //     //경기 날짜
-    //     date:String,
+    //경기 전적
+    game:[{
+        //??
+        game:String,
+        //상대방 이름
+        opponent:String,
+        //사용자 기준 승리여부
+        win:Boolean,
+        //비디오 url
+        video_key:String,
+        //경기 날짜
+        date:String,
         
-    // }]
+    }]
 });
 
 const gameSchema = mongoose.Schema({
@@ -78,16 +79,16 @@ const gameSchema = mongoose.Schema({
         v:Number,
         court_name:String
     }],
-    // //경기장 위치별 공 다음 바운드
-    // next_bounce:{
-    //     front_dueceside_left : Array,
-    //     front_dueceside_center : Array,
-    //     front_dueceside_right : Array,
-    //     front_adside_left : Array,
-    //     front_adside_center : Array,
-    //     front_adside_right : Array,
-    // },
-    //
+    //경기장 위치별 공 다음 바운드
+    next_bounce:{
+        front_dueceside_left : Array,
+        front_dueceside_center : Array,
+        front_dueceside_right : Array,
+        front_adside_left : Array,
+        front_adside_center : Array,
+        front_adside_right : Array,
+    },
+    
     player_position:{
         user:Array,
         opponent:Array,
