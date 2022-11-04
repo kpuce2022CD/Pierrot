@@ -29,11 +29,11 @@ const game ={
 
         //각 오브젝트로 변환
         //ex) front_adside_right : [back_dueceside_left,~]
-        // const court_list = predict_next_court(csvs);
+        const next_bounce = predict_next_court(csvs);
 
         //findAndUpdate from mongodb
         schema.game.findOneAndUpdate({_id : req.body._id},
-            {$set:{bounce:csvs,player_position:players_position}},function(err,doc){
+            {$set:{bounce:csvs,player_position:players_position,next_bounce:next_bounce}},function(err,doc){
             if(err){
                 console.log("Something wrong when updating data!");
                 res.json({

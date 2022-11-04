@@ -44,6 +44,7 @@ jspm_packages/
 node_modules/
 games
 videos
+*.env
 
 
 # TypeScript v1 declaration files
