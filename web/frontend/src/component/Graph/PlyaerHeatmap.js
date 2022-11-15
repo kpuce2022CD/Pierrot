@@ -61,8 +61,13 @@ const PlyaerHeatmap = (props) => {
         <p>{message}</p>
         <h2>총 이동 거리</h2>
         <p>375m</p>
+<<<<<<< Updated upstream
         <h2>소모칼로리</h2>
         <p>15.7kcal</p>
+=======
+        <h2>총 칼로리</h2>
+        <p>51kcal</p>
+>>>>>>> Stashed changes
       </div>
     </div>
   );
