@@ -1,3 +1,4 @@
 node_modules/*
 newWeb/ateco/src/main/resources/application.properties
 newWeb/ateco/src/main/resources/application.yml
+.DS_Store
