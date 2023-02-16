@@ -19,7 +19,7 @@ Skills <br>
 <img src ="https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=Node.js&logoColor=white"/>
 <img src ="https://img.shields.io/badge/YOLO-00FFFF?style=for-the-badge&logo=YOLO&logoColor=white"> 
 
-prototype 데모영상(Pierrot팀 프로토타입 데모영상.mp4)
+데모영상이 보고싶으시다면 [Pierrot팀 프로토타입 데모영상.mp4]을 찾아주세요!
 
 ## 팀원 구성
 - 윤일권(팀장) : https://github.com/1ilkwon
